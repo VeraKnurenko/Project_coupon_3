@@ -3,7 +3,8 @@ import "./AboutUs.css";
 function AboutUs(): JSX.Element {
     return (
         <div className="AboutUs">
-			CouponSite
+            about us
+			
         </div>
     );
 }

@@ -3,8 +3,7 @@ import "./Footer.css";
 function Footer(): JSX.Element {
     return (
         <div className="Footer">
-
-            All rights reserved 2024
+            All rights Reserved Veronika!
 			
         </div>
     );

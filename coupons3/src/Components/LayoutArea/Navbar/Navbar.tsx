@@ -1,6 +1,5 @@
 import "./Navbar.css";
-import Routing from "../../Routing/Routing";
-import {NavLink, Route, Routes} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 function Navbar(): JSX.Element {
     return (
@@ -9,7 +8,7 @@ function Navbar(): JSX.Element {
             <NavLink className={"navlink"} to={"aboutUs"}>About Us</NavLink>
             <NavLink className={"navlink"} to={"companies"}>Companies</NavLink>
             <NavLink className={"navlink"} to={"sales"}>Sales</NavLink>
-
+			
         </div>
     );
 }

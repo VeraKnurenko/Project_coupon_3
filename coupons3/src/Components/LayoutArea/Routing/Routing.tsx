@@ -1,9 +1,10 @@
 import "./Routing.css";
 import {Route, Routes} from "react-router-dom";
-import Home from "../Pages/Home/Home";
-import AboutUs from "../Pages/AboutUs/AboutUs";
-import Companies from "../Pages/Companies/Companies";
-import Sales from "../Pages/Sales/Sales";
+import Home from "../../MainArea/Home/Home";
+import AboutUs from "../../MainArea/AboutUs/AboutUs";
+import Companies from "../../CompanyArea/Companies/Companies";
+import Sale from "../../MainArea/Sale/Sale";
+
 
 function Routing(): JSX.Element {
     return (
@@ -12,7 +13,7 @@ function Routing(): JSX.Element {
                 <Route path={"home"} element={<Home/>} />
                 <Route path={"aboutUs"} element={<AboutUs/>} />
                 <Route path={"companies"} element={<Companies/>} />
-                <Route path={"sales"} element={<Sales/>} />
+                <Route path={"sales"} element={<Sale/>} />
             </Routes>
 			
         </div>
