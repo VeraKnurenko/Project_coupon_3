@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-//@Scope("prototype")
 public class AdminService extends ClientService {
 
     @Override
@@ -122,6 +121,10 @@ public class AdminService extends ClientService {
         }
         couponRepository.saveAll(customer.getCoupons());
         customerRepository.delete(customer);
+    }
+
+    public List<Coupon> getAllCouponsFromAllCompanies(){
+        return couponRepository.findAll();
     }
 
 }

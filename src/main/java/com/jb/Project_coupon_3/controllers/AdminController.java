@@ -2,6 +2,7 @@ package com.jb.Project_coupon_3.controllers;
 
 import com.jb.Project_coupon_3.exceptions.CouponSystemException;
 import com.jb.Project_coupon_3.models.Company;
+import com.jb.Project_coupon_3.models.Coupon;
 import com.jb.Project_coupon_3.models.Customer;
 import com.jb.Project_coupon_3.services.AdminService;
 import org.springframework.http.HttpStatus;
@@ -26,16 +27,16 @@ public class AdminController extends ClientController {
         return false;//TODO - write the actual method
     }
 
-    //todo add method that gets all coupons from all companies
-
-
 
     // @RequestParam company?category=food&price=100 - for everything else
     // @PathVariable comapny/123 - for id (PK)
-
     // RequestBody - {}
-
     // delete - NO CONTENT 204 for void only
+
+    @GetMapping("coupons")
+    public List<Coupon> getAllCouponsFromAllCompanies(){
+        return adminService.getAllCouponsFromAllCompanies();
+    }
 
     @PostMapping("company")// - 200 OK
     @ResponseStatus(HttpStatus.CREATED)
@@ -96,4 +97,5 @@ public class AdminController extends ClientController {
     public void deleteCustomer(@PathVariable int customerId) throws CouponSystemException {
         adminService.deleteCustomer(customerId);
     }
+
 }
