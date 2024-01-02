@@ -4,7 +4,6 @@ import com.jb.Project_coupon_3.exceptions.CouponSystemException;
 import com.jb.Project_coupon_3.models.Category;
 import com.jb.Project_coupon_3.models.Coupon;
 import com.jb.Project_coupon_3.models.Customer;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-//@Scope("prototype")
 public class CustomerService extends ClientService{
 
     @Override
