@@ -28,7 +28,7 @@ public class Company {
 
     @Column(nullable = false)
     private String password;
-    @JsonIgnore
+    @JsonIgnore //TODO find a better way to do so that we ger all coupons of one comoany
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Coupon> companyCoupons;
 

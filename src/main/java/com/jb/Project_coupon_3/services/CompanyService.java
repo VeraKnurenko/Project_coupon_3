@@ -39,7 +39,9 @@ public class CompanyService extends ClientService {
         if (coupon.getCompany().getId() != companyId){
             throw new CouponSystemException("coupon id and company id do not match", HttpStatus.UNAUTHORIZED);//company trying to add coupon of a different company
         }
-
+        if(!companyRepository.existsById(companyId)){
+            throw new CouponSystemException("No Company with such id", HttpStatus.BAD_REQUEST);
+        }
         if(coupon.getAmount() < 0){
             throw new CouponSystemException("Cannot add coupon less than 0 amount", HttpStatus.BAD_REQUEST);
         }

@@ -1,5 +1,6 @@
 package com.jb.Project_coupon_3.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -15,7 +16,6 @@ import java.util.Set;
 @Table(name = "coupons")
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,11 +45,11 @@ public class Coupon {
     private double price;
 
     private String image;
-
+    @JsonIgnore
     @ManyToMany( fetch = FetchType.EAGER)
     Set<Customer> customers;
 
-    public Coupon(Company company, Category category, String title, String description, Date startDate, Date endDate, int amount, double price, String image, Set<Customer> customers) {
+    public Coupon(Company company, Category category, String title, String description, Date startDate, Date endDate, int amount, double price, String image) {
         this.company = company;
         this.category = category;
         this.title = title;
@@ -59,20 +59,10 @@ public class Coupon {
         this.amount = amount;
         this.price = price;
         this.image = image;
-        this.customers = customers;
+//        this.customers = customers;
     }
 
-    public Coupon(Category category, String title, String description, Date startDate, Date endDate, int amount, double price, String image, Set<Customer> customers) {
-        this.category = category;
-        this.title = title;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.amount = amount;
-        this.price = price;
-        this.image = image;
-        this.customers = customers;
-    }
+
 
     @Override
     public String toString() {

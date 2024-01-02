@@ -26,6 +26,8 @@ public class AdminController extends ClientController {
         return false;//TODO - write the actual method
     }
 
+    //todo add method that gets all coupons from all companies
+
 
 
     // @RequestParam company?category=food&price=100 - for everything else
@@ -40,7 +42,7 @@ public class AdminController extends ClientController {
     public Company addCompany(@RequestBody Company company) throws CouponSystemException {
         return adminService.addCompany(company);
     }
-
+    //TODO CHANGE SO THAT WE GET ALL COUPONS OF ONE COMPANY
     @GetMapping("/company/{companyId}")
     @ResponseStatus(HttpStatus.OK)
     public Company getOneCompany(@PathVariable int companyId) throws CouponSystemException {
