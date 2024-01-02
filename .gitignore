@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+###Node_Modules###
+/coupons3/node_modules/
