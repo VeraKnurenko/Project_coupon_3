@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-@Scope("prototype")
+//@Scope("prototype")
 public class CustomerService extends ClientService{
 
     @Override
