@@ -1,5 +1,5 @@
 import "./Routing.css";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Home from "../../MainArea/Home/Home";
 import AboutUs from "../../MainArea/AboutUs/AboutUs";
 import Companies from "../../CompanyArea/Companies/Companies";
@@ -14,6 +14,9 @@ function Routing(): JSX.Element {
                 <Route path={"aboutUs"} element={<AboutUs/>} />
                 <Route path={"companies"} element={<Companies/>} />
                 <Route path={"sales"} element={<Sale/>} />
+                <Route path={"/"} element={<Navigate to={"home"}/>}/>
+                <Route path={"*"} element={<div>Oops No Page Found!</div>}/>
+
             </Routes>
 			
         </div>
