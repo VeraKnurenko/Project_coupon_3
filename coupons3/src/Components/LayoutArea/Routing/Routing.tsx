@@ -4,6 +4,8 @@ import Home from "../../MainArea/Home/Home";
 import AboutUs from "../../MainArea/AboutUs/AboutUs";
 import Companies from "../../CompanyArea/Companies/Companies";
 import Sale from "../../MainArea/Sale/Sale";
+import CompanyDetails from "../../CompanyArea/CompanyDetails/CompanyDetails";
+import Login from "../../AuthArea/Login/Login";
 
 
 function Routing(): JSX.Element {
@@ -11,11 +13,13 @@ function Routing(): JSX.Element {
         <div className="Routing">
             <Routes>
                 <Route path={"home"} element={<Home/>} />
+                <Route path={"login"} element={<Login/>} />
                 <Route path={"aboutUs"} element={<AboutUs/>} />
                 <Route path={"companies"} element={<Companies/>} />
+                <Route path={"company"} element={<CompanyDetails/>} />
                 <Route path={"sales"} element={<Sale/>} />
-                <Route path={"/"} element={<Navigate to={"home"}/>}/>
-                <Route path={"*"} element={<div>Oops No Page Found!</div>}/>
+                <Route path={"*"} element={<Navigate to={"home"}/>}/>
+                <Route path={"/"} element={<div>Oops No Page Found!</div>}/>
 
             </Routes>
 			

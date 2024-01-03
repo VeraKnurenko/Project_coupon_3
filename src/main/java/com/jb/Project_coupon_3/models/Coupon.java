@@ -1,5 +1,6 @@
 package com.jb.Project_coupon_3.models;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -68,7 +69,6 @@ public class Coupon {
     public String toString() {
         return " \nCoupon{" +
                 "id= " + id +
-                ", company=" + company.getName() +
                 ", category=" + category +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
@@ -77,6 +77,11 @@ public class Coupon {
                 ", amount=" + amount +
                 ", price=" + price +
                 ", image='" + image +  '}';
+    }
+
+    @JsonGetter("company")
+    public String companyName(){
+        return company.getName();
     }
 
 

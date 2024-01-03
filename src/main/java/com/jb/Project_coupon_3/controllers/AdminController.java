@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("admin")
-@CrossOrigin
 public class AdminController extends ClientController {
 
     AdminService adminService;
@@ -33,7 +32,7 @@ public class AdminController extends ClientController {
     // RequestBody - {}
     // delete - NO CONTENT 204 for void only
 
-    @GetMapping("coupons")
+        @GetMapping("coupons")
     public List<Coupon> getAllCouponsFromAllCompanies(){
         return adminService.getAllCouponsFromAllCompanies();
     }

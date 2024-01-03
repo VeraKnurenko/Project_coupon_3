@@ -114,4 +114,9 @@ public class CompanyService extends ClientService {
     public List<Coupon> getCouponByMaxPrice(double price, int companyId){
        return  (price < 0) ? List.of() : couponRepository.findAllByCompany_IdAndPriceLessThan(companyId, price);
     }
+
+    //TODO check to add exception if NULL
+    public Company getCompanyDetails (String email, String password){
+        return companyRepository.getCompanyByEmailAndPassword(email, password);
+    }
 }
