@@ -7,39 +7,40 @@ import com.jb.Project_coupon_3.models.Company;
 import com.jb.Project_coupon_3.services.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin("*")
 public class LoginController {
 
     private LoginManager loginManager;
-    private HashMap<String, ClientService> tokensStore;
+    private Set<String> tokensStore = new HashSet<>();
     //Dependency injection INSTEAD OF @Autowired on top of the Objects
-    public LoginController(LoginManager loginManager, HashMap<String, ClientService> tokensStore) {
+   public LoginController(LoginManager loginManager){//, HashMap<String, ClientService> tokensStore) {
         this.loginManager = loginManager;
-        this.tokensStore = tokensStore;
+//        this.tokensStore = tokensStore;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(String email, String password,ClientType clientType ) {
-        try {
+    public ResponseEntity<String> login(String email, String password, ClientType clientType ) throws CouponSystemException {
+//        try {
             //login successful
             ClientService service = loginManager.login(email, password, clientType);
             String token = createToken(service, email, password); //JWT.create().withClaim()
             //save token in store...
-            tokensStore.put(token, service);//TODO remove SERVICE, unnecessary if I'M saving the token
-            return ResponseEntity.ok(token);
-        } catch (CouponSystemException e) {//TODO - REWRITE WITH GLOBAL EXCEPTION HANDLER IN MIND
-           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unable to Login, password or email incorrect");
-        }
+            tokensStore.add(token);//TODO remove SERVICE, unnecessary if I'M saving the token
+            return ResponseEntity.status(HttpStatus.CREATED).body(token);
+//        } catch (CouponSystemException e) {//TODO - REWRITE WITH GLOBAL EXCEPTION HANDLER IN MIND
+//           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unable to Login, password or email incorrect");
+//        }
     }
 
     private String createToken (ClientService service, String email, String password){

@@ -14,7 +14,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("customer")
-@CrossOrigin
+@CrossOrigin("*")
 public class CustomerController extends ClientController{
     CustomerService customerService;
 

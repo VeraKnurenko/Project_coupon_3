@@ -2,6 +2,7 @@ package com.jb.Project_coupon_3.services;
 
 import com.jb.Project_coupon_3.exceptions.CouponSystemException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,6 +35,6 @@ public class LoginManager {
                 }
             }
         }
-        throw new CouponSystemException("Email or password is incorrect");
+        throw new CouponSystemException("Email or password is incorrect", HttpStatus.UNAUTHORIZED);
     }
 }

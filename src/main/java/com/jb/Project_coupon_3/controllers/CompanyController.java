@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/company")
+@CrossOrigin("*")
 public class CompanyController extends ClientController {
 
     //TODO ADD THROWS EXCEPTION TO THE TOKEN GETTER THt needs to nbe in every method
@@ -49,13 +50,13 @@ public class CompanyController extends ClientController {
 
     @PutMapping("coupon")
     @ResponseStatus(HttpStatus.CREATED)//TODO test, or maynbe change COMPANY to companyID to cooupn
-    public Coupon updateCoupon(@RequestBody Coupon coupon, @RequestParam int companyId) throws CouponSystemException {
+    public Coupon updateCoupon(@RequestBody Coupon coupon ) throws CouponSystemException {
         return companyService.updateCoupon(coupon, companyId);
     }
 
     @GetMapping("coupons")
     @ResponseStatus(HttpStatus.OK)
-    public List<Coupon> getAllCoupons(@RequestParam int companyId){
+    public List<Coupon> getAllCoupons({
         return companyService.getAllCompanyCoupons(companyId);
     }
 

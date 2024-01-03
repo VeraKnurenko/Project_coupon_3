@@ -13,9 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-////@Scope("prototype")
 public class CompanyService extends ClientService {
-//    private Company company; //todo - delete!
 
     @Override
     public boolean login(String email, String password) { //WORKS AS SINGELTON //todo finish writing

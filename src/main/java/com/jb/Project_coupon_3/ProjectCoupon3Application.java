@@ -17,6 +17,7 @@ public class ProjectCoupon3Application {
 	}
 	@Bean
 	public HashMap<String, ClientService> tokensStore(){
+
 		return new HashMap<>();
 	}
 
