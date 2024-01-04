@@ -6,10 +6,10 @@ class Customer {
     private _lastName: string;
     private _email: string;
     private _password: string;
-    private _coupons: Set<Coupon>;
+    private _coupons?: Set<Coupon>;
 
 
-    constructor(id: number, firstName: string, lastName: string, email: string, password: string, coupons: Set<Coupon>) {
+    constructor(id: number, firstName: string, lastName: string, email: string, password: string, coupons?: Set<Coupon>) {
         this._id = id;
         this._firstName = firstName;
         this._lastName = lastName;

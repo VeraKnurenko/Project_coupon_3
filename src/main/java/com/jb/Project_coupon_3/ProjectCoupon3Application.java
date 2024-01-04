@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 @SpringBootApplication
 public class ProjectCoupon3Application {
@@ -16,9 +17,8 @@ public class ProjectCoupon3Application {
 		SpringApplication.run(ProjectCoupon3Application.class, args);
 	}
 	@Bean
-	public HashMap<String, ClientService> tokensStore(){
-
-		return new HashMap<>();
+	public HashSet<String> tokensStore(){
+		return new HashSet<>();
 	}
 
 }

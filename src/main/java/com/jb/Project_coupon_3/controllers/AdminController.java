@@ -5,26 +5,30 @@ import com.jb.Project_coupon_3.models.Company;
 import com.jb.Project_coupon_3.models.Coupon;
 import com.jb.Project_coupon_3.models.Customer;
 import com.jb.Project_coupon_3.services.AdminService;
+import com.jb.Project_coupon_3.services.TokenService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("admin")
+@RequestMapping("/admin")
 @CrossOrigin("*")
 public class AdminController extends ClientController {
-
+    @Autowired
+    HttpServletRequest request;
     AdminService adminService;
+    TokenService tokenService;
 
     public AdminController(AdminService adminService) {
-
         this.adminService = adminService;
     }
 
     @Override
     public boolean login(String email, String password) {
-        return false;//TODO - write the actual method
+         return (email.equals("admin@admin.com") && password.equals("admin"));
     }
 
 
@@ -33,12 +37,12 @@ public class AdminController extends ClientController {
     // RequestBody - {}
     // delete - NO CONTENT 204 for void only
 
-        @GetMapping("coupons")
+        @GetMapping("allcoupons")
     public List<Coupon> getAllCouponsFromAllCompanies(){
         return adminService.getAllCouponsFromAllCompanies();
     }
 
-    @PostMapping("company")// - 200 OK
+    @PostMapping("company")
     @ResponseStatus(HttpStatus.CREATED)
     public Company addCompany(@RequestBody Company company) throws CouponSystemException {
         return adminService.addCompany(company);
@@ -96,6 +100,14 @@ public class AdminController extends ClientController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@PathVariable int customerId) throws CouponSystemException {
         adminService.deleteCustomer(customerId);
+    }
+
+    private boolean checkRole (HttpServletRequest request) throws CouponSystemException {
+        int token = tokenService.getId(request, "admin");
+        if (token != -99){
+            throw new CouponSystemException("You are not admin", HttpStatus.UNAUTHORIZED);
+        }
+        return true;
     }
 
 }

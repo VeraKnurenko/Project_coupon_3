@@ -13,10 +13,10 @@ class Coupon {
     private _amount: number;
     private _price: number;
     private _image: string;
-    private _customers: Set<Customer>;
+    // private _customers?: Set<Customer>;
 
 
-    constructor(id: number, company: Company, category: Category, title: string, description: string, startDate: Date, endDate: Date, amount: number, price: number, image: string, customers: Set<Customer>) {
+    constructor(id: number, company: Company, category: Category, title: string, description: string, startDate: Date, endDate: Date, amount: number, price: number, image: string) {
         this._id = id;
         this._company = company;
         this._category = category;
@@ -27,7 +27,7 @@ class Coupon {
         this._amount = amount;
         this._price = price;
         this._image = image;
-        this._customers = customers;
+        // this._customers = customers;
     }
 
 
@@ -111,13 +111,7 @@ class Coupon {
         this._image = value;
     }
 
-    get customers(): Set<Customer> {
-        return this._customers;
-    }
 
-    set customers(value: Set<Customer>) {
-        this._customers = value;
-    }
 }
 
 export default Coupon

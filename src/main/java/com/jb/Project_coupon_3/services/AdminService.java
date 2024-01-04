@@ -4,7 +4,6 @@ import com.jb.Project_coupon_3.exceptions.CouponSystemException;
 import com.jb.Project_coupon_3.models.Company;
 import com.jb.Project_coupon_3.models.Coupon;
 import com.jb.Project_coupon_3.models.Customer;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -70,7 +69,11 @@ public class AdminService extends ClientService {
     }
 
     public List<Company> getAllCompanies(){
-        return companyRepository.findAll();
+        List<Company> companies = companyRepository.findAll();
+        for (Company c: companies) {
+            c.setCompanyCoupons(null);
+        }
+        return companies;
     }
 
     public Customer addCustomer(Customer customer) throws CouponSystemException {
@@ -122,6 +125,7 @@ public class AdminService extends ClientService {
         couponRepository.saveAll(customer.getCoupons());
         customerRepository.delete(customer);
     }
+
 
     public List<Coupon> getAllCouponsFromAllCompanies(){
         return couponRepository.findAll();

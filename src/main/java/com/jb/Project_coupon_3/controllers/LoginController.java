@@ -4,7 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.jb.Project_coupon_3.exceptions.CouponSystemException;
 import com.jb.Project_coupon_3.models.Company;
+import com.jb.Project_coupon_3.models.Customer;
 import com.jb.Project_coupon_3.services.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,25 +24,21 @@ import java.util.*;
 public class LoginController {
 
     private LoginManager loginManager;
+    @Autowired
     private Set<String> tokensStore = new HashSet<>();
     //Dependency injection INSTEAD OF @Autowired on top of the Objects
-   public LoginController(LoginManager loginManager){//, HashMap<String, ClientService> tokensStore) {
+   public LoginController(LoginManager loginManager){
         this.loginManager = loginManager;
-//        this.tokensStore = tokensStore;
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(String email, String password, ClientType clientType ) throws CouponSystemException {
-//        try {
             //login successful
             ClientService service = loginManager.login(email, password, clientType);
-            String token = createToken(service, email, password); //JWT.create().withClaim()
+            String token = createToken(service, email, password);
             //save token in store...
             tokensStore.add(token);//TODO remove SERVICE, unnecessary if I'M saving the token
             return ResponseEntity.status(HttpStatus.CREATED).body(token);
-//        } catch (CouponSystemException e) {//TODO - REWRITE WITH GLOBAL EXCEPTION HANDLER IN MIND
-//           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unable to Login, password or email incorrect");
-//        }
     }
 
     private String createToken (ClientService service, String email, String password){
@@ -52,22 +50,25 @@ public class LoginController {
                     .withClaim("id", company.getId())
                     .withClaim("name", company.getName())
                     .withClaim("role", "company")
-                    .withIssuedAt(new Date())
                     .withExpiresAt(expires)
                     .sign(Algorithm.none());
-
-
-//        } else if(service instanceof AdminService){
-//            Instant expires = Instant.now().plus(30, ChronoUnit.MINUTES);
-//            token = JWT.create()
-//                    .withClaim("name", "Admin")
-//                    .withClaim("role", "administrator")
-//                    .withExpiresAt(expires)
-//                    .sign(Algorithm.none());
-//
-//
-//        } else {
-
+        }else if(service instanceof AdminService){
+            Instant expires = Instant.now().plus(30, ChronoUnit.MINUTES);
+            token = JWT.create()
+                    .withClaim("name", "Admin")
+                    .withClaim("role", "administrator")
+                    .withExpiresAt(expires)
+                    .sign(Algorithm.none());
+      } else {
+            Customer customer = ((CustomerService) service).getCustomerDetails(email, password);
+            Instant expires = Instant.now().plus(30, ChronoUnit.MINUTES);
+            token = JWT.create()
+                    .withClaim("id", customer.getId())
+                    .withClaim("name", customer.getFirstName())
+                    .withClaim("lastName", customer.getLastName())
+                    .withClaim("role", "customer")
+                    .withExpiresAt(expires)
+                    .sign(Algorithm.none());
         }
         return token;
     }

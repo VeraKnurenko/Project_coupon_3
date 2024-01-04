@@ -7,6 +7,7 @@ import com.jb.Project_coupon_3.models.Coupon;
 import com.jb.Project_coupon_3.services.ClientService;
 import com.jb.Project_coupon_3.services.ClientType;
 import com.jb.Project_coupon_3.services.CompanyService;
+import com.jb.Project_coupon_3.services.TokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/company")
@@ -24,14 +26,15 @@ public class CompanyController extends ClientController {
     //TODO ADD THROWS EXCEPTION TO THE TOKEN GETTER THt needs to nbe in every method
 
     private CompanyService companyService;
-    private HashMap<String, ClientService> tokensStore;
+
+    @Autowired
+    private TokenService tokenService;
 
     @Autowired
     private HttpServletRequest request;
 
-    public CompanyController(CompanyService companyService, HashMap<String, ClientService> tokensStore) {
+    public CompanyController(CompanyService companyService) {
         this.companyService = companyService;
-        this.tokensStore = tokensStore;
     }
 
     @Override
@@ -42,53 +45,58 @@ public class CompanyController extends ClientController {
     @PostMapping("coupon")
     @ResponseStatus(HttpStatus.CREATED)
     public Coupon addCoupon(@RequestBody Coupon coupon) throws CouponSystemException {//TODO add companyID as RequestParam
-
-        String token = request.getHeader("Autorization").replace("Bearer","");
-        int companyId =  Integer.parseInt(JWT.decode(token).getClaim("id").toString());//TODO MAKE METHOD getIdFromToken for general use
-        return companyService.addCoupon(coupon, companyId);
+        int companyId = tokenService.getId(request, "company");
+        return companyService.addCoupon(coupon, companyId); //todo check if works
     }
 
     @PutMapping("coupon")
-    @ResponseStatus(HttpStatus.CREATED)//TODO test, or maynbe change COMPANY to companyID to cooupn
+    @ResponseStatus(HttpStatus.CREATED)//TODO test, or maynbe change COMPANY to companyID to coupon
     public Coupon updateCoupon(@RequestBody Coupon coupon ) throws CouponSystemException {
+        int companyId = tokenService.getId(request, "company");
         return companyService.updateCoupon(coupon, companyId);
     }
 
     @GetMapping("coupons")
     @ResponseStatus(HttpStatus.OK)
-    public List<Coupon> getAllCoupons({
+    public List<Coupon> getAllCoupons() throws CouponSystemException {
+        int companyId = tokenService.getId(request, "company");
         return companyService.getAllCompanyCoupons(companyId);
     }
 
     @DeleteMapping("{couponId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCoupon(@PathVariable int couponId, @RequestParam int companyId) throws CouponSystemException {
+    public void deleteCoupon(@PathVariable int couponId) throws CouponSystemException {
+        int companyId = tokenService.getId(request, "company");
         companyService.deleteCoupon(couponId, companyId);
+
     }
 
 
     @GetMapping("/coupons/category")
     @ResponseStatus(HttpStatus.OK)
-    public List<Coupon> getCouponsByCategory(@RequestParam Category category, @RequestParam int companyId){
-       return companyService.getCouponsByCategory(category, companyId);
+    public List<Coupon> getCouponsByCategory(@RequestParam Category category) throws CouponSystemException {
+        int companyId = tokenService.getId(request, "company");
+        return companyService.getCouponsByCategory(category, companyId);
     }
 
     @GetMapping("coupons/price")
     @ResponseStatus(HttpStatus.OK)
-    public List<Coupon> getCouponsByMaxPrice(@RequestParam double price, @RequestParam int companyId){
+    public List<Coupon> getCouponsByMaxPrice(@RequestParam double price) throws CouponSystemException {
+        int companyId = tokenService.getId(request, "company");
         return companyService.getCouponByMaxPrice(price, companyId);
     }
 
-    private CompanyService getService() throws CouponSystemException {// IF WAS PROTOTYPE
 
-        String token = request.getHeader("Autorization").replace("Bearer","");
-        CompanyService companyService1 = (CompanyService) tokensStore.get(token);
-        if(companyService1 == null)
-            throw new CouponSystemException("I'm sorry Dave, I can't do that", HttpStatus.UNAUTHORIZED);
 
-        int companyId =  Integer.parseInt(JWT.decode(token).getClaim("id").toString());//TODO MAKE METHOD getIdFromToken for general use
-        return  (CompanyService) tokensStore.get(token);
-    }
+//    private CompanyService getService() throws CouponSystemException {// IF WAS PROTOTYPE
+//
+//        String token = request.getHeader("Autorization").replace("Bearer","");
+//        CompanyService companyService1 = (CompanyService) tokensStore.get(token);
+//        if(companyService1 == null)
+//            throw new CouponSystemException("I'm sorry Dave, I can't do that", HttpStatus.UNAUTHORIZED);
+//        int companyId =  Integer.parseInt(JWT.decode(token).getClaim("id").toString());//TODO MAKE METHOD getIdFromToken for general use
+//        return  (CompanyService) tokensStore.get(token);
+//    }
 
 
 

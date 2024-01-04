@@ -16,4 +16,6 @@ public class CouponSystemException extends Exception{
         super(message);
         this.httpStatus = httpStatus;
     }
+
+
 }

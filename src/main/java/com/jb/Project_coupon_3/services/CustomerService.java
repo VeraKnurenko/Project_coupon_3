@@ -84,4 +84,9 @@ public class CustomerService extends ClientService{
         customerRepository.delete(customer);
     }
 
+    //TODO - FIGURE OUT HOW TO CONSOLIDATE LOGIN & GEToNE CUSTOMER & CUSTOMERDETAILS
+    public Customer getCustomerDetails(String email, String password){
+        return customerRepository.getCustomerByEmailAndPassword(email, password);
+    }
+
 }
