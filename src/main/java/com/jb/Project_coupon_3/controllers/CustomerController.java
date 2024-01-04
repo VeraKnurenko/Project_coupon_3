@@ -42,7 +42,7 @@ public class CustomerController extends ClientController{
         int customerId = tokenService.getId(request, 666);
         customerService.couponPurchase(couponId, customerId);
     }
-    @GetMapping("{customerId}")
+    @GetMapping("{customerId}")//works postman
     @ResponseStatus(HttpStatus.FOUND)
     public Customer getOneCustomer(@PathVariable int customerId) throws CouponSystemException {
         int customerTokenId = tokenService.getId(request, 666);
