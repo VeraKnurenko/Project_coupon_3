@@ -24,16 +24,19 @@ import java.util.*;
 public class LoginController {
 
     private LoginManager loginManager;
-    @Autowired
     private Set<String> tokensStore = new HashSet<>();
     //Dependency injection INSTEAD OF @Autowired on top of the Objects
-   public LoginController(LoginManager loginManager){
+
+
+    public LoginController(LoginManager loginManager, Set<String> tokensStore) {
         this.loginManager = loginManager;
+        this.tokensStore = tokensStore;
     }
 
-    @PostMapping("/login")
+    @PostMapping("login")
     public ResponseEntity<String> login(String email, String password, ClientType clientType ) throws CouponSystemException {
             //login successful
+
             ClientService service = loginManager.login(email, password, clientType);
             String token = createToken(service, email, password);
             //save token in store...
@@ -49,14 +52,14 @@ public class LoginController {
             token = JWT.create()
                     .withClaim("id", company.getId())
                     .withClaim("name", company.getName())
-                    .withClaim("role", "company")
+                    .withClaim("role", 333)
                     .withExpiresAt(expires)
                     .sign(Algorithm.none());
         }else if(service instanceof AdminService){
             Instant expires = Instant.now().plus(30, ChronoUnit.MINUTES);
             token = JWT.create()
-                    .withClaim("name", "Admin")
-                    .withClaim("role", "administrator")
+                    .withClaim("name", "admin")
+                    .withClaim("role",999 )
                     .withExpiresAt(expires)
                     .sign(Algorithm.none());
       } else {
@@ -66,10 +69,10 @@ public class LoginController {
                     .withClaim("id", customer.getId())
                     .withClaim("name", customer.getFirstName())
                     .withClaim("lastName", customer.getLastName())
-                    .withClaim("role", "customer")
+                    .withClaim("role", 666)
                     .withExpiresAt(expires)
                     .sign(Algorithm.none());
         }
-        return token;
+      return token;
     }
 }

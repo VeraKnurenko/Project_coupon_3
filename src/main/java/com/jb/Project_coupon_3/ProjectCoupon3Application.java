@@ -18,7 +18,7 @@ public class ProjectCoupon3Application {
 	}
 	@Bean
 	public HashSet<String> tokensStore(){
-		return new HashSet<>();
+		return new HashSet<>() ;
 	}
 
 }

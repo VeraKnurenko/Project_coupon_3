@@ -39,34 +39,35 @@ public class CompanyController extends ClientController {
 
     @Override
     public boolean login(String email, String password) {
-        return false; //TODO the actual method
+       return companyService.login(email, password);
+
     }
 
     @PostMapping("coupon")
     @ResponseStatus(HttpStatus.CREATED)
     public Coupon addCoupon(@RequestBody Coupon coupon) throws CouponSystemException {//TODO add companyID as RequestParam
-        int companyId = tokenService.getId(request, "company");
+        int companyId = tokenService.getId(request, 333);
         return companyService.addCoupon(coupon, companyId); //todo check if works
     }
 
     @PutMapping("coupon")
     @ResponseStatus(HttpStatus.CREATED)//TODO test, or maynbe change COMPANY to companyID to coupon
     public Coupon updateCoupon(@RequestBody Coupon coupon ) throws CouponSystemException {
-        int companyId = tokenService.getId(request, "company");
+        int companyId = tokenService.getId(request, 333);
         return companyService.updateCoupon(coupon, companyId);
     }
 
     @GetMapping("coupons")
     @ResponseStatus(HttpStatus.OK)
     public List<Coupon> getAllCoupons() throws CouponSystemException {
-        int companyId = tokenService.getId(request, "company");
+        int companyId = tokenService.getId(request, 333);
         return companyService.getAllCompanyCoupons(companyId);
     }
 
     @DeleteMapping("{couponId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCoupon(@PathVariable int couponId) throws CouponSystemException {
-        int companyId = tokenService.getId(request, "company");
+        int companyId = tokenService.getId(request, 333);
         companyService.deleteCoupon(couponId, companyId);
 
     }
@@ -75,14 +76,14 @@ public class CompanyController extends ClientController {
     @GetMapping("/coupons/category")
     @ResponseStatus(HttpStatus.OK)
     public List<Coupon> getCouponsByCategory(@RequestParam Category category) throws CouponSystemException {
-        int companyId = tokenService.getId(request, "company");
+        int companyId = tokenService.getId(request, 333);
         return companyService.getCouponsByCategory(category, companyId);
     }
 
     @GetMapping("coupons/price")
     @ResponseStatus(HttpStatus.OK)
     public List<Coupon> getCouponsByMaxPrice(@RequestParam double price) throws CouponSystemException {
-        int companyId = tokenService.getId(request, "company");
+        int companyId = tokenService.getId(request, 333);
         return companyService.getCouponByMaxPrice(price, companyId);
     }
 

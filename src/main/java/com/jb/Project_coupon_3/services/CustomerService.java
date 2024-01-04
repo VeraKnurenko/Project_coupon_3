@@ -17,7 +17,7 @@ public class CustomerService extends ClientService{
 
     @Override
     public boolean login(String email, String password) {
-        return customerRepository.getCustomerByEmailAndPassword(email, password) != null;
+        return getCustomerDetails(email, password) != null;
     }
 
     //TODO decide if needs to be changed from void? return boolean?
