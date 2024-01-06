@@ -15,8 +15,6 @@ public class TokenService {
     @Autowired
     private Set<String> tokensStore;
 
-    @Autowired
-    private HttpServletRequest request;
 
     public Integer getId(HttpServletRequest request , int  role) throws CouponSystemException {
        String token = request.getHeader("Authorization").replace("Bearer ","");
