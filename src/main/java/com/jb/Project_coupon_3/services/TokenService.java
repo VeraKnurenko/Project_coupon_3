@@ -32,9 +32,4 @@ public class TokenService {
         return Integer.parseInt(JWT.decode(token).getClaim("id").toString());
     }
 
-//    public String getRole(HttpServletRequest request) throws CouponSystemException {
-//        String token = request.getHeader("Authorization").replace("Bearer ", "");
-//
-//        return ;
-//    }
 }
