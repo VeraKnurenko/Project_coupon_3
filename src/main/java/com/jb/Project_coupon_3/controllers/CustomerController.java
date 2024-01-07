@@ -5,13 +5,12 @@ import com.jb.Project_coupon_3.models.Category;
 import com.jb.Project_coupon_3.models.Coupon;
 import com.jb.Project_coupon_3.models.Customer;
 import com.jb.Project_coupon_3.services.CustomerService;
-import com.jb.Project_coupon_3.services.TokenService;
+import com.jb.Project_coupon_3.services.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +21,7 @@ public class CustomerController extends ClientController{
     CustomerService customerService;
 
     @Autowired
-    TokenService tokenService;
+    private LoginService loginService;
 
     @Autowired
     HttpServletRequest request;
@@ -39,13 +38,13 @@ public class CustomerController extends ClientController{
     @PostMapping("purchase")//WORKS POSTMAN
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void couponPurchase(@RequestParam int couponId) throws CouponSystemException {
-        int customerId = tokenService.getId(request, 666);
+        int customerId = loginService.getId(request, 666);
         customerService.couponPurchase(couponId, customerId);
     }
     @GetMapping("{customerId}")//works postman
     @ResponseStatus(HttpStatus.FOUND)
     public Customer getOneCustomer(@PathVariable int customerId) throws CouponSystemException {
-        int customerTokenId = tokenService.getId(request, 666);
+        int customerTokenId = loginService.getId(request, 666);
         if(customerTokenId != customerId)
             throw new CouponSystemException("Please login with correct customer ID");
         return customerService.getOneCustomer(customerId);
@@ -54,7 +53,7 @@ public class CustomerController extends ClientController{
     @GetMapping("coupons")
     @ResponseStatus(HttpStatus.OK)
     public Set<Coupon> getAllCustomerCoupons(@RequestParam int customerId) throws CouponSystemException {
-        int customerTokenId = tokenService.getId(request, 666);
+        int customerTokenId = loginService.getId(request, 666);
         if(customerTokenId != customerId)
             throw new CouponSystemException("Please login with correct customer ID");
         return customerService.getAllCustomerCoupons(customerId);
@@ -63,13 +62,13 @@ public class CustomerController extends ClientController{
     @GetMapping("coupons/category")
     @ResponseStatus(HttpStatus.OK)
     public List<Coupon> getCouponsByCategory(@RequestParam Category category) throws CouponSystemException {
-        int customerId = tokenService.getId(request, 666);
+        int customerId = loginService.getId(request, 666);
         return customerService.getCustomerCouponsByCategory(category, customerId);
     }
 
     @GetMapping("coupons/price")
     public List<Coupon> getCouponsByMaxPrice(@RequestParam double price) throws CouponSystemException {
-        int customerId = tokenService.getId(request, 666);
+        int customerId = loginService.getId(request, 666);
         return customerService.getCouponsByMaxPrice(price, customerId);
     }
 
@@ -77,7 +76,7 @@ public class CustomerController extends ClientController{
     @DeleteMapping("{customerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@PathVariable int customerId) throws CouponSystemException {
-        if(tokenService.getId(request, 666) == customerId)
+        if(loginService.getId(request, 666) == customerId)
             customerService.deleteCustomer(customerId);
     }
 

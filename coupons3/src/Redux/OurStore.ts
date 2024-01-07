@@ -1,20 +1,22 @@
 import CouponSlice, {couponSlice} from "./CouponSlice";
-import {combineReducers, configureStore, createStore} from "@reduxjs/toolkit";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import AuthSlice from "./AuthSlice";
 
-const reducers = combineReducers({
-    authSlice: AuthSlice,
-    couponSlice: CouponSlice,
-})
+// const reducers = combineReducers({
+//     authSlice: AuthSlice,
+//     couponSlice: CouponSlice,
+// })
 
-const store = createStore(reducers);
-export default store;
-  
 
-// export const store = configureStore({
-//     reducer: couponSlice.reducer
-//    
-// });
+export const store = configureStore({
+    reducer: {
+        authSlice: AuthSlice,
+        couponSlice: CouponSlice,
+    }
 
-// export type RootState = ReturnType<typeof store.getState>
-// export type AppDispatch = typeof store.dispatch
+});
+
+
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
