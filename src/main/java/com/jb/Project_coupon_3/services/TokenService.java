@@ -2,7 +2,6 @@ package com.jb.Project_coupon_3.services;
 
 import com.auth0.jwt.JWT;
 import com.jb.Project_coupon_3.exceptions.CouponSystemException;
-import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +14,6 @@ public class TokenService {
     @Autowired
     private Set<String> tokensStore;
 
-    @Autowired
-    private HttpServletRequest request;
 
     public Integer getId(HttpServletRequest request , int  role) throws CouponSystemException {
        String token = request.getHeader("Authorization").replace("Bearer ","");
@@ -34,9 +31,5 @@ public class TokenService {
         return Integer.parseInt(JWT.decode(token).getClaim("id").toString());
     }
 
-//    public String getRole(HttpServletRequest request) throws CouponSystemException {
-//        String token = request.getHeader("Authorization").replace("Bearer ", "");
-//
-//        return ;
-//    }
+
 }
