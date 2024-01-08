@@ -1,5 +1,4 @@
 import {Category} from "./Category";
-import Customer from "./Customer";
 import Company from "./Company";
 
 class Coupon {
@@ -13,7 +12,6 @@ class Coupon {
     private _amount: number;
     private _price: number;
     private _image: string;
-    // private _customers?: Set<Customer>;
 
 
     constructor(id: number, company: Company, category: Category, title: string, description: string, startDate: Date, endDate: Date, amount: number, price: number, image: string) {
@@ -27,7 +25,6 @@ class Coupon {
         this._amount = amount;
         this._price = price;
         this._image = image;
-        // this._customers = customers;
     }
 
 

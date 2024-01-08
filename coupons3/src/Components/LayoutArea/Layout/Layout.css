@@ -2,3 +2,12 @@
     bottom: inherit;
 	
 }
+
+.Toastify__toast-theme--light.Toastify__toast--success {
+    background-color: lightgreen;
+}
+
+.Toastify__toast-theme--light.Toastify__toast--error {
+    background-color: red;
+    color: white;
+}

@@ -8,8 +8,8 @@ export interface AuthState {
 }
 
 const initState: AuthState = {
-    user: null,
-    token: ""
+    user: sessionStorage.getItem("token") ? jwtDecode(sessionStorage.getItem("token")) : null,
+    token: sessionStorage.getItem("token") ? sessionStorage.getItem("token") : ""
 }
 
 export const authSlice = createSlice({
@@ -17,13 +17,18 @@ export const authSlice = createSlice({
    initialState: initState,
    reducers:{
        login: (state, action:PayloadAction<string>) => {
+           //save token to Ram
            state.token = action.payload;
+           //also save token to hardDisk (File)
+           sessionStorage.setItem("token", state.token);
+           // localStorage;
            state.user = jwtDecode(action.payload);
         },
 
        logout: (state) => {
            state.token = "";
            state.user = null;
+           sessionStorage.removeItem("token")
        }
    }
 });

@@ -1,26 +1,21 @@
 package com.jb.Project_coupon_3.controllers;
 
-import com.auth0.jwt.JWT;
 import com.jb.Project_coupon_3.exceptions.CouponSystemException;
 import com.jb.Project_coupon_3.models.Category;
+import com.jb.Project_coupon_3.models.Company;
 import com.jb.Project_coupon_3.models.Coupon;
 import com.jb.Project_coupon_3.services.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/company")
-@CrossOrigin("*")
 public class CompanyController extends ClientController {
 
-    //TODO ADD THROWS EXCEPTION TO THE TOKEN GETTER THt needs to nbe in every method
 
     private CompanyService companyService;
 
@@ -82,6 +77,12 @@ public class CompanyController extends ClientController {
     public List<Coupon> getCouponsByMaxPrice(@RequestParam double price) throws CouponSystemException {
         int companyId = loginService.getId(request, 333);
         return companyService.getCouponByMaxPrice(price, companyId);
+    }
+    @GetMapping("getCompanyDetails")//todo fix after class
+    public Company getCompanyDetails(@RequestParam int id) throws CouponSystemException {
+        int companyId = loginService.getId(request, 333);
+        return companyService.OneCompany(id);
+
     }
 
 

@@ -4,6 +4,8 @@ import Header from "../Header/Header";
 import Navbar from "../Navbar/Navbar";
 import Main from "../../MainArea/Main/Main";
 import Footer from "../Footer/Footer";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Layout(): JSX.Element {
@@ -22,7 +24,7 @@ function Layout(): JSX.Element {
                 <footer>
                     <Footer/>
                 </footer>
-
+    <ToastContainer/>
             </BrowserRouter>
 			
         </div>
