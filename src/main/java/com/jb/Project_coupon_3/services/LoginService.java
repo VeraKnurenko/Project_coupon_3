@@ -28,7 +28,6 @@ public class LoginService {
     }
 
     public String login(String email, String password, ClientType type) throws CouponSystemException {
-
         ClientService service = null;
         switch (type){
             case ADMIN -> {
@@ -50,7 +49,6 @@ public class LoginService {
                 }
             }
             default ->   throw new CouponSystemException("Email or password is incorrect", HttpStatus.UNAUTHORIZED);
-
         }
         String token = createToken(email, password, service);
         tokensStore.add(token);
@@ -101,5 +99,9 @@ public class LoginService {
         }
         System.out.println(tokenRole);
         return Integer.parseInt(JWT.decode(token).getClaim("id").toString());
+    }
+
+    public void logout(HttpServletRequest request ){
+        tokensStore.remove(request.getHeader("Authorization").replace("Bearer ", ""));
     }
 }

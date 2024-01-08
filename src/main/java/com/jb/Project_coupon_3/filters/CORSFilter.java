@@ -10,15 +10,15 @@ import java.io.IOException;
 
 @Component
 @Order(1)
-public class CROSFilter extends OncePerRequestFilter {
+public class CORSFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        if(request.getMethod().equals("OPTIONS")) {
-            response.setHeader("Access-Control-Allow-Origin", "*");    //http://localhost:3000
-            response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS, DELETE");
-            response.setHeader("Access-Control-Allow-Headers", "Authorization, Origin, Accept, Content-type, Access-Control-Request-Method, Access-Control-Request-Headers");
+        response.setHeader("Access-Control-Allow-Origin", "*");    //http://localhost:3000
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Allow-Headers", "Authorization, Origin, Accept, Content-type, Access-Control-Request-Method, Access-Control-Request-Headers");
+        if(request.getMethod().equals("OPTIONS")) {//PRE-FLIGHT
             response.setStatus(HttpServletResponse.SC_ACCEPTED);
         }else {
             filterChain.doFilter(request, response);

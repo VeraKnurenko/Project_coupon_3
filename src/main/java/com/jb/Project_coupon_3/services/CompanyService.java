@@ -103,4 +103,8 @@ public class CompanyService extends ClientService {
     public Company getCompanyDetails (String email, String password){
         return companyRepository.getCompanyByEmailAndPassword(email, password);
     }
+
+    public Company OneCompany(int companyId){
+        return companyRepository.getReferenceById(companyId);
+    }
 }

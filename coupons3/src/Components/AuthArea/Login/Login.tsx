@@ -1,25 +1,39 @@
 import "./Login.css";
-import * as http from "http";
+import {Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField} from "@mui/material";
+import {useForm} from "react-hook-form";
+import authService from "../../../services/AuthService";
+import {toast} from "react-toastify";
+import {authStore} from "../../../Redux/OurStore";
+import errorHandler from "../../../services/ErrorHandler";
 
 function Login(): JSX.Element {
 
+    const {register, handleSubmit, formState, getValues} = useForm();
+
     function sendForm(){
+        const email = getValues("email");
+        const password = getValues("password");
+        const clienttype = getValues("clienttype");
+        authService.login(email, password, clienttype)
+            .then(t => toast.success("Welcome Back" + authStore.getState().user.name))
+            .catch( err => errorHandler.showError(err));
 
     }
 
     return (
         <div className="Login">
-            <form >
-                <input type={"text"}  id={"email"} placeholder={"email"}/>
-                <input type={"text"}  id={"password"} placeholder={"Password"}/>
-                <select >
-                    <option>ADMIN</option>
-                    <option>COMPANY</option>
-                    <option>CUSTOMER</option>
-                </select><br/>
-                <button>Login</button>
-            </form>
-			
+            <FormControl>
+                <FormLabel>Login Information</FormLabel>
+                <TextField variant={"outlined"} label={"Email"} id={"email"} {...register("email")} />
+                <TextField variant={"outlined"} label={"Password"} id={"password"} {...register("password")}/>
+                <RadioGroup defaultValue="2" id={"clienttype"} >
+                    <FormControlLabel value="0" control={<Radio {...register("clienttype")} />} label="ADMIN"  />
+                    <FormControlLabel value="1" control={<Radio {...register("clienttype")} />} label="COMPANY" />
+                    <FormControlLabel value="2" control={<Radio {...register("clienttype")} />} label="CUSTOMER" />
+                </RadioGroup>
+                <Button variant={"outlined"} onClick ={sendForm} >Login</Button>
+
+            </FormControl>
         </div>
     );
 }

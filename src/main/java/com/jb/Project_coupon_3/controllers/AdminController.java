@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin("*")
 public class AdminController extends ClientController {
     @Autowired
     HttpServletRequest request;
