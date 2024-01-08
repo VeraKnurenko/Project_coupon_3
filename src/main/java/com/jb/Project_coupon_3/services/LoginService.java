@@ -59,9 +59,9 @@ public class LoginService {
 
     private String createToken (String email, String password, ClientService service){
         String token = " ";
+        Instant expires = Instant.now().plus(30, ChronoUnit.MINUTES);
         if (service instanceof CompanyService) {
             Company company = ((CompanyService) service).getCompanyDetails(email, password);
-            Instant expires = Instant.now().plus(30, ChronoUnit.MINUTES);
             token = JWT.create()
                     .withClaim("id", company.getId())
                     .withClaim("name", company.getName())
@@ -69,7 +69,6 @@ public class LoginService {
                     .withExpiresAt(expires)
                     .sign(Algorithm.none());
         }else if(service instanceof AdminService){
-            Instant expires = Instant.now().plus(30, ChronoUnit.MINUTES);
             token = JWT.create()
                     .withClaim("name", "admin")
                     .withClaim("role",999 )
@@ -77,7 +76,6 @@ public class LoginService {
                     .sign(Algorithm.none());
         } else {
             Customer customer = ((CustomerService) service).getCustomerDetails(email, password);
-            Instant expires = Instant.now().plus(30, ChronoUnit.MINUTES);
             token = JWT.create()
                     .withClaim("id", customer.getId())
                     .withClaim("name", customer.getFirstName())
