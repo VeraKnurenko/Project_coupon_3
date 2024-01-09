@@ -1,0 +1,8 @@
+.CompanyCoupons {
+    display: flex;
+    flex-wrap: wrap;
+	
+}
+.CompanyCoupons .MuiCard-root{
+    width: 20%;
+}

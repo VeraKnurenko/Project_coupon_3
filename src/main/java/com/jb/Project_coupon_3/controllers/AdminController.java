@@ -5,6 +5,7 @@ import com.jb.Project_coupon_3.models.Company;
 import com.jb.Project_coupon_3.models.Coupon;
 import com.jb.Project_coupon_3.models.Customer;
 import com.jb.Project_coupon_3.services.AdminService;
+import com.jb.Project_coupon_3.services.ClientType;
 import com.jb.Project_coupon_3.services.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,62 +49,62 @@ public class AdminController extends ClientController {
     @PostMapping("/company")  //WORKS POSTMAN
     @ResponseStatus(HttpStatus.CREATED)
     public Company addCompany(@RequestBody Company company) throws CouponSystemException {
-        return (loginService.getId(request, 999) == -99) ? adminService.addCompany(company) : null;
+        return (loginService.getId(request, ClientType.ADMIN.toString()) == -99) ? adminService.addCompany(company) : null;
     }
 
     @GetMapping("/company/{companyId}")//WORKS POSTMAN
     @ResponseStatus(HttpStatus.OK)
     public Company getOneCompany(@PathVariable int companyId) throws CouponSystemException {
-        return (loginService.getId(request, 999) == -99) ? adminService.getOneCompany(companyId) : null;
+        return (loginService.getId(request, ClientType.ADMIN.toString()) == -99) ? adminService.getOneCompany(companyId) : null;
     }
 
     @GetMapping("companies") //WORKS POSTMAN
     @ResponseStatus(HttpStatus.OK)
     public List<Company> getAllCompanies() throws CouponSystemException {
-        return (loginService.getId(request, 999) == -99) ? adminService.getAllCompanies(): null;
+        return (loginService.getId(request, ClientType.ADMIN.toString()) == -99) ? adminService.getAllCompanies(): null;
     }
 
     @PutMapping("company") //WORKS POSTMAN
     @ResponseStatus(HttpStatus.CREATED)
     public Company updateCompany(@RequestBody Company company) throws CouponSystemException {
-        return (loginService.getId(request, 999) == -99) ? adminService.updateCompany(company): null;
+        return (loginService.getId(request, ClientType.ADMIN.toString()) == -99) ? adminService.updateCompany(company): null;
     }
 
     @DeleteMapping("/company/{companyId}") //WORKS POSTMAN
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCompany(@PathVariable int companyId) throws CouponSystemException {
-        if ((loginService.getId(request, 999) == -99))
+        if ((loginService.getId(request, ClientType.ADMIN.toString()) == -99))
             adminService.deleteCompany(companyId);
     }
 
     @PostMapping("/customer")//WORKS POSTMAN
     @ResponseStatus(HttpStatus.CREATED)
     public Customer addCustomer(@RequestBody Customer customer) throws CouponSystemException {
-        return (loginService.getId(request, 999) == -99) ? adminService.addCustomer(customer) : null;
+        return (loginService.getId(request, ClientType.ADMIN.toString()) == -99) ? adminService.addCustomer(customer) : null;
     }
 
     @PutMapping("/customer")//WORKS POSTMAN
     @ResponseStatus(HttpStatus.CREATED)
     public Customer updateCustomer(@RequestBody Customer customer) throws CouponSystemException {
-        return (loginService.getId(request, 999) == -99) ? adminService.updateCustomer(customer) : null;
+        return (loginService.getId(request, ClientType.ADMIN.toString()) == -99) ? adminService.updateCustomer(customer) : null;
     }
 
     @GetMapping("/customer/{customerId}")//works postman
     @ResponseStatus(HttpStatus.OK)
     public Customer getOneCustomer(@PathVariable int customerId) throws CouponSystemException {
-        return (loginService.getId(request, 999) == -99) ? adminService.getOneCustomer(customerId) : null;
+        return (loginService.getId(request, ClientType.ADMIN.toString()) == -99) ? adminService.getOneCustomer(customerId) : null;
     }
 
     @GetMapping("/customers")//works postman
     @ResponseStatus(HttpStatus.OK)
     public List<Customer> getAllCustomers() throws CouponSystemException {
-        return (loginService.getId(request, 999) == -99) ? adminService.getAllCustomers() : null;
+        return (loginService.getId(request, ClientType.ADMIN.toString()) == -99) ? adminService.getAllCustomers() : null;
     }
 
     @DeleteMapping("/customer/{customerId}")//works postman
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@PathVariable int customerId) throws CouponSystemException {
-        if (loginService.getId(request, 999) == -99)
+        if (loginService.getId(request, ClientType.ADMIN.toString()) == -99)
             adminService.deleteCustomer(customerId);
     }
 }

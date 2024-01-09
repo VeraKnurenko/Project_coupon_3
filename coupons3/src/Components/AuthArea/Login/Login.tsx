@@ -16,7 +16,7 @@ function Login(): JSX.Element {
         const clienttype = getValues("clienttype");
         authService.login(email, password, clienttype)
             .then(t => toast.success("Welcome Back" + authStore.getState().user.name))
-            .catch( err => errorHandler.showError(err));
+            .catch( err => (toast.error(err) /*(errorHandler.showError(err)))*/));
 
     }
 

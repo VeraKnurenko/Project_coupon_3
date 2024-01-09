@@ -12,7 +12,8 @@ function CompanyDetails(): JSX.Element {
 
     useEffect(() => {
         // if (authStore.getState().user)
-            companyService.getCompanyDetails(authStore.getState().user?.id).then(comp => setCompany(comp) ).catch(err => ErrorHandler.showError(err))
+            companyService.getCompanyDetails(authStore.getState().user?.id).then(comp =>
+                setCompany(comp) ).catch(err => ErrorHandler.showError(err))
     }, []);
 
     return (
