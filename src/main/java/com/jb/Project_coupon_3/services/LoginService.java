@@ -63,13 +63,13 @@ public class LoginService {
             token = JWT.create()
                     .withClaim("id", company.getId())
                     .withClaim("name", company.getName())
-                    .withClaim("role", 333)
+                    .withClaim("role", ClientType.COMPANY.toString())
                     .withExpiresAt(expires)
                     .sign(Algorithm.none());
         }else if(service instanceof AdminService){
             token = JWT.create()
                     .withClaim("name", "admin")
-                    .withClaim("role",999 )
+                    .withClaim("role",ClientType.ADMIN.toString() )
                     .withExpiresAt(expires)
                     .sign(Algorithm.none());
         } else {
@@ -78,27 +78,26 @@ public class LoginService {
                     .withClaim("id", customer.getId())
                     .withClaim("name", customer.getFirstName())
                     .withClaim("lastName", customer.getLastName())
-                    .withClaim("role", 666)
+                    .withClaim("role", ClientType.CUSTOMER.toString())
                     .withExpiresAt(expires)
                     .sign(Algorithm.none());
         }
         return token;
     }
 
-    public Integer getId(HttpServletRequest request , int  role) throws CouponSystemException {
+    public Integer getId(HttpServletRequest request , String role) throws CouponSystemException {
         String token = request.getHeader("Authorization").replace("Bearer ","");
-        int tokenRole =JWT.decode(token).getClaim("role").asInt();
+        String tokenRole = JWT.decode(token).getClaim("role").toString().replace("\"", "");
         if(!tokensStore.contains (token)){
             throw new CouponSystemException("token does not exist in store", HttpStatus.UNAUTHORIZED);
         }
-        if (tokenRole == 999){
-            return -99;
+        if (tokenRole.equals(ClientType.ADMIN.toString()) ){
+            return ClientType.ADMIN.ordinal() ;
         }
-        if(tokenRole != role){
+        if(!tokenRole.equals(role)){
             throw new CouponSystemException("role mismatch", HttpStatus.UNAUTHORIZED);
         }
-        System.out.println(tokenRole);
-        return Integer.parseInt(JWT.decode(token).getClaim("id").toString());
+        return JWT.decode(token).getClaim("id").asInt();
     }
 
     public void logout(HttpServletRequest request ){

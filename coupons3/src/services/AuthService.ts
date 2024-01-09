@@ -15,7 +15,6 @@ class AuthService {
         const response = await axios.post<string>("http://localhost:8080/auth/logout");
         authStore.dispatch(logout());
         return response.data;
-
     }
 }
 
