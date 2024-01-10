@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Coupon from "../../../Models/Coupon";
 import companyService from "../../../services/CompanyService";
 import errorHandler from "../../../services/ErrorHandler";
-import {Card, CardContent} from "@mui/material";
+import CouponCard from "../CouponCard/CouponCard";
 
 function CompanyCoupons(): JSX.Element {
 
@@ -15,15 +15,10 @@ function CompanyCoupons(): JSX.Element {
 
 
  return (
-     //TODO COUPON CARD LIKE NIR
         <div className="CompanyCoupons">
-            {coupons?.map( c=> <Card>
-                <CardContent>
-                    <h3>{c.title}</h3>
-                    <img src={c.image} alt={""}/><br/>
-                    $ price {c.price}
-                </CardContent>
-            </Card>)}
+
+            {coupons?.map( c=> <CouponCard title={c.title} price={c.price}
+                                           description={c.description} endDate={c.endDate} image={c.image}/>)}
 			
         </div>
     );

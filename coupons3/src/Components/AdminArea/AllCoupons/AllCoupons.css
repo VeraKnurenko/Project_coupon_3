@@ -1,3 +1,6 @@
 .AllCoupons {
-	
+	display: flex;
+    flex-wrap: wrap;
 }
+
+
