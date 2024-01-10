@@ -4,6 +4,11 @@ import Coupon from "../Models/Coupon";
 import globals from "./globals/Globals";
 
 class CompanyService {
+
+    public async addCoupon(coupon:Coupon){
+        return (await axios.post(globals.urls.companies + "coupon", coupon))
+    }
+
     public async getCompanyDetails(companyId: number){
         return (await axios.get<Company>( globals.urls.companies + " getCompanyDetails",
             {params: {id: companyId}})).data;
@@ -12,6 +17,8 @@ class CompanyService {
     public async getCompanyCoupons(){
         return (await axios.get<Coupon[]>(globals.urls.companies + "coupons")).data
     }
+
+
 
 
 }

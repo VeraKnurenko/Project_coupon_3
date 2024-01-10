@@ -1,7 +1,7 @@
 import "./AllCoupons.css";
 import {useEffect, useState} from "react";
 import Coupon from "../../../Models/Coupon";
-import {getAllCoupons} from "../../../services/AdminService";
+import adminService from "../../../services/AdminService";
 import errorHandler from "../../../services/ErrorHandler";
 import CouponCard from "../../CompanyArea/CouponCard/CouponCard";
 
@@ -10,7 +10,7 @@ function AllCoupons(): JSX.Element {
 const [coupons, setCoupons] = useState<Coupon[]>();
 
     useEffect(() => {
-        getAllCoupons().then(c => setCoupons(c.data)).catch(err => errorHandler.showError(err))
+        adminService.getAllCoupons().then(c => setCoupons(c.data)).catch(err => errorHandler.showError(err))
     }, []);
 
     return (

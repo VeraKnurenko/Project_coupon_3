@@ -4,47 +4,53 @@ import Customer from "../Models/Customer";
 import axios from "axios";
 import Coupon from "../Models/Coupon";
 
-export const addCompany = async (company: Company) =>{
-    return await axios.post<Company>(globals.urls.admin + "company", company);
+class AdminService {
+
+
+    public async addCompany(company: Company) {
+        return await axios.post<Company>(globals.urls.admin + "company", company);
+    }
+
+    public async getOneCompany (companyId: number) {
+        return await axios.get<Company>(globals.urls.admin + "company/" + companyId);
+    }
+
+    public async getAllCompanies () {
+        return await axios.get(globals.urls.admin + "companies");
+    }
+
+    public async updateCompany(company: Company) {
+        return await axios.put<Company>(globals.urls.admin + "company", company)
+    }
+
+     public async deleteCompany (companyId: number){
+        return await axios.delete(globals.urls.admin + "/company/" + companyId)
+    }
+
+    public async addCustomer (customer: Customer) {
+        return await axios.post<Customer>(globals.urls.admin + "customer", customer);
+    }
+
+    public async updateCustomer(customer: Customer){
+        return await axios.put<Customer>(globals.urls.admin + "customer", customer)
+    }
+
+    public async getOneCustomer (customerId: number) {
+        return await axios.get<Customer>(globals.urls.admin + "customer/" + customerId);
+    }
+
+    public async getAllCustomers () {
+        return await axios.get(globals.urls.admin + "customers");
+    }
+
+    public async deleteCustomer (customerId: number)  {
+        return await axios.delete<Customer>(globals.urls.admin + "/customer/" + customerId);
+    }
+
+   public async getAllCoupons () {
+        return await axios.get<Coupon[]>(globals.urls.admin + "allcoupons")
+    }
 }
 
-export const getOneCompany = async (companyId: number)=>{
-    return await axios.get<Company>(globals.urls.admin + "company/" + companyId);
-}
-
-export const getAllCompanies = async ()=>{
-    return await axios.get(globals.urls.admin  + "companies");
-}
-
-export const updateCompany = async (company: Company)=>{
-    return await axios.put<Company>(globals.urls.admin + "company", company)
-}
-
-export const deleteCompany = async (companyId : number) =>{
-    return await axios.delete(globals.urls.admin  + "/company/" + companyId )
-}
-
-export const addCustomer = async (customer: Customer)=>{
-    return await  axios.post<Customer>(globals.urls.admin + "customer", customer);
-}
-
-export const updateCustomer = async (customer: Customer)=>{
-    return await axios.put<Customer>(globals.urls.admin + "customer", customer)
-}
-
-export const getOneCustomer = async (customerId : number)=>{
-    return await axios.get<Customer>(globals.urls.admin + "customer/" + customerId);
-}
-
-export const getAllCustomers = async () =>{
-    return await axios.get(globals.urls.admin + "customers");
-}
-
-export const deleteCustomer = async (customerId: number)=>{
-    return await axios.delete<Customer>(globals.urls.admin + "/customer/" + customerId);
-}
-
-export const getAllCoupons = async () =>{
-    return await axios.get<Coupon[]>(globals.urls.admin + "allcoupons")
-}
-
+const adminService = new AdminService();
+export default adminService
