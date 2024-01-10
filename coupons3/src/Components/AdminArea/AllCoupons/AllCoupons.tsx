@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Coupon from "../../../Models/Coupon";
 import {getAllCoupons} from "../../../services/AdminService";
 import errorHandler from "../../../services/ErrorHandler";
-import {Card, CardContent} from "@mui/material";
+import CouponCard from "../../CompanyArea/CouponCard/CouponCard";
 
 function AllCoupons(): JSX.Element {
 
@@ -15,14 +15,7 @@ const [coupons, setCoupons] = useState<Coupon[]>();
 
     return (
         <div className="AllCoupons">
-            {coupons?.map( c=> <Card key={c.id}>
-                <CardContent>
-                    <h1>{c.title}</h1>
-                    <div>{c.description}</div>
-                </CardContent>
-            </Card> ) }
-
-			
+            {coupons?.map(c=><CouponCard title={c.title} price={c.price} description={c.description} endDate={c.endDate} image={c.image}/>)}
         </div>
     );
 }

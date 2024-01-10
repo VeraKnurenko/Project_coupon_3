@@ -81,7 +81,7 @@ public class CompanyController extends ClientController {
     @GetMapping("getCompanyDetails")//todo fix after class
     public Company getCompanyDetails(@RequestParam int id) throws CouponSystemException {
         int companyId = loginService.getId(request, ClientType.COMPANY.toString());
-        return companyService.OneCompany(id);
+        return companyService.OneCompany(companyId);
 
     }
 
