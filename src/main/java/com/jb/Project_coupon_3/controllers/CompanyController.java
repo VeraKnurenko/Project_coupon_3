@@ -56,7 +56,7 @@ public class CompanyController extends ClientController {
         return companyService.getAllCompanyCoupons(companyId);
     }
 
-    @DeleteMapping("{couponId}")
+    @DeleteMapping("coupons/{couponId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCoupon(@PathVariable int couponId) throws CouponSystemException {
         int companyId = loginService.getId(request, ClientType.COMPANY.toString());

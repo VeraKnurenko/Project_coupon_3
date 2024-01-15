@@ -57,7 +57,7 @@ public class LoginService {
 
     private String createToken (String email, String password, ClientService service){
         String token = " ";
-        Instant expires = Instant.now().plus(30, ChronoUnit.MINUTES);
+        Instant expires = Instant.now().plus(60, ChronoUnit.MINUTES);
         if (service instanceof CompanyService) {
             Company company = ((CompanyService) service).getCompanyDetails(email, password);
             token = JWT.create()

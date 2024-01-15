@@ -10,7 +10,7 @@ function AllCoupons(): JSX.Element {
 const [coupons, setCoupons] = useState<Coupon[]>();
 
     useEffect(() => {
-        adminService.getAllCoupons().then(c => setCoupons(c.data)).catch(err => errorHandler.showError(err))
+        adminService.getAllCoupons().then(c => setCoupons(c)).catch(err => errorHandler.showError(err))
     }, []);
 
     return (

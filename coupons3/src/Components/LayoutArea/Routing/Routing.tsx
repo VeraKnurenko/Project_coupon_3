@@ -7,6 +7,7 @@ import Sale from "../../MainArea/Sale/Sale";
 import CompanyDetails from "../../CompanyArea/CompanyDetails/CompanyDetails";
 import Login from "../../AuthArea/Login/Login";
 import CompanyCoupons from "../../CompanyArea/CompanyCoupons/CompanyCoupons";
+import AddCoupon from "../../CompanyArea/AddCoupon/AddCoupon";
 
 
 function Routing(): JSX.Element {
@@ -17,8 +18,9 @@ function Routing(): JSX.Element {
                 <Route path={"login"} element={<Login/>} />
                 <Route path={"aboutUs"} element={<AboutUs/>} />
                 <Route path={"companies"} element={<Companies/>} />
-                <Route path={"company"} element={<CompanyDetails/>} />
+                <Route path={"companyDetails"} element={<CompanyDetails/>} />
                 <Route path={"company_coupons"} element={<CompanyCoupons/>} />
+                <Route path={"AddCoupon"} element={<AddCoupon/>}/>
                 <Route path={"sales"} element={<Sale/>} />
                 <Route path={"/"} element={<Navigate to={"home"}/>}/>
                 <Route path={"*"} element={<div>Oops No Page Found!</div>}/>

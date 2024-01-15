@@ -56,6 +56,15 @@ class Company {
     set companyCoupons(value: Array<Coupon>) {
         this._companyCoupons = value;
     }
+
+    toJson(): any{
+        return {
+            "id": this._id,
+            "name": this._name,
+            "email": this._email,
+            "password": this._password,
+        }
+    }
 }
 
 export default Company

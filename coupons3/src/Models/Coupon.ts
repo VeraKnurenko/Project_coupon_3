@@ -2,30 +2,46 @@ import {Category} from "./Category";
 import Company from "./Company";
 
 class Coupon {
-    private _id: number;
     private _company:Company;
-    private _category: Category;
     private _title: string;
     private _description: string;
     private _startDate: Date;
     private _endDate: Date;
+    private _category: Category;
     private _amount: number;
     private _price: number;
-    private _image: string;
+    private _image: any;
+    private _id: number;
 
 
-    constructor(id: number, company: Company, category: Category, title: string, description: string, startDate: Date, endDate: Date, amount: number, price: number, image: string) {
-        this._id = id;
+    // constructor(id: number,  title: string, description: string, startDate: Date, endDate: Date,category: Category, amount: number, price: number, image: string) {
+    //     this._id = id;
+    //     this._company = new Company(companyId);
+    //     this._title = title;
+    //     this._description = description;
+    //     this._startDate = startDate;
+    //     this._endDate = endDate;
+    //     this._category = category;
+    //     this._amount = amount;
+    //     this._price = price;
+    //     this._image = image;
+    // }
+
+    constructor( company: Company,  title: string, description: string, startDate: Date, endDate: Date,category: Category, amount: number, price: number, image: any, id?: number) {
         this._company = company;
-        this._category = category;
         this._title = title;
         this._description = description;
         this._startDate = startDate;
         this._endDate = endDate;
+        this._category = category;
         this._amount = amount;
         this._price = price;
         this._image = image;
+        this._id = id;
+
     }
+
+
 
 
     get id(): number {
@@ -100,12 +116,26 @@ class Coupon {
         this._price = value;
     }
 
-    get image(): string {
+    get image(): any {
         return this._image;
     }
 
-    set image(value: string) {
+    set image(value: any) {
         this._image = value;
+    }
+
+    toJSON(): any{
+        return {
+            "company":this._company.toJson() ,
+            "category": this._category,
+            "title": this._title,
+            "description": this._description,
+            "startDate": this._startDate,
+            "endDate": this._endDate,
+            "amount": this._amount,
+            "price": this._price,
+            "image": this._image
+        }
     }
 
 
