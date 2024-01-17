@@ -37,9 +37,12 @@ function Navbar(): JSX.Element {
         <div className="Navbar">
             <NavLink className={"navlink"} to={"home"} title={"Home"}>Home</NavLink>
             <NavLink className={"navlink"} to={"aboutUs"}>About Us</NavLink>
+            {authStore.getState().user?.role=="COMPANY" && <>
+
             <NavLink className={"navlink"} to={"companyDetails"}>Company Details</NavLink>
             <NavLink className={"navlink"} to={"company_coupons"}>Company Coupons</NavLink>
-            <NavLink className={"navlink"} to={"sales"}>Sales</NavLink>
+            <NavLink className={"navlink"} to={"sales"}>Sales</NavLink></>
+            }
             <div id={"welcomeUser"}>Hello <br/> {name}</div>
 
             {name === "Guest" ?  <NavLink className={"navlink"} to={"login"} title={"Login"}>Login</NavLink> :

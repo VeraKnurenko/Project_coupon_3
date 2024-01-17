@@ -15,7 +15,7 @@ const [coupons, setCoupons] = useState<Coupon[]>();
 
     return (
         <div className="AllCoupons">
-            {coupons?.map(c=><CouponCard title={c.title} price={c.price} description={c.description} endDate={c.endDate} image={c.image}/>)}
+            {coupons?.map(c=><CouponCard key={c.id} title={c.title} price={c.price} description={c.description} endDate={c.endDate} image={c.image}/>)}
         </div>
     );
 }

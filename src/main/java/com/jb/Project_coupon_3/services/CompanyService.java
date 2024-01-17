@@ -104,6 +104,17 @@ public class CompanyService extends ClientService {
         return companyRepository.getCompanyByEmailAndPassword(email, password);
     }
 
+    public Coupon getOneCompanyCoupon(int couponId, int companyId) throws CouponSystemException {
+        if (couponId <= 0)
+            throw new CouponSystemException("invalid coupon Id", HttpStatus.UNAUTHORIZED);
+        if (couponRepository.getCouponById(couponId) == null)
+            throw new CouponSystemException("No coupon with such id", HttpStatus.NOT_FOUND);
+        if (couponRepository.getCouponById(couponId).getCompany().getId() != companyId)
+            throw new CouponSystemException("mismatch coupon and company id", HttpStatus.UNAUTHORIZED);
+
+        return couponRepository.getCouponById(couponId);
+    }
+
     public Company OneCompany(int companyId){
         return companyRepository.getReferenceById(companyId);
     }

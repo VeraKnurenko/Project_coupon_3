@@ -8,14 +8,15 @@ import errorHandler from "../../../services/ErrorHandler";
 
 function Login(): JSX.Element {
 
-    const {register, handleSubmit, formState, getValues} = useForm();
+    const {register, handleSubmit, formState,
+        getValues} = useForm();
 
     function sendForm(){
         const email = getValues("email");
         const password = getValues("password");
         const clienttype = getValues("clienttype");
         authService.login(email, password, clienttype)
-            .then(t => toast.success("Welcome Back" + authStore.getState().user.name))
+            .then(t => toast.success("Welcome Back " + authStore.getState().user.name))
             .catch( err => (toast.error(err) /*(errorHandler.showError(err)))*/));
 
     }

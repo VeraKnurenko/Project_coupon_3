@@ -7,7 +7,6 @@ import {Category} from "../Models/Category";
 class CompanyService {
 
     public async addCoupon(coupon: Coupon){
-
         return (await axios.post<Coupon>(globals.urls.companies + "coupon", coupon.toJSON()))
     }
 
@@ -20,10 +19,10 @@ class CompanyService {
     }
 
     public async deleteCoupon(couponId: number){
-        return (await axios.delete(globals.urls.companies + "coupons/" + couponId)).data;//todo - check if there is data retutning
+        return (await axios.delete(globals.urls.companies + "coupons/" + couponId));//DATA?
     }
 
-    public async getCouponsByCategory(category :Category){//todo - check if to ake category string
+    public async getCouponsByCategory(category :Category){
         return (await axios.get<Coupon[]>(globals.urls.companies + "coupons/category",
             {params: {category:category}})).data;
     }
@@ -39,12 +38,9 @@ class CompanyService {
             {params: {id: companyId}})).data;
     }
 
-
-
-
-
-
-
+    public async getOneCoupon(couponId: number){
+        return (await axios.get<Coupon>(globals.urls.companies + "coupon/"+ couponId)).data
+    }
 
 }
 

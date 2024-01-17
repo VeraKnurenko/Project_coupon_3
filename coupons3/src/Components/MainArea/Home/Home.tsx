@@ -8,11 +8,7 @@ function Home(): JSX.Element {
             <h1>Home</h1>
             <AllCoupons/>
 
-            {/*<h2>*/}
-            {/*    <nav>*/}
-            {/*           <NavLink className={"navlink"} to={"login"} title={"Login"}>Login</NavLink>*/}
-            {/*    </nav>*/}
-            {/*</h2>*/}
+
 
             below menu of tabs with different coupon Categories<br/>
             show all coupons in tabs inside dataGrid, to be able to sort by title

@@ -85,6 +85,13 @@ public class CompanyController extends ClientController {
 
     }
 
+    @GetMapping("coupon/{couponId}")
+    public Coupon getOneCoupon(@PathVariable int couponId) throws CouponSystemException {
+        int companyId = loginService.getId(request, ClientType.COMPANY.toString());
+        return companyService.getOneCompanyCoupon(couponId, companyId);
+
+    }
+
 
 
 //    private CompanyService getService() throws CouponSystemException {// IF WAS PROTOTYPE

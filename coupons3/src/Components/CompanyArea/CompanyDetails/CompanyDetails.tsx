@@ -3,10 +3,10 @@ import {useEffect, useState} from "react";
 import Company from "../../../Models/Company";
 import {authStore} from "../../../Redux/OurStore";
 import {Button, Card, CardActions, CardContent} from "@mui/material";
-import AddCoupon from "../AddCoupon/AddCoupon";
 import companyService from "../../../services/CompanyService";
 import errorHandler from "../../../services/ErrorHandler";
 import {NavLink, useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 function CompanyDetails(): JSX.Element {
 
@@ -20,13 +20,13 @@ function CompanyDetails(): JSX.Element {
     useEffect(() => {
         // if (authStore.getState().user)
             companyService.getCompanyDetails(authStore.getState().user?.id).then(comp =>
-                setCompany(comp) ).catch(err => errorHandler.showError(err))
+                setCompany(comp) ).catch(err => toast.error(err))
     }, []);
 
 
     return (
         <div className="CompanyDetails">
-            companyid: { authStore.getState().user.id}<br/>
+            companyId: { authStore.getState().user.id}<br/>
             companyName: { authStore.getState().user.name}<br/>
             companyEmail: { authStore.getState().user.email}<br/>
             companyRole: { authStore.getState().user.role}<br/>
@@ -41,8 +41,8 @@ function CompanyDetails(): JSX.Element {
                         <h3>{company.email}</h3>
                     </CardContent>
                     <CardActions>
-                        <Button>Back to home</Button>//todo - make navigate back to home
-                        <Button component={NavLink} to="/AddCoupon" >Add Coupon</Button>//todo - figure out how to navigate to add coupon
+                        <Button component={NavLink} to={"/home"}>Back to home</Button>
+                        <Button component={NavLink} to="/AddCoupon" >Add Coupon</Button>
                     </CardActions>
                 </Card>
 
