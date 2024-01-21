@@ -18,12 +18,15 @@ import java.util.Set;
 
 @Service
 public class LoginService {
+
     ApplicationContext context;
+
     @Autowired
     private Set<String> tokensStore = new HashSet<>();
 
 
     public LoginService(ApplicationContext context) {
+
         this.context = context;
     }
 
@@ -35,6 +38,7 @@ public class LoginService {
                 if(adminService.login(email, password)){
                     service =  adminService;
                 }
+
             }
             case COMPANY -> {
                 CompanyService companyService = context.getBean(CompanyService.class);
@@ -47,8 +51,12 @@ public class LoginService {
                 if(customerService.login(email,password)){
                     service =  customerService;
                 }
+
             }
             default ->   throw new CouponSystemException("Email or password is incorrect", HttpStatus.UNAUTHORIZED);
+        }
+        if(service == null){
+            throw new CouponSystemException("Email or password is incorrect", HttpStatus.UNAUTHORIZED);
         }
         String token = createToken(email, password, service);
         tokensStore.add(token);

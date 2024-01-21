@@ -10,8 +10,8 @@ class Coupon {
     private _category: Category;
     private _amount: number;
     private _price: number;
-    private _image: any;
-    private _id: number;
+    private _image: string | File | FileList;
+    private _id?: number;
 
 
     // constructor(id: number,  title: string, description: string, startDate: Date, endDate: Date,category: Category, amount: number, price: number, image: string) {
@@ -27,7 +27,7 @@ class Coupon {
     //     this._image = image;
     // }
 
-    constructor( company: Company,  title: string, description: string, startDate: Date, endDate: Date,category: Category, amount: number, price: number, image: any, id?: number) {
+    constructor( company: Company,  title: string, description: string, startDate: Date, endDate: Date,category: Category, amount: number, price: number, image: string | File | FileList, id?: number) {
         this._company = company;
         this._title = title;
         this._description = description;
@@ -126,7 +126,7 @@ class Coupon {
 
     toJSON(): any{
         return {
-            "company":this._company.toJson() ,
+            "company":this._company ,
             "category": this._category,
             "title": this._title,
             "description": this._description,
@@ -137,6 +137,7 @@ class Coupon {
             "image": this._image
         }
     }
+
 
 
 }

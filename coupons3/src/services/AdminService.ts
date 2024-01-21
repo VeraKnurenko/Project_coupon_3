@@ -3,6 +3,10 @@ import globals from "./globals/Globals";
 import Customer from "../Models/Customer";
 import axios from "axios";
 import Coupon from "../Models/Coupon";
+import {companyStore, couponStore, customerStore} from "../Redux/OurStore";
+import {couponSlice} from "../Redux/CouponSlice";
+import {companySlice} from "../Redux/CompanySlice";
+import {customerSlice} from "../Redux/CustomerSlice";
 
 class AdminService {
 
@@ -15,8 +19,15 @@ class AdminService {
         return (await axios.get<Company>(globals.urls.admin + "company/" + companyId)).data;
     }
 
-    public async getAllCompanies () {
-        return (await axios.get(globals.urls.admin + "companies")).data;
+    public async getAllCompanies (): Promise<Company[]> {
+        if (companyStore.getState().value.length == 0){
+            const response = (await axios.get(globals.urls.admin + "companies")).data;
+            companyStore.dispatch(companySlice.actions.fetch(response))
+            return response;
+        }else {
+            return companyStore.getState().value;
+        }
+
     }
 
     public async updateCompany(company: Company) {
@@ -40,15 +51,29 @@ class AdminService {
     }
 
     public async getAllCustomers () {
-        return (await axios.get(globals.urls.admin + "customers")).data;
+        if (customerStore.getState().value.length == 0){
+            const response =  (await axios.get(globals.urls.admin + "customers")).data;
+            customerStore.dispatch(customerSlice.actions.fetch(response))
+            return response;
+        }else {
+            return customerStore.getState().value;
+        }
+
     }
 
     public async deleteCustomer (customerId: number)  {
         return (await axios.delete<Customer>(globals.urls.admin + "/customer/" + customerId)).data;
     }
 
-   public async getAllCoupons () {
-        return (await axios.get<Coupon[]>(globals.urls.admin + "allcoupons")).data;
+   public async getAllCoupons ():Promise<Coupon[]> {
+        if (couponStore.getState().value.length == 0 ){//|| (couponStore.getState().lastUpdated > new Date(Date.now() + 60 * 60 * 1000))*\) {
+            const response = await axios.get<Coupon[]>(globals.urls.admin + "allcoupons");
+            couponStore.dispatch(couponSlice.actions.fetch(response.data));//todo - check how to make it time dependant
+            return response.data;
+        }else {
+            return couponStore.getState().value;
+        }
+
     }
 }
 

@@ -6,7 +6,6 @@ import errorHandler from "../../../services/ErrorHandler";
 import CouponCard from "../CouponCard/CouponCard";
 import {Button, Card, Link} from "@mui/material";
 import {NavLink, Route, useNavigate} from "react-router-dom";
-import {decode as base64_decode} from "base-64";
 
 
 function CompanyCoupons(): JSX.Element {
@@ -15,9 +14,13 @@ function CompanyCoupons(): JSX.Element {
     const navigate = useNavigate();
 
     useEffect(() => {
-        companyService.getCompanyCoupons().then(c => setCoupons(c))
+        companyService.getCompanyCoupons()
+            .then(c => setCoupons(c))
             .catch(err => errorHandler.showError(err))
     }, []);
+
+
+
 
 
  return (
@@ -26,21 +29,18 @@ function CompanyCoupons(): JSX.Element {
            <div> <Button component={NavLink} to="/AddCoupon" >Add Coupon</Button></div><br/>
 
 
-            {coupons?.map( c=> <Card >
-                <NavLink to={"/couponDetails/" + c.id}  >
+            {coupons?.map( c=> <Card key={c.id} >
+                <NavLink to={"/couponDetails/" + c.id}  > Coupon Details  </NavLink>
+                <NavLink to={"/updateCoupon/" + c.id}  > Update Coupon  </NavLink>
+                <NavLink to={"" + c.id}  > Delete Coupon  </NavLink>
 
-                {/*navigate( "CouponDetails")*/}
-
-                <CouponCard key={c.id}
-
+                <CouponCard
                                            title={c.title}
                                            price={c.price}
                                            description={c.description}
+                                           startDate={c.startDate}
                                            endDate={c.endDate}
                                            image={ c.image}/>
-                </NavLink>
-
-
 
                 </Card>)}
 

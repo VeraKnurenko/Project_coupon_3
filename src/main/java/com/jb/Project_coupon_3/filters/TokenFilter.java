@@ -17,6 +17,8 @@ import java.util.List;
 @Order(2)
 public class TokenFilter extends OncePerRequestFilter {
 
+    //TODO - MAKE THE SYSTEM THROW COUPON SYSTEM EXCEPTION
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

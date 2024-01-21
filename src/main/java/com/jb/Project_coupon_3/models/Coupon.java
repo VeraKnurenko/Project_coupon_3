@@ -45,7 +45,9 @@ public class Coupon {
     @Column(nullable = false)
     private double price;
 
+    @Column(columnDefinition="LONGTEXT")
     private String image;
+
     @JsonIgnore
     @ManyToMany( fetch = FetchType.EAGER)
     Set<Customer> customers;
@@ -69,7 +71,7 @@ public class Coupon {
     public String toString() {
         return " \nCoupon{" +
                 "id= " + id +
-                "comapy" + companyName() +
+                "company" + companyName() +
                 ", category=" + category +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +

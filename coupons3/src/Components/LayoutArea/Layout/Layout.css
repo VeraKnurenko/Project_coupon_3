@@ -1,7 +1,13 @@
 .Layout {
-    bottom: inherit;
+    /*display: grid;*/
+    /*height: 100%;*/
+    /*grid-template-rows: 10% 14% 70% 6%;*/
 	
 }
+/*.Layout>main{*/
+/*    padding: 20px;*/
+/*    overflow: auto;*/
+/*}*/
 
 .Toastify__toast-theme--light.Toastify__toast--success {
     background-color: lightgreen;
@@ -11,3 +17,7 @@
     background-color: red;
     color: white;
 }
+/*.Layout>header, .Layout>footer{*/
+/*    grid-column: span 2;*/
+/*}*/
+

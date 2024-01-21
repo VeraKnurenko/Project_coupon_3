@@ -17,10 +17,12 @@ function CompanyDetails(): JSX.Element {
         navigate("/AddCoupon")
     }
 
+    //todo - rewrite like coupon details
+
     useEffect(() => {
         // if (authStore.getState().user)
             companyService.getCompanyDetails(authStore.getState().user?.id).then(comp =>
-                setCompany(comp) ).catch(err => toast.error(err))
+                setCompany(comp) ).catch(err => toast.error(err))//todo - change to gt details from companyStore
     }, []);
 
 

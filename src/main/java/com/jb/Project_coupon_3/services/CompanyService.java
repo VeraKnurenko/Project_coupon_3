@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -24,9 +25,10 @@ public class CompanyService extends ClientService {
         if (coupon == null){
             throw new CouponSystemException("Invalid Coupon", HttpStatus.BAD_REQUEST);
         }
-        if (coupon.getCompany().getId() != companyId){
-            throw new CouponSystemException("coupon id and company id do not match", HttpStatus.UNAUTHORIZED);//company trying to add coupon of a different company
-        }
+//        if (coupon.getCompany().getId() != companyId){
+//            System.out.println(" coupon.getCompany().getId(): " + coupon.getCompany().getId() + " , companyId: " + companyId );
+//            throw new CouponSystemException("coupon id and company id do not match!!!", HttpStatus.UNAUTHORIZED);//company trying to add coupon of a different company
+//        }
         if(!companyRepository.existsById(companyId)){
             throw new CouponSystemException("No Company with such id", HttpStatus.BAD_REQUEST);
         }
@@ -41,6 +43,10 @@ public class CompanyService extends ClientService {
         }
         if (couponRepository.existsByCompanyNameAndTitle(companyRepository.getReferenceById(companyId).getName(), coupon.getTitle())){
             throw new CouponSystemException("Coupon with this name already exists", HttpStatus.CONFLICT);
+        }
+        if (coupon.getImage() != null) {
+            String base64Image = Base64.getEncoder().encodeToString(coupon.getImage().getBytes());
+            coupon.setImage(base64Image);
         }
         return couponRepository.save(coupon);
     }
@@ -107,7 +113,7 @@ public class CompanyService extends ClientService {
     public Coupon getOneCompanyCoupon(int couponId, int companyId) throws CouponSystemException {
         if (couponId <= 0)
             throw new CouponSystemException("invalid coupon Id", HttpStatus.UNAUTHORIZED);
-        if (couponRepository.getCouponById(couponId) == null)
+        if (!couponRepository.existsById(couponId))
             throw new CouponSystemException("No coupon with such id", HttpStatus.NOT_FOUND);
         if (couponRepository.getCouponById(couponId).getCompany().getId() != companyId)
             throw new CouponSystemException("mismatch coupon and company id", HttpStatus.UNAUTHORIZED);

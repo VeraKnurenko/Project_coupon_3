@@ -9,6 +9,7 @@ interface CouponProps{
     title: string,
     price: number,
     description: string,
+    startDate: Date,
     endDate: Date,
     image: string,
 
@@ -23,6 +24,7 @@ function CouponCard(props : CouponProps): JSX.Element {
                     <h3>{props.title}</h3>
                     <img src={props.image} alt={props.title}/><br/>
                     $ price {props.price} <br/>
+                    <div className={"couponStartDate"}>From: {props.startDate.toString()}</div>
                     <div className={"couponEndDate"}>Promotion ending at: {props.endDate.toString()}</div>
 
                 </CardContent>

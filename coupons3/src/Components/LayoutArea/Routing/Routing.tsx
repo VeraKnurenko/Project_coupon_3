@@ -2,12 +2,18 @@ import "./Routing.css";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Home from "../../MainArea/Home/Home";
 import AboutUs from "../../MainArea/AboutUs/AboutUs";
-import Sale from "../../MainArea/Sale/Sale";
 import CompanyDetails from "../../CompanyArea/CompanyDetails/CompanyDetails";
 import Login from "../../AuthArea/Login/Login";
 import CompanyCoupons from "../../CompanyArea/CompanyCoupons/CompanyCoupons";
 import AddCoupon from "../../CompanyArea/AddCoupon/AddCoupon";
 import CouponDetails from "../../CompanyArea/CouponDetails/CouponDetails";
+import UpdateCoupon from "../../CompanyArea/UpdateCoupon/UpdateCoupon";
+import AllCompanies from "../../AdminArea/CompanyControl/AllCompanies/AllCompanies";
+import AllCustomers from "../../AdminArea/CustomerControl/AllCustomers/AllCustomers";
+import CustomerDetails from "../../AdminArea/CustomerControl/CustomerDetails/CustomerDetails";
+import AddCustomer from "../../AdminArea/CustomerControl/AddCustomer/AddCustomer";
+import AddCompany from "../../AdminArea/CompanyControl/AddCompany/AddCompany";
+import UpdateCompany from "../../AdminArea/CompanyControl/UpdateCompany/UpdateCompany";
 
 
 function Routing(): JSX.Element {
@@ -20,8 +26,15 @@ function Routing(): JSX.Element {
                 <Route path={"companyDetails"} element={<CompanyDetails/>} />
                 <Route path={"company_coupons"} element={<CompanyCoupons/>} />
                 <Route path={"couponDetails/:coupId"} element={<CouponDetails/>} />
+                <Route path={"updateCoupon/:coupId"} element={<UpdateCoupon/>} />
                 <Route path={"AddCoupon"} element={<AddCoupon/>}/>
-                <Route path={"sales"} element={<Sale/>} />
+                <Route path={"AddCompany"} element={<AddCompany/>}/>
+                <Route path={"updateCompany/:compId"} element={<UpdateCompany/>}/>
+                <Route path={"AllCompanies"} element={<AllCompanies/>}/>
+                <Route path={"AllCustomers"} element={<AllCustomers/>}/>
+                <Route path={"AllCustomers/:custId"} element={<CustomerDetails/>}/>
+                <Route path={"addCustomer"} element={<AddCustomer/>}/>
+
                 <Route path={"/"} element={<Navigate to={"home"}/>}/>
                 <Route path={"*"} element={<div>Oops No Page Found!</div>}/>
 

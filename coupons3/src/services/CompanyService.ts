@@ -7,11 +7,11 @@ import {Category} from "../Models/Category";
 class CompanyService {
 
     public async addCoupon(coupon: Coupon){
-        return (await axios.post<Coupon>(globals.urls.companies + "coupon", coupon.toJSON()))
+        return (await axios.post<Coupon>(globals.urls.companies + "coupon", coupon))
     }
 
     public async updateCoupon(coupon:Coupon){
-        return (await axios.put<Coupon>(globals.urls.companies + "coupon", coupon.toJSON()))
+        return (await axios.put<Coupon>(globals.urls.companies + "coupon", coupon.toJSON))
     }
 
     public async getCompanyCoupons(){

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -39,6 +40,11 @@ public class CompanyController extends ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     public Coupon addCoupon(@RequestBody Coupon coupon) throws CouponSystemException {//TODO add companyID as RequestParam
         int companyId = loginService.getId(request, ClientType.COMPANY.toString());
+//        if (coupon.getImage() != null) {
+//            byte[] decodedImage = Base64.getDecoder().decode(coupon.getImage());
+//            coupon.setImage(new String(decodedImage));
+//        }
+        System.out.println(companyId);
         return companyService.addCoupon(coupon, companyId); //todo check if works
     }
 

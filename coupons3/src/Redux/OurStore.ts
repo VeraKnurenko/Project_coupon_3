@@ -21,5 +21,9 @@ export const customerStore = configureStore({
     reducer: customerSlice.reducer
 })
 
+export const couponStore = configureStore({
+    reducer: couponSlice.reducer
+})
+
 export type RootState = ReturnType<typeof authStore.getState>
 export type AppDispatch = typeof authStore.dispatch

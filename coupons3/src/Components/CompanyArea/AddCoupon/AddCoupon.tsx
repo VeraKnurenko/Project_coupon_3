@@ -12,20 +12,12 @@ import {
     TextField
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
-
 import {authStore, store} from "../../../Redux/OurStore";
 import Coupon from "../../../Models/Coupon";
 import companyService from "../../../services/CompanyService";
 import Company from "../../../Models/Company";
 import {toast} from "react-toastify";
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
-import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
-import dayjs, {Dayjs} from "dayjs";
-import {decode as base64_decode, encode as base64_encode} from "base-64";
-import {Buffer} from "buffer";
 import errorHandler from "../../../services/ErrorHandler";
-import error = toast.error;
 
 
 
@@ -40,75 +32,28 @@ function AddCoupon( ): JSX.Element {
 
     const navigate = useNavigate();
     const currentDate = new Date().toISOString().split('T')[0]; // Get the current date in the format YYYY-MM-DD
-    // const [imageBase64, setImageBase64] = useState<string>('');
-    //
-    // const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     const file = e.target.files?.[0];
-    //
-    //     if (file) {
-    //         const base64String = await convertToBase64(file);
-    //         setImageBase64(base64String);
-    //     }
-    // };
-    //
-    // const convertToBase64 = (file: File): Promise<string> => {
-    //     return new Promise((resolve, reject) => {
-    //         const reader = new FileReader();
-    //
-    //         reader.onload = () => {
-    //             const base64String = reader.result?.toString().split(',')[1] || '';
-    //             resolve(base64String);
-    //         };
-    //
-    //         reader.onerror = (error) => {
-    //             reject(error);
-    //         };
-    //
-    //         reader.readAsDataURL(file);
-    //     });
-    // };
 
-    // const company = {
-    //     id: authStore.getState().user.id,
-    //     name: authStore.getState().user.name,
-    //     email: authStore.getState().user.email
-    // }
+//TODO - FIX DATA TOO LONG FOR COLUMN ERROR(need to drop schema)
+    function addNewCoupon(coup: Coupon){
 
-    function addNewCoupon(){
-        // console.log("title: " + getValues("title") )
-        // console.log("des: " + getValues("description") )
-        // console.log("start: " + getValues("startDate") )
-        // console.log("end: " + getValues("endDate") )
-        // console.log("cat: " + getValues("category") )
-        // console.log("am: " + getValues("amount") )
-        // console.log("im: " + getValues("image") )
-        const comp: Company = new Company(authStore.getState().user.id,"","","", null)
+         console.log("image getValues: " + getValues("image") )
+         coup.company = new Company(authStore.getState().user.id,authStore.getState().user.name,"","", null)
+        if (coup.image != null) {
+            const file = (coup.image as FileList)[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                console.log(reader.result);
 
-        // const image = Buffer.from(getValues("image")).toString('base64');
-        // const image = base64_encode(getValues("image"));//todo - make better string encoding
-        // const image2 = base64_decode(image)
-        // const image = atob(getValues("image"));
-        // console.log(image)
-        //  code to read "image" value and encode it as base64 string
+                coup.image = reader.result;//?.toString().split(",")[1];
+                console.log("After setting: " + coup.image)
 
-        const coup: Coupon = new Coupon(
-            comp,
-            getValues("title"),
-            getValues("description"),
-            getValues("startDate"),
-            getValues("endDate"),
-            getValues("category"),
-            getValues("amount"),
-            getValues("price"),
-            getValues("image")
-            // imageBase64
-            // image
-        )
+                companyService.addCoupon(coup)
+                    .then( ()=> {toast.success("coupon Added"); navigate("/company_coupons") })
+                    .catch(err => errorHandler.showError(err));
 
-        companyService.addCoupon(coup)
-            .then( ()=> (toast.success("coupon Added") ))
-            .catch(err => errorHandler.showError(err));
-        navigate("/company_coupons")
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
 
@@ -154,6 +99,7 @@ function AddCoupon( ): JSX.Element {
                 <Select
                     labelId="category-label"
                     id="category"
+                    defaultValue={"FOOD"}
                     {...register('category', { required: 'Please select a category' })}
                 >
                     <MenuItem value="FOOD">Food</MenuItem>

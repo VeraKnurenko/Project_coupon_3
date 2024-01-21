@@ -8,7 +8,7 @@ class AuthService {
         const response = await axios.post<string>("http://localhost:8080/auth/login",null,
             { params:  {"email": email, "password": password, "clientType": ClientType[clientType]}});
         authStore.dispatch(authSlice.actions.login(response.data));
-        return response.data;
+        return response.statusText;
     }
 
     public async logout(){

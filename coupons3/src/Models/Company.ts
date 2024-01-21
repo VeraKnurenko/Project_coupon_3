@@ -5,10 +5,10 @@ class Company {
     private _name: string;
     private _email: string;
     private _password: string;
-    private _companyCoupons: Array<Coupon>;
+    private _companyCoupons?: Array<Coupon>;
 
 
-    constructor(id: number, name: string, email: string, password: string, companyCoupons: Array<Coupon>) {
+    constructor(id: number, name: string, email: string, password: string, companyCoupons?: Array<Coupon>) {
         this._id = id;
         this._name = name;
         this._email = email;
