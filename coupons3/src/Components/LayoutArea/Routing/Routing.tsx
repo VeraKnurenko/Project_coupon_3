@@ -19,6 +19,7 @@ import CustomerCoupons from "../../CustomerArea/CustomerCoupons/CustomerCoupons"
 import DeleteCustomer from "../../AdminArea/CustomerControl/DeleteCustomer/DeleteCustomer";
 import DeleteCompany from "../../AdminArea/CompanyControl/DeleteCompany/DeleteCompany";
 import CouponsByPrice from "../../CompanyArea/CouponsByPrice/CouponsByPrice";
+import OneCompany from "../../AdminArea/CompanyControl/OneCompany/OneCompany";
 
 
 function Routing(): JSX.Element {
@@ -38,6 +39,7 @@ function Routing(): JSX.Element {
                 <Route path={"AllCompanies/updateCompany/:compId"} element={<UpdateCompany/>}/>
                 <Route path={"AllCompanies/deleteCompany/:compId"} element={<DeleteCompany/>}/>
                 <Route path={"AllCompanies"} element={<AllCompanies/>}/>
+                <Route path={"oneCompany/:compId"} element={<OneCompany/>}/>
                 <Route path={"AllCustomers"} element={<AllCustomers/>}/>
                 <Route path={"AllCustomers/:custId"} element={<CustomerDetails/>}/>
                 <Route path={"deleteCustomer/:custId"} element={<DeleteCustomer/>}/>

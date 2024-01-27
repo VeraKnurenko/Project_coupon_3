@@ -10,9 +10,7 @@ import {useForm} from "react-hook-form";
 
 
 function CouponsByPrice(): JSX.Element {
-    // function valuetext(value: number) {
-    //     return `${value}$`;
-    // }
+
 
     const [coupons, setCoupons] = useState<Coupon[]>([]);
     const [sliderValue, setSliderValue] = useState<number>(1);
@@ -27,7 +25,6 @@ function CouponsByPrice(): JSX.Element {
             companyService.getCouponsByMAxPrice(price)
                 .then(c => setCoupons(c))
                 .catch(err => errorHandler.showError(err));
-
     }
 
 
@@ -45,7 +42,7 @@ function CouponsByPrice(): JSX.Element {
                     min={10}
                     max={110}
                 />
-                <Typography gutterBottom>Selected Price: {sliderValue}</Typography>
+                <Typography gutterBottom>Selected Price: {sliderValue} ₪</Typography>
             </Box>
                     {coupons.map((coupon) => <CouponCard key={coupon.id} id={coupon.id} title={coupon.title}
                                                          price={coupon.price} description={coupon.description} startDate={coupon.startDate}

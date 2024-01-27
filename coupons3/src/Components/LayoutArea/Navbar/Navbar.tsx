@@ -39,13 +39,14 @@ function Navbar(): JSX.Element {
             <NavLink className={"navlink"} to={"aboutUs"}>About Us</NavLink>
             {authStore.getState().user?.role==="COMPANY" && <>
 
-            <NavLink className={"navlink"} to={"companyDetails"}>Company Details</NavLink>
+            <NavLink className={"navlink"} to={"companyDetails/:compId"}>Company Details</NavLink>
             <NavLink className={"navlink"} to={"company_coupons"}>Company Coupons</NavLink>
             </>
             }
             {authStore.getState().user?.role==="ADMIN" && <>
                 <NavLink className={"navlink"} to={"AllCompanies"}>All Companies</NavLink>
                 <NavLink className={"navlink"} to={"AllCustomers"}>All Customers</NavLink>
+
                 {/*<NavLink className={"navlink"} to={"addCustomer"}>Add Customer</NavLink>*/}
 
 

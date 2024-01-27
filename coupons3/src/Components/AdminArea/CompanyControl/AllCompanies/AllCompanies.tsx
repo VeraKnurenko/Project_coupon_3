@@ -16,16 +16,16 @@ function AllCompanies(): JSX.Element {
             .catch(err => errorHandler.showError(err))
     }, []);
 
-    function updateComp(compId:  number){
-        navigate("updateCompany/" + compId)
-    }
+    // function updateComp(compId:  number){
+    //     navigate("updateCompany/" + compId)
+    // }
 
 
 
     return (
         <div className="AllCompanies">
             <div>
-                <NavLink to={"/AddCompany"}>Add</NavLink>//todo - change to Button
+                <Button variant={"contained"} onClick={()=>{navigate("/AddCompany")}}>Add Company</Button>
             {companies?.map(company =><Card key={company.id} >
                 <CardContent>
                     <h1>{company.name}</h1>
@@ -33,8 +33,11 @@ function AllCompanies(): JSX.Element {
                     <h3>{company.password}</h3>
                     <h4>id: {company.id}</h4>
                 </CardContent>
-                <Button onClick={() => updateComp(company.id)}>Update</Button>
-                <Button onClick={() => navigate("deleteCompany/" + company.id)}>Delete</Button>
+                <Button variant={"contained"} onClick={() => navigate("/oneCompany/" + company.id)}>Company Details</Button><br/>
+                <Button variant={"contained"} onClick={() => navigate("updateCompany/" + company.id)}>Update</Button><br/><br/>
+
+                <Button variant={"outlined"} onClick={() => navigate("deleteCompany/" + company.id)}>Delete</Button>
+
 
             </Card> )}
             </div>

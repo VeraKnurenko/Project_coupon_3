@@ -5,24 +5,18 @@ import {authStore} from "../../../Redux/OurStore";
 import {Button, Card, CardActions, CardContent} from "@mui/material";
 import companyService from "../../../services/CompanyService";
 import errorHandler from "../../../services/ErrorHandler";
-import {NavLink, useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 
 function CompanyDetails(): JSX.Element {
 
     const [company, setCompany] = useState<Company>();
     const navigate = useNavigate();
 
-    function addC(){
-        navigate("/AddCoupon")
-    }
-
-    //todo - rewrite like coupon details
 
     useEffect(() => {
-        // if (authStore.getState().user)
-            companyService.getCompanyDetails(authStore.getState().user?.id).then(comp =>
-                setCompany(comp) ).catch(err => toast.error(err))//todo - change to gt details from companyStore
+            companyService.getCompanyDetails(authStore.getState().user.id)
+                .then(comp => setCompany(comp) )
+                .catch(err => errorHandler.showError(err))
     }, []);
 
 
@@ -36,15 +30,15 @@ function CompanyDetails(): JSX.Element {
             companyLN: { authStore.getState().user.lastName}<br/>
 
 
-            { company &&
+            {( company || authStore.getState().user.role == "ADMIN")   &&
                 <Card >
                     <CardContent>
                         <h1>{company.name}</h1>
                         <h3>{company.email}</h3>
                     </CardContent>
                     <CardActions>
-                        <Button component={NavLink} to={"/home"}>Back to home</Button>
-                        <Button component={NavLink} to="/AddCoupon" >Add Coupon</Button>
+                        <Button variant={"contained"} component={NavLink} to={"/home"}>Back to home</Button><br/>
+                        <Button variant={"contained"} component={NavLink} to="/AddCoupon" >Add Coupon</Button>
                     </CardActions>
                 </Card>
 

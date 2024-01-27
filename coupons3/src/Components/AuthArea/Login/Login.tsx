@@ -24,7 +24,7 @@ function Login(): JSX.Element {
             .then(t => {
                 toast.success("Welcome Back " + authStore.getState().user.name);
                 if(clienttype == 1) {
-                    navigate("/companyDetails")
+                    navigate("/companyDetails");
                 }
                 if (clienttype == 2){
                     navigate("/home")
