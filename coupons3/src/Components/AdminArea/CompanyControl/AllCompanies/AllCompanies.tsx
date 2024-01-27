@@ -21,6 +21,7 @@ function AllCompanies(): JSX.Element {
     }
 
 
+
     return (
         <div className="AllCompanies">
             <div>
@@ -32,8 +33,8 @@ function AllCompanies(): JSX.Element {
                     <h3>{company.password}</h3>
                     <h4>id: {company.id}</h4>
                 </CardContent>
-                <Button onClick={() => updateComp(company.id)}>Update</Button> //todo - write method
-                <Button>Delete</Button> //todo - write method
+                <Button onClick={() => updateComp(company.id)}>Update</Button>
+                <Button onClick={() => navigate("deleteCompany/" + company.id)}>Delete</Button>
 
             </Card> )}
             </div>

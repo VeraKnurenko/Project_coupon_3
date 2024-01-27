@@ -12,10 +12,10 @@ class DevelopmentGlobals extends Globals {
 
 class ProductionGlobals extends Globals {
     public urls = {
-        admin: "http://localhost:8080/couponsystem/admin/",
-        companies: "http://localhost:8080/couponsystem/company/",
-        customers: "http://localhost:8080/couponsystem/customer/",
-        login: "http://localhost:8080/couponsystem/login/",
+        admin: "http://localhost:8080/admin/",
+        companies: "http://localhost:8080/company/",
+        customers: "http://localhost:8080/customer/",
+        login: "http://localhost:8080/login/",
     };
 }
 

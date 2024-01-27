@@ -8,7 +8,7 @@ import {Category} from "../Models/Category";
 class CustomerService {
 
     public async couponPurchase(couponId: number){
-        return (await axios.post<number>(globals.urls.customers + "purchase", {param: couponId})).status;
+        return (await axios.post<number>(globals.urls.customers + "purchase?couponId=" + couponId));//, {param: couponId}
     }
 
 
@@ -18,7 +18,7 @@ class CustomerService {
 
 
     public async getAllCustomerCoupons(customerId : number){
-        return (await axios.get<Coupon[]>(globals.urls.customers + "coupons", {params: customerId})).data;//todo check if to change query
+        return (await axios.get<Coupon[]>(globals.urls.customers + "coupons")).data;
     }
 
 
@@ -38,5 +38,5 @@ class CustomerService {
 
 }
 
-const customerService = CustomerService
+const customerService = new CustomerService();
 export default customerService;

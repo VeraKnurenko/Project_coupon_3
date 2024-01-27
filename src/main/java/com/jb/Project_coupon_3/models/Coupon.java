@@ -24,6 +24,7 @@ public class Coupon {
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
+//    @JsonIgnore
     private Company company;
 
     @Enumerated(value = EnumType.STRING)

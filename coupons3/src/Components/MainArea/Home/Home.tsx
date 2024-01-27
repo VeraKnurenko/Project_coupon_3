@@ -1,6 +1,6 @@
 import "./Home.css";
 import {NavLink} from "react-router-dom";
-import AllCoupons from "./AllCoupons/AllCoupons";
+import AllCoupons from "../../AdminArea/AllCoupons/AllCoupons";
 
 function Home(): JSX.Element {
     return (

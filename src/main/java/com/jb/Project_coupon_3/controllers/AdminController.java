@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -41,7 +42,7 @@ public class AdminController extends ClientController {
     // delete - NO CONTENT 204 for void only
 
         @GetMapping("allcoupons")//WORKS POSTMAN
-    public List<Coupon> getAllCouponsFromAllCompanies(){
+    public List<Coupon> getAllCouponsFromAllCompanies() throws IOException {
 
         return adminService.getAllCouponsFromAllCompanies();
     }

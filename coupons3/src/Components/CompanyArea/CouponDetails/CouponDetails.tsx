@@ -21,9 +21,6 @@ function CouponDetails(): JSX.Element {
             .catch(err => errorHandler.showError(err))
     }, [])
 
-    // function update(){
-    //     navigate("/updateCoupon/${coupon.id}")
-    // }
 
 
 
@@ -31,19 +28,19 @@ function CouponDetails(): JSX.Element {
         <div className="CouponDetails">
             {coupon && <>
                 <Card>
-                    <CouponCard key={coupon.id} title={coupon.title} price={coupon.price} description={coupon.description} startDate={coupon.startDate} endDate={coupon.endDate} image={coupon.image}/>
+                    <CouponCard title={coupon.title} price={coupon.price} description={coupon.description} startDate={coupon.startDate} endDate={coupon.endDate} image={coupon.image} id={coupon.id} />
                         {/*<Button value={coupon.id} onClick={update}>Update Coupon</Button>*/}
                     <NavLink to={"/updateCoupon/" + coupon.id}  > Update Coupon  </NavLink>
                     <NavLink to={"" + coupon.id}  > Delete Coupon  </NavLink>//to write
 
 
-                    {/*    <h3>{coupon?.title}</h3>*/}
-                    {/*    <h4>{coupon?.category}</h4>*/}
-                    {/*    <h4>{coupon?.description}</h4>*/}
-                    {/*    <img src={coupon?.image} alt={coupon?.title}/><br/>*/}
-                    {/*    $ price {coupon?.price} <br/>*/}
-                    {/*    <div>Started: {coupon.startDate.toString()}</div>*/}
-                    {/*    <div className={"couponEndDate"}>Promotion ending at: {coupon?.endDate.toString()}</div>*/}
+                        <h3>{coupon?.title}</h3>
+                        <h4>{coupon?.category}</h4>
+                        <h4>{coupon?.description}</h4>
+                        <img src={coupon?.image} alt={coupon?.title}/><br/>
+                        $ price {coupon?.price} <br/>
+                        <div>Started: {coupon.startDate.toString()}</div>
+                        <div className={"couponEndDate"}>Promotion ending at: {coupon?.endDate.toString()}</div>
 
                 </Card>
             </>

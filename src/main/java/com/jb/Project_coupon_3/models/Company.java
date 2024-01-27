@@ -28,15 +28,20 @@ public class Company {
 
     @Column(nullable = false)
     private String password;
-     //TODO find a better way to do so that we ger all coupons of one comoany but not for all companies
+
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Coupon> companyCoupons;
+
 
     public Company(String name, String email, String password, List<Coupon> companyCoupons) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.companyCoupons = companyCoupons;
+    }
+
+    public Company(String name) {
+        this.name = name;
     }
 
     @Override

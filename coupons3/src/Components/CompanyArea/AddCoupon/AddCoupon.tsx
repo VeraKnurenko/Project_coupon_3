@@ -4,64 +4,63 @@ import {useNavigate} from "react-router-dom";
 import {
     Button,
     FormControl,
-    FormControlLabel,
     FormLabel,
     InputLabel, MenuItem,
-    Radio,
-    RadioGroup, Select,
+    Select,
     TextField
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {authStore, store} from "../../../Redux/OurStore";
 import Coupon from "../../../Models/Coupon";
 import companyService from "../../../services/CompanyService";
-import Company from "../../../Models/Company";
 import {toast} from "react-toastify";
 import errorHandler from "../../../services/ErrorHandler";
-import adminService from "../../../services/AdminService";
+import {Category} from "../../../Models/Category";
 
 
+function AddCoupon(): JSX.Element {
 
-
-function AddCoupon( ): JSX.Element {
-
-    const {
-        register, handleSubmit,
-        formState: { errors } ,
-        getValues
-    } = useForm<Coupon>({mode: "onBlur"})
-
+    const { register, handleSubmit,
+        formState: { errors }, getValues
+    } = useForm<Coupon>({ mode: "onBlur" });
     const navigate = useNavigate();
-    const currentDate = new Date().toISOString().split('T')[0]; // Get the current date in the format YYYY-MM-DD
+    const currentDate = new Date().toISOString().split('T')[0];
 
-    function addNewCoupon(coup: Coupon){
+    const addNewCoupon = async () => {
+            if (getValues('image')) {
+                const fileImage = (getValues('image') as FileList)[0];
 
-         console.log("image getValues: " + getValues("image") )
-         console.log(authStore.getState().user.id)
-         // companyService.getCompanyDetails(authStore.getState().user.id)
-         //      .then(c => coup.company = c)
-         //      .catch(err => errorHandler.showError(err))
-        coup.company = new Company(authStore.getState().user.id,authStore.getState().user.name,"","", null)
-        if (coup.image != null) {
-            const file = (coup.image as FileList)[0];
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                console.log(reader.result);
+                const reader = new FileReader();
+                reader.onloadend = async () => {
+                    const base64Image = reader.result?.toString().split(',')[1];
+                    const companyId = authStore.getState().user.id;
+                    const companyDetails = await companyService.getCompanyDetails(companyId);
 
-                coup.image = reader.result;//?.toString().split(",")[1];
-                console.log("After setting: " + coup.image)
-                // companyService.getCompanyDetails(authStore.getState().user.id)
-                //     .then(c => coup.company = c)
-                //     .catch(err => errorHandler.showError(err))
-                console.log(coup)
-                companyService.addCoupon(coup)
-                    .then( ()=> {toast.success("coupon Added"); navigate("/company_coupons") })
-                    .catch(err => errorHandler.showError(err));
+                    const coup: Coupon = {
+                        company: companyDetails,
+                        title: getValues('title'),
+                        description: getValues('description'),
+                        startDate: getValues('startDate'),
+                        endDate: getValues('endDate'),
+                        category: getValues('category') as Category,
+                        amount: +getValues('amount'),
+                        price: +getValues('price'),
+                        image: base64Image, // Set base64-encoded image
+                    };
 
-            };
-            reader.readAsDataURL(file);
-        }
-    }
+                    // Call the service method to add the coupon
+                    await companyService.addCoupon(coup)
+                        .then(()=> {
+                            toast.success('Coupon Added'); navigate("/company_coupons")})
+                        .catch(err => errorHandler.showError(err))
+
+                };
+
+                reader.readAsDataURL(fileImage);
+            }
+    };
+
+
 
 
     return (
@@ -132,9 +131,10 @@ function AddCoupon( ): JSX.Element {
                            })}
                 error={!!errors.price}
                 helperText={errors.price? errors.price.message : null}/>
-                {/*<TextField type={"file"}  variant="outlined" label={"Image"} id={"image"} {...register("image")}/>*/}
-                <input type={"file"} id={"image"} {...register("image")}/>//todo - ass conversion to base 64
-
+                {/*<TextField type={"text"}  variant="outlined" label={"Image"} id={"image"} {...register("image")}/>*/}
+                <input type={"file"} id={"image"} {...register("image", {
+                    required : "Must add an image file JPG or JPEG",
+                })}/>
 
                 <Button type="submit" onClick={handleSubmit(addNewCoupon)}>Add</Button>
             </FormControl>
@@ -142,6 +142,8 @@ function AddCoupon( ): JSX.Element {
         </div>
     );
 }
+
+
 
 
 export default AddCoupon;

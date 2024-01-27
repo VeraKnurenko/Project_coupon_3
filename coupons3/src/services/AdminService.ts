@@ -35,7 +35,7 @@ class AdminService {
     }
 
      public async deleteCompany (companyId: number){
-        return (await axios.delete(globals.urls.admin + "/company/" + companyId)).data;
+        return (await axios.delete(globals.urls.admin + "company/" + companyId)).data;
     }
 
     public async addCustomer (customer: Customer) {
@@ -62,17 +62,17 @@ class AdminService {
     }
 
     public async deleteCustomer (customerId: number)  {
-        return (await axios.delete<Customer>(globals.urls.admin + "/customer/" + customerId)).data;
+        return (await axios.delete<Customer>(globals.urls.admin + "customer/" + customerId));
     }
 
-   public async getAllCoupons ():Promise<Coupon[]> {
-        if (couponStore.getState().value.length == 0 ){//|| (couponStore.getState().lastUpdated > new Date(Date.now() + 60 * 60 * 1000))*\) {
-            const response = await axios.get<Coupon[]>(globals.urls.admin + "allcoupons");
-            couponStore.dispatch(couponSlice.actions.fetch(response.data));//todo - check how to make it time dependant
-            return response.data;
-        }else {
-            return couponStore.getState().value;
-        }
+   public async getAllCoupons () {
+    //    if (couponStore.getState().value.length == 0 ){//|| (couponStore.getState().lastUpdated > new Date(Date.now() + 60 * 60 * 1000))*\) {
+            return await axios.get<Coupon[]>(globals.urls.admin + "allcoupons");
+    //        couponStore.dispatch(couponSlice.actions.fetch(response.data));//todo - check how to make it time dependant
+    //         return response;
+        // }else {
+        //     return couponStore.getState().value;
+        // }
 
     }
 }

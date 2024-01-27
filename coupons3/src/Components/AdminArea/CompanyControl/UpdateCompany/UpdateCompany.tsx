@@ -14,11 +14,14 @@ function UpdateCompany(): JSX.Element {
         formState: {errors}, setValue, getValues} = useForm<Company>()
     const navigate = useNavigate();
     const companyId = +(useParams().compId);
+    const  tempCompany : Company= null;
 
     // const [company, setCompany] = useState<Company>();
     useEffect(() => {
         adminService.getOneCompany(companyId)
             .then( c=>{
+                setValue("id", c.id)
+                setValue("name", c.name)
                 setValue("email", c.email)
                 setValue("password", c.password)
                 }
@@ -28,9 +31,8 @@ function UpdateCompany(): JSX.Element {
     }, []);
 
     function updateNewCompany(comp: Company){
-        console.log(comp)
-        adminService.updateCompany(comp)
-            .then(()=> {toast.success("Company Updated!"); })//("ADD NAVIGATE TO COMPANY DETAILS HERE")
+         adminService.updateCompany(comp)
+            .then(()=> {toast.success("Company Updated!"); navigate("/AllCompanies") })//("ADD NAVIGATE TO COMPANY DETAILS HERE")
             .catch(err => errorHandler.showError(err))
     }
 

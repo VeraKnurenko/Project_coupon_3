@@ -35,7 +35,7 @@ public class CustomerController extends ClientController{
         return customerService.login(email, password);
     }
 
-    @PostMapping("purchase")//WORKS POSTMAN
+    @PostMapping("/purchase")//WORKS POSTMAN
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void couponPurchase(@RequestParam int couponId) throws CouponSystemException {
         int customerId = loginService.getId(request, ClientType.CUSTOMER.toString());
@@ -52,10 +52,8 @@ public class CustomerController extends ClientController{
 
     @GetMapping("coupons")
     @ResponseStatus(HttpStatus.OK)
-    public Set<Coupon> getAllCustomerCoupons(@RequestParam int customerId) throws CouponSystemException {
-        int customerTokenId = loginService.getId(request, ClientType.CUSTOMER.toString());
-        if(customerTokenId != customerId)
-            throw new CouponSystemException("Please login with correct customer ID");
+    public Set<Coupon> getAllCustomerCoupons() throws CouponSystemException {
+        int customerId = loginService.getId(request, ClientType.CUSTOMER.toString());
         return customerService.getAllCustomerCoupons(customerId);
     }
 

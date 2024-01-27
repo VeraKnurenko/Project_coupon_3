@@ -2,52 +2,81 @@ import "./UpdateCoupon.css";
 import {useForm} from "react-hook-form";
 import Coupon from "../../../Models/Coupon";
 import {useNavigate, useParams} from "react-router-dom";
-import React, {useEffect} from "react";
+import React, {} from "react";
 import companyService from "../../../services/CompanyService";
 import {Button, FormControl, FormLabel, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {toast} from "react-toastify";
 import errorHandler from "../../../services/ErrorHandler";
+import {authStore} from "../../../Redux/OurStore";
+import {Category} from "../../../Models/Category";
 
 function UpdateCoupon(): JSX.Element {
 
-    const couponId = +(useParams().coupId!);//todo - fix receiving the param as string???
+    const coupId = +(useParams().coupId!);//todo - fix receiving the param as string???
     const currentDate = new Date().toISOString().split('T')[0];
     const navigate = useNavigate();
 
 
-    const {
-        register, handleSubmit,
-        formState: { errors } ,
-        setValue
-    } = useForm<Coupon>({mode: "onBlur"})
+    const { register, handleSubmit,
+        formState: {errors } , setValue, getValues
+    } = useForm<Coupon>({mode: "onBlur"});
 
-    useEffect(()=>{
-        companyService.getOneCoupon(couponId)
+
+
+    // useEffect(()=>{
+        companyService.getOneCoupon(coupId)
             .then( c => {
-                if(c){
-                    setValue("title", c.title);
-                    setValue("description", c.description );
-                    setValue("startDate", c.startDate);
-                    setValue("endDate", c.endDate);
-                    setValue("category", c.category);
-                    setValue("amount", c.amount);
-                    setValue("price", c.price);
-                    setValue("image", c.image)//todo - make image into string
-
-                }
+                    setValue("id", c.id)
+                    setValue("title", c.title)
+                    setValue("description", c.description )
+                    setValue("startDate", c.startDate)
+                    setValue("endDate", c.endDate)
+                    setValue("category", c.category)
+                    setValue("amount", c.amount)
+                    setValue("price", c.price)
+                    setValue("image", c.image || null)
             })
             .catch(err => {errorHandler.showError(err); navigate("/company_coupons")})
 
-    }, [])
-    function updateCoupon(coup : Coupon){
-        coup.id = couponId;
-        companyService.updateCoupon(coup)
-            .then(c => {toast.success("Coupon updated");
-                navigate("/company_coupons")})
-            .catch(err => errorHandler.showError(err));
-    }
+    // }, [coupId, setValue, navigate]);
 
+    const updateCoupon = async () => {
+            if (getValues('image')) {
+                const fileImage = (getValues('image') as FileList)[0];
 
+                const reader = new FileReader();
+                reader.onloadend = async () => {
+                    const base64Image = reader.result?.toString().split(',')[1];
+                    const companyId = authStore.getState().user.id;
+                    const companyDetails = await companyService.getCompanyDetails(companyId);
+
+                    const updatedCoupon: Coupon = {
+                        id: coupId,
+                        company: companyDetails,
+                        title: getValues('title'),
+                        description: getValues('description'),
+                        startDate: getValues('startDate'),
+                        endDate: getValues('endDate'),
+                        category: getValues('category') as Category,
+                        amount: +getValues('amount'),
+                        price: +getValues('price'),
+                        image: base64Image,
+                    };
+
+                    // Call the service method to update the coupon
+                    await companyService.updateCoupon(updatedCoupon)
+                        .then(() => {
+                            toast.success('Coupon Updated');
+                            navigate('/company_coupons')
+                        })
+                        .catch(err => errorHandler.showError(err));
+
+                };
+
+                reader.readAsDataURL(fileImage);
+            }
+
+    };
 
 
 
@@ -66,7 +95,7 @@ function UpdateCoupon(): JSX.Element {
                                }),
                            }}
                 />
-                <TextField variant="outlined"  id={"description"}
+                <TextField variant="outlined" label={"Description"}  id={"description"}
                            error={!!errors.description}
                            helperText={errors.description ? 'Description is required and must be at least 2 letters' : null }
                            InputProps={{...register("description", {
@@ -89,8 +118,10 @@ function UpdateCoupon(): JSX.Element {
 
 
                 <InputLabel id="category-label"></InputLabel>
+
                 <Select
                     labelId="category-label"
+                    defaultValue={'FOOD'}
                     id="category"
                     name={"category"}
                     {...register('category', { required: 'Please select a category' })}
@@ -101,7 +132,7 @@ function UpdateCoupon(): JSX.Element {
                     <MenuItem value="VACATION">Vacation</MenuItem>
                     <MenuItem value="BEAUTY">Beauty</MenuItem>
                 </Select>
-                {errors.category && <p>{errors.category.message}</p>}
+                {errors.category && <p>{errors.category?.message}</p>}
 
                 <TextField variant="outlined"  id={"amount"}
                            {...register("amount",{
@@ -119,15 +150,16 @@ function UpdateCoupon(): JSX.Element {
                            error={!!errors.price}
                            helperText={errors.price? errors.price.message : null}/>
                 {/*<TextField type={"file"}  variant="outlined" label={"Image"} id={"image"} {...register("image")}/>*/}
-                <input type={"file"} id={"image"} {...register("image")}/>//todo - ass conversion to base 64
+                <input type={"file"} id={"image"} {...register("image")}/>
 
 
-                <Button type="submit" onClick={handleSubmit(updateCoupon)}>Add</Button>
+                <Button type="button" onClick={handleSubmit(updateCoupon)}>Update</Button>
             </FormControl>
 
 
         </div>
     );
 }
+
 
 export default UpdateCoupon;

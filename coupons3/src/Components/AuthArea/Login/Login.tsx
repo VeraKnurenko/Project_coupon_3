@@ -26,6 +26,9 @@ function Login(): JSX.Element {
                 if(clienttype == 1) {
                     navigate("/companyDetails")
                 }
+                if (clienttype == 2){
+                    navigate("/home")
+                }
             })
             .catch( err => {errorHandler.showError(err);
                 // authService.logout();//todo  - check if need to catch

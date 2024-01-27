@@ -27,12 +27,11 @@ function CompanyCoupons(): JSX.Element {
 
         <div className="CompanyCoupons">
            <div> <Button component={NavLink} to="/AddCoupon" >Add Coupon</Button></div><br/>
+           <div> <Button component={NavLink} to="/couponsByPrice" >couponsByPrice</Button></div><br/>
 
 
             {coupons?.map( c=> <Card key={c.id} >
-                <NavLink to={"/couponDetails/" + c.id}  > Coupon Details  </NavLink>
-                <NavLink to={"/updateCoupon/" + c.id}  > Update Coupon  </NavLink>
-                <NavLink to={"" + c.id}  > Delete Coupon  </NavLink>
+
 
                 <CouponCard
                                            title={c.title}
@@ -40,7 +39,7 @@ function CompanyCoupons(): JSX.Element {
                                            description={c.description}
                                            startDate={c.startDate}
                                            endDate={c.endDate}
-                                           image={ c.image}/>
+                                           image={ c.image} id={c.id} />
 
                 </Card>)}
 

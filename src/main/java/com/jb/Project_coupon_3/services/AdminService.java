@@ -4,9 +4,14 @@ import com.jb.Project_coupon_3.exceptions.CouponSystemException;
 import com.jb.Project_coupon_3.models.Company;
 import com.jb.Project_coupon_3.models.Coupon;
 import com.jb.Project_coupon_3.models.Customer;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -41,7 +46,7 @@ public class AdminService extends ClientService {
 
     public Company updateCompany(Company company) throws CouponSystemException {
         Company company1 = getOneCompany(company.getId());
-        if (company1 == null){
+        if (company1 == null) {
             throw new CouponSystemException("No company with such ID", HttpStatus.NOT_FOUND);
         }
         if (!company1.getName().equals(company.getName())) {
@@ -68,9 +73,9 @@ public class AdminService extends ClientService {
         companyRepository.deleteById(companyId);
     }
 
-    public List<Company> getAllCompanies(){
+    public List<Company> getAllCompanies() {
         List<Company> companies = companyRepository.findAll();
-        for (Company c: companies) {
+        for (Company c : companies) {
             c.setCompanyCoupons(null);
         }
         return companies;
@@ -83,11 +88,11 @@ public class AdminService extends ClientService {
         if (customerRepository.existsByEmail(customer.getEmail())) {
             throw new CouponSystemException("Customer email Already exists in system", HttpStatus.CONFLICT);
         }
-       return customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     public Customer updateCustomer(Customer customer) throws CouponSystemException {
-        if (customer.getId() <= 0){
+        if (customer.getId() <= 0) {
             throw new CouponSystemException("invalid customer Id", HttpStatus.BAD_REQUEST);
         }
         Customer customerFromDb = customerRepository.findById(customer.getId())
@@ -95,10 +100,10 @@ public class AdminService extends ClientService {
         if (customerRepository.existsByEmailAndIdNot(customer.getEmail(), customer.getId())) {
             throw new CouponSystemException("Customer email already exists in system", HttpStatus.CONFLICT);
         }
-            customerFromDb.setEmail(customer.getEmail());
-            customerFromDb.setFirstName(customer.getFirstName());
-            customerFromDb.setLastName(customer.getLastName());
-            customerFromDb.setPassword(customer.getPassword());
+        customerFromDb.setEmail(customer.getEmail());
+        customerFromDb.setFirstName(customer.getFirstName());
+        customerFromDb.setLastName(customer.getLastName());
+        customerFromDb.setPassword(customer.getPassword());
         return customerRepository.save(customerFromDb);
     }
 
@@ -106,11 +111,11 @@ public class AdminService extends ClientService {
         if (customerId <= 0) {
             throw new CouponSystemException("invalid customer Id", HttpStatus.BAD_REQUEST);
         }
-        return customerRepository.findById(customerId).orElseThrow(()->
+        return customerRepository.findById(customerId).orElseThrow(() ->
                 new CouponSystemException("no customer with such ID", HttpStatus.NOT_FOUND));
     }
 
-    public List<Customer> getAllCustomers(){
+    public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
@@ -119,7 +124,7 @@ public class AdminService extends ClientService {
             throw new CouponSystemException("invalid customer Id", HttpStatus.BAD_REQUEST);
         }
         Customer customer = getOneCustomer(customerId);
-        for (Coupon c: customer.getCoupons()) {
+        for (Coupon c : customer.getCoupons()) {
             c.getCustomers().remove(customer);
         }
         couponRepository.saveAll(customer.getCoupons());
@@ -127,8 +132,26 @@ public class AdminService extends ClientService {
     }
 
 
-    public List<Coupon> getAllCouponsFromAllCompanies(){
+    public List<Coupon> getAllCouponsFromAllCompanies()  {
         return couponRepository.findAll();
-    }
 
+        // Iterate through coupons and decode the Base64 images
+//        for (Coupon coupon : coupons) {
+//            String encodedImage = coupon.getImage(); // Assuming getImage returns the Base64 encoded image
+//            byte[] decodedBytes = Base64.decodeBase64(encodedImage);
+//
+//            // Save the decoded image to a file
+//            File imageFile = new File("path/to/save/" + coupon.getId() + "_image.jpg");
+//
+//            FileOutputStream fos = new FileOutputStream(imageFile);
+//                fos.write(decodedBytes);
+//
+//
+//            // Set the image path to the file path (adjust this based on your file structure)
+//            coupon.setImage(imageFile.getPath());
+//        }
+//
+//        return coupons;
+
+    }
 }
