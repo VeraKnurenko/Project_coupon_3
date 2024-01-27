@@ -18,6 +18,7 @@ import companyService from "../../../services/CompanyService";
 import Company from "../../../Models/Company";
 import {toast} from "react-toastify";
 import errorHandler from "../../../services/ErrorHandler";
+import adminService from "../../../services/AdminService";
 
 
 
@@ -33,11 +34,14 @@ function AddCoupon( ): JSX.Element {
     const navigate = useNavigate();
     const currentDate = new Date().toISOString().split('T')[0]; // Get the current date in the format YYYY-MM-DD
 
-//TODO - FIX DATA TOO LONG FOR COLUMN ERROR(need to drop schema)
     function addNewCoupon(coup: Coupon){
 
          console.log("image getValues: " + getValues("image") )
-         coup.company = new Company(authStore.getState().user.id,authStore.getState().user.name,"","", null)
+         console.log(authStore.getState().user.id)
+         // companyService.getCompanyDetails(authStore.getState().user.id)
+         //      .then(c => coup.company = c)
+         //      .catch(err => errorHandler.showError(err))
+        coup.company = new Company(authStore.getState().user.id,authStore.getState().user.name,"","", null)
         if (coup.image != null) {
             const file = (coup.image as FileList)[0];
             const reader = new FileReader();
@@ -46,7 +50,10 @@ function AddCoupon( ): JSX.Element {
 
                 coup.image = reader.result;//?.toString().split(",")[1];
                 console.log("After setting: " + coup.image)
-
+                // companyService.getCompanyDetails(authStore.getState().user.id)
+                //     .then(c => coup.company = c)
+                //     .catch(err => errorHandler.showError(err))
+                console.log(coup)
                 companyService.addCoupon(coup)
                     .then( ()=> {toast.success("coupon Added"); navigate("/company_coupons") })
                     .catch(err => errorHandler.showError(err));

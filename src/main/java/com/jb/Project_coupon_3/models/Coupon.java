@@ -71,7 +71,7 @@ public class Coupon {
     public String toString() {
         return " \nCoupon{" +
                 "id= " + id +
-                "company" + companyName() +
+                "company=" + this.company.getId() +
                 ", category=" + category +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +

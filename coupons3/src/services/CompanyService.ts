@@ -11,7 +11,7 @@ class CompanyService {
     }
 
     public async updateCoupon(coupon:Coupon){
-        return (await axios.put<Coupon>(globals.urls.companies + "coupon", coupon.toJSON))
+        return (await axios.put<Coupon>(globals.urls.companies + "coupon", coupon))
     }
 
     public async getCompanyCoupons(){

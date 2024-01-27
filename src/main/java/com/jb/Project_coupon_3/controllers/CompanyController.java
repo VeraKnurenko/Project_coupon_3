@@ -38,13 +38,13 @@ public class CompanyController extends ClientController {
 
     @PostMapping("coupon")
     @ResponseStatus(HttpStatus.CREATED)
-    public Coupon addCoupon(@RequestBody Coupon coupon) throws CouponSystemException {//TODO add companyID as RequestParam
+    public Coupon addCoupon(@RequestBody Coupon coupon) throws CouponSystemException {
         int companyId = loginService.getId(request, ClientType.COMPANY.toString());
 //        if (coupon.getImage() != null) {
 //            byte[] decodedImage = Base64.getDecoder().decode(coupon.getImage());
 //            coupon.setImage(new String(decodedImage));
 //        }
-        System.out.println(companyId);
+        System.out.println(coupon);
         return companyService.addCoupon(coupon, companyId); //todo check if works
     }
 

@@ -1,5 +1,6 @@
 import Coupon from "./Coupon";
 
+
 class Company {
     private _id: number;
     private _name: string;
@@ -57,14 +58,14 @@ class Company {
         this._companyCoupons = value;
     }
 
-    toJson(): any{
-        return {
-            "id": this._id,
-            "name": this._name,
-            "email": this._email,
-            "password": this._password,
-        }
-    }
+// toJson(): any{
+    //     return {
+    //         "id": this._id,
+    //         "name": this._name,
+    //         "email": this._email,
+    //         "password": this._password,
+    //     }
+    // }
 }
 
 export default Company
