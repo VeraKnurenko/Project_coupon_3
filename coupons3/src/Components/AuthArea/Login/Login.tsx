@@ -23,6 +23,10 @@ function Login(): JSX.Element {
         authService.login(email, password, clienttype)
             .then(t => {
                 toast.success("Welcome Back " + authStore.getState().user.name);
+                if (clienttype == 0){
+                    navigate("/dash")
+
+                }
                 if(clienttype == 1) {
                     navigate("/companyDetails");
                 }
@@ -30,8 +34,9 @@ function Login(): JSX.Element {
                     navigate("/home")
                 }
             })
+
             .catch( err => {errorHandler.showError(err);
-                // authService.logout();//todo  - check if need to catch
+                 authService.logout();
             });
 
     }

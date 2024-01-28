@@ -10,10 +10,7 @@ function Home(): JSX.Element {
 
 
 
-            below menu of tabs with different coupon Categories<br/>
-            show all coupons in tabs inside dataGrid, to be able to sort by title
-            and price<br/>
-            <p>import * Data Grid * from '@mui/x-data-grid';</p>
+
 
 			
         </div>

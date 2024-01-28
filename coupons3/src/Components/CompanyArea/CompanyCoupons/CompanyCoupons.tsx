@@ -28,6 +28,7 @@ function CompanyCoupons(): JSX.Element {
         <div className="CompanyCoupons">
            <div> <Button component={NavLink} to="/AddCoupon" >Add Coupon</Button></div><br/>
            <div> <Button component={NavLink} to="/couponsByPrice" >couponsByPrice</Button></div><br/>
+           <div> <Button component={NavLink} to="/couponsByCategory" >couponsByCategory</Button></div><br/>
 
 
             {coupons?.map( c=> <Card key={c.id} >

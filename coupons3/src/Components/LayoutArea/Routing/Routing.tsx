@@ -20,6 +20,10 @@ import DeleteCustomer from "../../AdminArea/CustomerControl/DeleteCustomer/Delet
 import DeleteCompany from "../../AdminArea/CompanyControl/DeleteCompany/DeleteCompany";
 import CouponsByPrice from "../../CompanyArea/CouponsByPrice/CouponsByPrice";
 import OneCompany from "../../AdminArea/CompanyControl/OneCompany/OneCompany";
+import CouponsByCategory from "../../CompanyArea/CouponsByCategory/CouponsByCategory";
+import UpdateCustomer from "../../AdminArea/CustomerControl/UpdateCustomer/UpdateCustomer";
+import Main from "../../MainArea/Main/Main";
+import DashBoard from "../../AdminArea/DashBoard/DashBoard";
 
 
 function Routing(): JSX.Element {
@@ -28,6 +32,8 @@ function Routing(): JSX.Element {
             <Routes>
                 <Route path={"home"} element={<Home/>} />
                 <Route path={"login"} element={<Login/>} />
+                <Route path={"dash"} element={<DashBoard/>} />
+
                 <Route path={"aboutUs"} element={<AboutUs/>} />
                 <Route path={"companyDetails"} element={<CompanyDetails/>} />
                 <Route path={"company_coupons"} element={<CompanyCoupons/>} />
@@ -35,6 +41,7 @@ function Routing(): JSX.Element {
                 <Route path={"updateCoupon/:coupId"} element={<UpdateCoupon/>} />
                 <Route path={"AddCoupon"} element={<AddCoupon/>}/>
                 <Route path={"couponsByPrice"} element={<CouponsByPrice/>}/>
+                <Route path={"couponsByCategory"} element={<CouponsByCategory/>}/>
                 <Route path={"AddCompany"} element={<AddCompany/>}/>
                 <Route path={"AllCompanies/updateCompany/:compId"} element={<UpdateCompany/>}/>
                 <Route path={"AllCompanies/deleteCompany/:compId"} element={<DeleteCompany/>}/>
@@ -43,6 +50,7 @@ function Routing(): JSX.Element {
                 <Route path={"AllCustomers"} element={<AllCustomers/>}/>
                 <Route path={"AllCustomers/:custId"} element={<CustomerDetails/>}/>
                 <Route path={"deleteCustomer/:custId"} element={<DeleteCustomer/>}/>
+                <Route path={"updateCustomer/:custId"} element={<UpdateCustomer/>}/>
                 <Route path={"customerCoupons"} element={<CustomerCoupons/>}/>
 
                 <Route path={"addCustomer"} element={<AddCustomer/>}/>

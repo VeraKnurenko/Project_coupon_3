@@ -17,9 +17,7 @@ function AllCustomers(): JSX.Element {
             .catch(err => errorHandler.showError(err))
     }, []);
 
-    function updateCustomer(){
-        navigate("/updateCustomer")
-    }
+
     function addCustomer(){
         navigate("/addCustomer")
     }
@@ -27,7 +25,7 @@ function AllCustomers(): JSX.Element {
 
     return (
         <div className="AllCustomers">
-            <Button onClick={addCustomer}>Add</Button>
+            <Button variant={"contained"} onClick={addCustomer}>Add 👩‍🚀</Button><br/>
 
             {customers.length == 0 ? <h1>No customers yet</h1> : <>
             {customers?.map(c => <Card key={c.id}>
@@ -35,8 +33,8 @@ function AllCustomers(): JSX.Element {
                   <h2>{c.firstName}   {c.lastName}</h2>
               </NavLink>
                  <h3>{c.email}</h3>
-                <Button onClick={updateCustomer}>Update</Button><br/>//todo write
-                <Button>Delete</Button><br/>//todo write
+                <Button variant={"contained"} onClick={()=> {navigate( "/updateCustomer/" + c.id)}}>UPDATE</Button><br/>
+                <Button variant={"outlined"} onClick={()=> {navigate( "/deleteCustomer/" + c.id)}}>DELETE</Button><br/>
 
             </Card>)}
             </>}

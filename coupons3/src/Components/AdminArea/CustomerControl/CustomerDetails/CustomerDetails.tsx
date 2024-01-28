@@ -1,15 +1,16 @@
 import "./CustomerDetails.css";
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import adminService from "../../../../services/AdminService";
 import Customer from "../../../../Models/Customer";
 import errorHandler from "../../../../services/ErrorHandler";
-import {Card, CardContent} from "@mui/material";
+import {Button, Card, CardContent} from "@mui/material";
 import CouponCard from "../../../CompanyArea/CouponCard/CouponCard";
 
 function CustomerDetails(): JSX.Element {
 
     const custId = +(useParams().custId!);
+    const navigate = useNavigate();
     console.log(custId)
     const [customer, setCustomer] = useState<Customer>();
     useEffect(() => {
@@ -23,7 +24,8 @@ function CustomerDetails(): JSX.Element {
     return (
         <div className="CustomerDetails">
             <Card key={customer?.id}>
-                <NavLink to={"/deleteCustomer/" + custId}>DELETE</NavLink>
+                <Button variant={"outlined"} onClick={()=> {navigate( "/deleteCustomer/" + custId)}}>DELETE</Button><br/>
+                <Button variant={"contained"} onClick={()=> {navigate( "/updateCustomer/" + custId)}}>UPDATE</Button>
 
 
                 <CardContent key={customer?.id}>
