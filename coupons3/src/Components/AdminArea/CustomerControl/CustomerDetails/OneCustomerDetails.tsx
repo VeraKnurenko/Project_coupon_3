@@ -1,13 +1,12 @@
-import "./CustomerDetails.css";
+import "./OneCustomerDetails.css";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import adminService from "../../../../services/AdminService";
 import Customer from "../../../../Models/Customer";
 import errorHandler from "../../../../services/ErrorHandler";
 import {Button, Card, CardContent} from "@mui/material";
-import CouponCard from "../../../CompanyArea/CouponCard/CouponCard";
 
-function CustomerDetails(): JSX.Element {
+function OneCustomerDetails(): JSX.Element {
 
     const custId = +(useParams().custId!);
     const navigate = useNavigate();
@@ -52,4 +51,4 @@ function CustomerDetails(): JSX.Element {
     );
 }
 
-export default CustomerDetails;
+export default OneCustomerDetails;

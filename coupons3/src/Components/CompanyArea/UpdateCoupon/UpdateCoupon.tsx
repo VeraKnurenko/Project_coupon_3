@@ -1,8 +1,8 @@
 import "./UpdateCoupon.css";
-import {useForm} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import Coupon from "../../../Models/Coupon";
 import {useNavigate, useParams} from "react-router-dom";
-import React, {} from "react";
+import React, {useEffect, useState} from "react";
 import companyService from "../../../services/CompanyService";
 import {Button, FormControl, FormLabel, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {toast} from "react-toastify";
@@ -15,15 +15,16 @@ function UpdateCoupon(): JSX.Element {
     const coupId = +(useParams().coupId!);//todo - fix receiving the param as string???
     const currentDate = new Date().toISOString().split('T')[0];
     const navigate = useNavigate();
+    const [category, setCategory] = useState<Category>()
 
 
     const { register, handleSubmit,
-        formState: {errors } , setValue, getValues
+        formState: {errors } , setValue, getValues, control
     } = useForm<Coupon>({mode: "onBlur"});
 
 
 
-    // useEffect(()=>{
+    useEffect(()=>{
         companyService.getOneCoupon(coupId)
             .then( c => {
                     setValue("id", c.id)
@@ -31,14 +32,15 @@ function UpdateCoupon(): JSX.Element {
                     setValue("description", c.description )
                     setValue("startDate", c.startDate)
                     setValue("endDate", c.endDate)
+                    setCategory( c.category)
                     setValue("category", c.category)
                     setValue("amount", c.amount)
                     setValue("price", c.price)
-                    setValue("image", c.image || null)
+                    // setValue("image", c.image || null)
             })
             .catch(err => {errorHandler.showError(err); navigate("/company_coupons")})
 
-    // }, [coupId, setValue, navigate]);
+    }, [coupId, setValue, navigate]);
 
     const updateCoupon = async () => {
             if (getValues('image')) {
@@ -95,7 +97,7 @@ function UpdateCoupon(): JSX.Element {
                                }),
                            }}
                 />
-                <TextField variant="outlined" label={"Description"}  id={"description"}
+                <TextField variant="outlined"  id={"description"}
                            error={!!errors.description}
                            helperText={errors.description ? 'Description is required and must be at least 2 letters' : null }
                            InputProps={{...register("description", {
@@ -105,24 +107,32 @@ function UpdateCoupon(): JSX.Element {
                 />
                 <input type={"date"} defaultValue={currentDate} name={"startDate"} id={"startDate"}
                        {...register("startDate",{
-                           required: 'Start Date is required, must be today or Later' ,
-                           min: currentDate,
+                           required: 'Start Date is required'
                        })}/>
                 {errors.startDate && <span>{errors.startDate.message}</span>}
+
                 <input type={"date"} defaultValue={currentDate} name={"endDate"} id={"endDate"}
                        {...register("endDate", {
                            required: 'End Date is required, ust be in the future',
-                           min: currentDate
+                           min: {value: currentDate, message: "End date must be in the future"}
                        })}/>
                 {errors.endDate && <span>{errors.endDate.message}</span>}
 
 
-                <InputLabel id="category-label"></InputLabel>
+                <InputLabel id="category-label">Category</InputLabel>
+                <Controller control={control}
+                            name={"category"}
+
+
+                            render={({field: {onChange, value}}) => (
 
                 <Select
                     labelId="category-label"
-                    defaultValue={'FOOD'}
                     id="category"
+                    defaultValue={"FOOD"}
+                    value={Category[value]}
+                    className={"category-field"}
+
                     name={"category"}
                     {...register('category', { required: 'Please select a category' })}
                 >
@@ -132,9 +142,13 @@ function UpdateCoupon(): JSX.Element {
                     <MenuItem value="VACATION">Vacation</MenuItem>
                     <MenuItem value="BEAUTY">Beauty</MenuItem>
                 </Select>
+                   )}
+                />
+
                 {errors.category && <p>{errors.category?.message}</p>}
 
-                <TextField variant="outlined"  id={"amount"}
+
+                <TextField variant="outlined"  id={"amount"} type={"number"}
                            {...register("amount",{
                                required: 'Amount is required',
                                min: {value: 0, message: 'Please enter amount, must be 0 or more'},

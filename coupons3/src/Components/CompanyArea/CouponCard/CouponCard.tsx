@@ -26,17 +26,17 @@ function CouponCard(props : CouponProps): JSX.Element {
 
     return (
         <div className="CouponCard">
-           <Card>
+           <Card  sx={{display:"flex",flexDirection:"column",maxWidth:350}}>
                {authStore.getState().user && <>
                {authStore.getState().user.role === "CUSTOMER" &&
                    <>    <NavLink className={"navlink"} to={"/purchaseCoupon/"+ props.id} > Purchase</NavLink > </> }
                {authStore.getState().user.role === "COMPANY" && <>
-               <NavLink to={"/couponDetails/" + props.id}  > Coupon Details  </NavLink>
-               <NavLink to={"/updateCoupon/" + props.id}  > Update Coupon  </NavLink>
-               <NavLink to={"" + props.id}  > Delete Coupon  </NavLink></>}
+               <NavLink to={"/couponDetails/" + props.id}  > Coupon Details  </NavLink><br/>
+               <NavLink to={"/updateCoupon/" + props.id}  > Update Coupon  </NavLink><br/>
+               <NavLink to={"/deleteCoupon/" + props.id}  > Delete Coupon  </NavLink></>}
                                     </>}
 
-               <CardContent>
+               <CardContent sx={{minHeight:350, minWidth:250,}}>
                     <h3>{props?.title}</h3>
                     <img src={`data:image/jpeg;base64,${decodedImage}`} alt={props?.title}/><br/>
                     $ price {props?.price} <br/>

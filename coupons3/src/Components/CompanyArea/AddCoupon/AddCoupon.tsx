@@ -33,6 +33,7 @@ function AddCoupon(): JSX.Element {
                 const reader = new FileReader();
                 reader.onloadend = async () => {
                     const base64Image = reader.result?.toString().split(',')[1];
+
                     const companyId = authStore.getState().user.id;
                     const companyDetails = await companyService.getCompanyDetails(companyId);
 
@@ -55,7 +56,6 @@ function AddCoupon(): JSX.Element {
                         .catch(err => errorHandler.showError(err))
 
                 };
-
                 reader.readAsDataURL(fileImage);
             }
     };
@@ -90,15 +90,16 @@ function AddCoupon(): JSX.Element {
                 <input type={"date"} defaultValue={currentDate} name={"startDate"} id={"startDate"}
                        {...register("startDate",{
                            required: 'Start Date is required, must be today or Later' ,
-                           min: currentDate,
+                           min: {value: currentDate, message: "start date must be from day of entry and forward"}
                        })}/>
                 {errors.startDate && <span>{errors.startDate.message}</span>}
-                <input type={"date"} defaultValue={currentDate} name={"endDate"} id={"endDate"}
+
+               <input type={"date"} defaultValue={currentDate} name={"endDate"} id={"endDate"}
                        {...register("endDate", {
-                           required: 'End Date is required, ust be in the future',
-                           min: currentDate
+                           required: 'End Date is required, must be in the future',
+                           min: {value: currentDate, message: "End date must be in the future"}
                        })}/>
-                {errors.endDate && <span>{errors.endDate.message}</span>}
+                {errors?.endDate && <span>{errors.endDate.message}</span>}
 
 
                 <InputLabel id="category-label"></InputLabel>
@@ -116,7 +117,7 @@ function AddCoupon(): JSX.Element {
                 </Select>
                 {errors.category && <p>{errors.category.message}</p>}
 
-                <TextField variant="outlined" label={"Amount"} id={"amount"}
+                <TextField variant="outlined" label={"Amount"} id={"amount"} type={"number"}
                            {...register("amount",{
                                required: 'Amount is required',
                                min: {value: 0, message: 'Please enter amount, must be 0 or more'},

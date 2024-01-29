@@ -1,9 +1,12 @@
 .Home {
-	display: flex;
-    flex-wrap: wrap;
+text-align: center;
 }
 
-.MuiPaper-root{
-
+.AllCoupons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
 }
 

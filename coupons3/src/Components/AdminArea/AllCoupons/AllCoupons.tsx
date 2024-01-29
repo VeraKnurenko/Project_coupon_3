@@ -12,12 +12,13 @@ const [coupons, setCoupons] = useState<Coupon[]>();
 
     useEffect(() => {
         adminService.getAllCoupons()
-            .then(c  => ((c.data) ? setCoupons(c.data): toast.success("no couopons yet")))
+            .then(c  => ((c) ?setCoupons(c): toast.success("no coupons yet")))
             .catch(err => errorHandler.showError(err))
     }, []);
 
     return (
         <div className="AllCoupons">
+
             {coupons?.map(c=><CouponCard key={c.id}
                                          id={c.id}
                                          title={c.title}

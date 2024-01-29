@@ -3,7 +3,11 @@
     flex-wrap: wrap;
 }
 .CompanyCoupons .CouponCard{
-    width: 70%;
-    margin: 15px;
-    padding: 10px;
+    /*width: 70%;*/
+    /*margin: 15px;*/
+    /*padding: 10px;*/
+}
+.CompanyCoupons .CompanyCouponsButton {
+    width: 30%;
+    gap: 15px;
 }

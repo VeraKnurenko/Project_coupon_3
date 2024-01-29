@@ -1,16 +1,12 @@
-import "./CouponsByPrice.css";
-import {Box, Slider, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
+import "./CustomerCouponsByPrice.css";
+import {useState} from "react";
 import Coupon from "../../../Models/Coupon";
-import companyService from "../../../services/CompanyService";
 import errorHandler from "../../../services/ErrorHandler";
-import CouponCard from "../CouponCard/CouponCard";
-import {useForm} from "react-hook-form";
+import customerService from "../../../services/CustomerService";
+import {Box, Slider, Typography} from "@mui/material";
+import CouponCard from "../../CompanyArea/CouponCard/CouponCard";
 
-
-
-function CouponsByPrice(): JSX.Element {
-
+function CustomerCouponsByPrice(): JSX.Element {
 
     const [coupons, setCoupons] = useState<Coupon[]>([]);
     const [sliderValue, setSliderValue] = useState<number>(1);
@@ -21,15 +17,14 @@ function CouponsByPrice(): JSX.Element {
     }
 
     function getMaxPriceList(price: number) {
-            console.log(price)
-            companyService.getCouponsByMAxPrice(price)
-                .then(c => setCoupons(c))
-                .catch(err => errorHandler.showError(err));
+        console.log(price)
+        customerService.getCouponsByMaxPrice(price)
+            .then(c => setCoupons(c))
+            .catch(err => errorHandler.showError(err));
     }
 
-
     return (
-        <div className="CouponsByPrice">
+        <div className="CustomerCouponsByPrice">
             <Box sx={{ width: 300, padding: 2 }}>
                 <Typography gutterBottom>Coupons By Price</Typography>
                 <Slider
@@ -44,15 +39,15 @@ function CouponsByPrice(): JSX.Element {
                 />
                 <Typography gutterBottom>Selected Price: {sliderValue} ₪</Typography>
             </Box>
-                    {coupons.map((coupon) => <CouponCard key={coupon.id} id={coupon.id} title={coupon.title}
-                                                         price={coupon.price} description={coupon.description} startDate={coupon.startDate}
-                                                         endDate={coupon.endDate} image={coupon.image}/>
+            {coupons.map((coupon) => <CouponCard key={coupon.id} id={coupon.id} title={coupon.title}
+                                                 price={coupon.price} description={coupon.description} startDate={coupon.startDate}
+                                                 endDate={coupon.endDate} image={coupon.image}/>
 
-                    )}
+            )}
 
 
         </div>
     );
 }
 
-export default CouponsByPrice;
+export default CustomerCouponsByPrice;

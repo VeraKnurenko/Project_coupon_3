@@ -10,12 +10,13 @@ function AllCustomers(): JSX.Element {
 
     const [customers, setCustomers] = useState<Customer[]>([]);
     const navigate = useNavigate();
+    const [flag, setFlag] = useState<boolean>(false);
 
     useEffect(() => {
         adminService.getAllCustomers()
             .then(c => setCustomers(c))
             .catch(err => errorHandler.showError(err))
-    }, []);
+    }, [flag]);
 
 
     function addCustomer(){
@@ -34,7 +35,7 @@ function AllCustomers(): JSX.Element {
               </NavLink>
                  <h3>{c.email}</h3>
                 <Button variant={"contained"} onClick={()=> {navigate( "/updateCustomer/" + c.id)}}>UPDATE</Button><br/>
-                <Button variant={"outlined"} onClick={()=> {navigate( "/deleteCustomer/" + c.id)}}>DELETE</Button><br/>
+                <Button variant={"outlined"} onClick={()=> {navigate( "/deleteCustomer/" + c.id); setFlag(!flag)}}>DELETE</Button><br/>
 
             </Card>)}
             </>}

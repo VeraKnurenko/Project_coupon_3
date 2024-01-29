@@ -1,4 +1,4 @@
 .Footer {
-	position: absolute;
-    bottom: 0;
+    bottom: auto;
+    text-align: center;
 }

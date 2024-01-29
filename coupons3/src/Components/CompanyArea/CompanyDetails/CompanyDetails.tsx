@@ -30,20 +30,21 @@ function CompanyDetails(): JSX.Element {
             companyLN: { authStore.getState().user.lastName}<br/>
 
 
-            {( company || authStore.getState().user.role == "ADMIN")   &&
+            { company  &&
                 <Card >
                     <CardContent>
                         <h1>{company.name}</h1>
                         <h3>{company.email}</h3>
+                        <h4>{company.password}</h4>
                     </CardContent>
                     <CardActions>
                         <Button variant={"contained"} component={NavLink} to={"/home"}>Back to home</Button><br/>
                         <Button variant={"contained"} component={NavLink} to="/AddCoupon" >Add Coupon</Button>
                     </CardActions>
                 </Card>
-
             }
-			
+
+
         </div>
     );
 }

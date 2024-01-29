@@ -13,6 +13,7 @@ class CustomerService {
 
 
     public async getOneCustomer (customerId: number) {
+        console.log("yyy")
         return (await axios.get<Customer>(globals.urls.customers + customerId)).data;
     }
 

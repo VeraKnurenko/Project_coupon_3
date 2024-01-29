@@ -74,6 +74,10 @@ public class CompanyService extends ClientService {
         if (coupon.getAmount() < 0){
             throw new CouponSystemException("Coupon amount cannot be less than 0", HttpStatus.BAD_REQUEST);
         }
+            if (coupon.getImage() != null) {
+                String base64Image = Base64.getEncoder().encodeToString(coupon.getImage().getBytes());
+                coupon.setImage(base64Image);
+            }
         return couponRepository.save(coupon);
     }
 
@@ -89,9 +93,13 @@ public class CompanyService extends ClientService {
             throw new CouponSystemException("coupon id and company id do not match", HttpStatus.UNAUTHORIZED);
         }
         couponToDelete.setCustomers(null);
+        Company company = companyRepository.getReferenceById(companyId);
+        company.getCompanyCoupons().remove(couponToDelete);
+        companyRepository.save(company);
         couponToDelete.setCompany(null);
+
         couponRepository.save(couponToDelete);
-        couponRepository.delete(couponToDelete);
+        couponRepository.deleteById(couponId);
     }
 
     public List<Coupon> getAllCompanyCoupons(int companyId){

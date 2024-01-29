@@ -12,7 +12,9 @@ class AdminService {
 
 
     public async addCompany(company: Company) {
-        return (await axios.post<Company>(globals.urls.admin + "company", company)).data;
+        const response = (await axios.post<Company>(globals.urls.admin + "company", company)).data;
+        companyStore.dispatch(companySlice.actions.add(response))
+        return response;
     }
 
     public async getOneCompany (companyId: number) {
@@ -31,7 +33,9 @@ class AdminService {
     }
 
     public async updateCompany(company: Company) {
-        return (await axios.put<Company>(globals.urls.admin + "company", company)).data;
+        const response = (await axios.put<Company>(globals.urls.admin + "company", company)).data;
+        companyStore.dispatch(companySlice.actions.update(company))
+        return response;
     }
 
      public async deleteCompany (companyId: number){
@@ -39,11 +43,17 @@ class AdminService {
     }
 
     public async addCustomer (customer: Customer) {
-        return (await axios.post<Customer>(globals.urls.admin + "customer", customer)).data;
+        const response = (await axios.post<Customer>(globals.urls.admin + "customer", customer)).data;
+        customerStore.dispatch(customerSlice.actions.add(response));
+        return response;
+
+
     }
 
     public async updateCustomer(customer: Customer){
-        return (await axios.put<Customer>(globals.urls.admin + "customer", customer)).data;
+        const response = (await axios.put<Customer>(globals.urls.admin + "customer", customer)).data;
+        customerStore.dispatch(customerSlice.actions.update(customer));
+        return response;
     }
 
     public async getOneCustomer (customerId: number) {
@@ -62,19 +72,15 @@ class AdminService {
     }
 
     public async deleteCustomer (customerId: number)  {
-        return (await axios.delete<Customer>(globals.urls.admin + "customer/" + customerId));
+        const response =   (await axios.delete<Customer>(globals.urls.admin + "customer/" + customerId));
+        customerStore.dispatch(customerSlice.actions.remove(customerId));
+        return response;
+
     }
 
    public async getAllCoupons () {
-    //    if (couponStore.getState().value.length == 0 ){//|| (couponStore.getState().lastUpdated > new Date(Date.now() + 60 * 60 * 1000))*\) {
-            return await axios.get<Coupon[]>(globals.urls.admin + "allcoupons");
-    //        couponStore.dispatch(couponSlice.actions.fetch(response.data));//todo - check how to make it time dependant
-    //         return response;
-        // }else {
-        //     return couponStore.getState().value;
-        // }
-
-    }
+            return (await axios.get<Coupon[]>(globals.urls.admin + "allcoupons")).data;
+   }
 }
 
 const adminService = new AdminService();

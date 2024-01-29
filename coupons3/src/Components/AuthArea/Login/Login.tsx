@@ -36,7 +36,6 @@ function Login(): JSX.Element {
             })
 
             .catch( err => {errorHandler.showError(err);
-                 authService.logout();
             });
 
     }

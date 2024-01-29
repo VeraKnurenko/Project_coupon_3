@@ -10,7 +10,7 @@ import CouponDetails from "../../CompanyArea/CouponDetails/CouponDetails";
 import UpdateCoupon from "../../CompanyArea/UpdateCoupon/UpdateCoupon";
 import AllCompanies from "../../AdminArea/CompanyControl/AllCompanies/AllCompanies";
 import AllCustomers from "../../AdminArea/CustomerControl/AllCustomers/AllCustomers";
-import CustomerDetails from "../../AdminArea/CustomerControl/CustomerDetails/CustomerDetails";
+import OneCustomerDetails from "../../AdminArea/CustomerControl/CustomerDetails/OneCustomerDetails";
 import AddCustomer from "../../AdminArea/CustomerControl/AddCustomer/AddCustomer";
 import AddCompany from "../../AdminArea/CompanyControl/AddCompany/AddCompany";
 import UpdateCompany from "../../AdminArea/CompanyControl/UpdateCompany/UpdateCompany";
@@ -22,8 +22,12 @@ import CouponsByPrice from "../../CompanyArea/CouponsByPrice/CouponsByPrice";
 import OneCompany from "../../AdminArea/CompanyControl/OneCompany/OneCompany";
 import CouponsByCategory from "../../CompanyArea/CouponsByCategory/CouponsByCategory";
 import UpdateCustomer from "../../AdminArea/CustomerControl/UpdateCustomer/UpdateCustomer";
-import Main from "../../MainArea/Main/Main";
 import DashBoard from "../../AdminArea/DashBoard/DashBoard";
+import CustomerDetails from "../../CustomerArea/CustomerDetails/CustomerDetails";
+import CustomerProfile from "../../CustomerArea/CustomerProfile/CustomerProfile";
+import DeleteCoupon from "../../CompanyArea/DeleteCoupon/DeleteCoupon";
+import CustomerCouponsByPrice from "../../CustomerArea/CustomerCouponsByPrice/CustomerCouponsByPrice";
+import CustomerCouponsByCategory from "../../CustomerArea/CustomerCouponsByCategory/CustomerCouponsByCategory";
 
 
 function Routing(): JSX.Element {
@@ -39,6 +43,7 @@ function Routing(): JSX.Element {
                 <Route path={"company_coupons"} element={<CompanyCoupons/>} />
                 <Route path={"couponDetails/:coupId"} element={<CouponDetails/>} />
                 <Route path={"updateCoupon/:coupId"} element={<UpdateCoupon/>} />
+                <Route path={"deleteCoupon/:coupId"} element={<DeleteCoupon/>} />
                 <Route path={"AddCoupon"} element={<AddCoupon/>}/>
                 <Route path={"couponsByPrice"} element={<CouponsByPrice/>}/>
                 <Route path={"couponsByCategory"} element={<CouponsByCategory/>}/>
@@ -48,10 +53,14 @@ function Routing(): JSX.Element {
                 <Route path={"AllCompanies"} element={<AllCompanies/>}/>
                 <Route path={"oneCompany/:compId"} element={<OneCompany/>}/>
                 <Route path={"AllCustomers"} element={<AllCustomers/>}/>
-                <Route path={"AllCustomers/:custId"} element={<CustomerDetails/>}/>
+                <Route path={"AllCustomers/:custId"} element={<OneCustomerDetails/>}/>
                 <Route path={"deleteCustomer/:custId"} element={<DeleteCustomer/>}/>
                 <Route path={"updateCustomer/:custId"} element={<UpdateCustomer/>}/>
                 <Route path={"customerCoupons"} element={<CustomerCoupons/>}/>
+                <Route path={"customerCouponsByPrice"} element={<CustomerCouponsByPrice/>}/>
+                <Route path={"customerCouponsByCategory"} element={<CustomerCouponsByCategory/>}/>
+                <Route path={"customerDetails"} element={<CustomerDetails/>}/>
+                <Route path={"customerProfile"} element={<CustomerProfile/>}/>
 
                 <Route path={"addCustomer"} element={<AddCustomer/>}/>
                 <Route path={"purchaseCoupon/:coupId"} element={<PurchaseCoupon/>}/>

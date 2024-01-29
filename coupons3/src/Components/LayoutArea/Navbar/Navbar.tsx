@@ -44,6 +44,7 @@ function Navbar(): JSX.Element {
             </>
             }
             {authStore.getState().user?.role==="ADMIN" && <>
+                <NavLink className={"navlink"} to={"/dash"}>Dashboard</NavLink>
                 {/*<NavLink className={"navlink"} to={"AllCompanies"}>All Companies</NavLink>*/}
                 {/*<NavLink className={"navlink"} to={"AllCustomers"}>All Customers</NavLink>*/}
 
@@ -53,6 +54,8 @@ function Navbar(): JSX.Element {
             }
             {authStore.getState().user?.role === "CUSTOMER" && <>
                 <NavLink className={"navlink"} to={"customerCoupons"}>Coupons</NavLink>
+                <NavLink className={"navlink"} to={"customerDetails"}>Profile</NavLink>
+                <NavLink className={"navlink"} to={"customerProfile"}>info</NavLink>
 
             </> }
             <div id={"welcomeUser"}>Hello <br/> {name}</div>

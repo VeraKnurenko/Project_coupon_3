@@ -1,6 +1,6 @@
 import "./UpdateCustomer.css";
 import {useNavigate, useParams} from "react-router-dom";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import adminService from "../../../../services/AdminService";
 import {toast} from "react-toastify";
 import errorHandler from "../../../../services/ErrorHandler";
@@ -13,8 +13,10 @@ function UpdateCustomer(): JSX.Element {
     const customerId = +(useParams().custId!);
     console.log('updateCustomerId: '+ customerId)
     const {register, handleSubmit, formState: {errors},
-    getValues, setValue} = useForm<Customer>()
+    getValues, setValue} = useForm<Customer>({mode: "onBlur"})
     const navigate = useNavigate();
+    const [flag, setFlag] = useState<boolean>(false)
+
     useEffect(() => {
             adminService.getOneCustomer(customerId)
                 .then( c => {
@@ -25,13 +27,15 @@ function UpdateCustomer(): JSX.Element {
                     setValue("password", c.password)
                 })
                 .catch(err => errorHandler.showError(err));
-            }, []);
+            }, [flag]);
 
     function updateOneCustomer( cust: Customer) {
         adminService.updateCustomer(cust)
-            .then(()=>{toast.success("customer Updated"); navigate("/AllCustomers") })
+            .then(()=>{toast.success("customer Updated");
+                setFlag(!flag);
+                navigate("/AllCustomers");
+               })
             .catch(err => errorHandler.showError(err))
-
     }
 
 

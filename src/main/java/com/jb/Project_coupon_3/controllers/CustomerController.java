@@ -42,7 +42,6 @@ public class CustomerController extends ClientController{
         customerService.couponPurchase(couponId, customerId);
     }
     @GetMapping("{customerId}")//works postman
-    @ResponseStatus(HttpStatus.FOUND)
     public Customer getOneCustomer(@PathVariable int customerId) throws CouponSystemException {
         int customerTokenId = loginService.getId(request, ClientType.CUSTOMER.toString());
         if(customerTokenId != customerId)

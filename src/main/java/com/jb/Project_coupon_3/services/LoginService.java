@@ -97,7 +97,7 @@ public class LoginService {
         String token = request.getHeader("Authorization").replace("Bearer ","");
         String tokenRole = JWT.decode(token).getClaim("role").toString().replace("\"", "");
         if(!tokensStore.contains (token)){
-            throw new CouponSystemException("token does not exist in store", HttpStatus.UNAUTHORIZED);
+            throw new CouponSystemException("Session ended, please login again ", HttpStatus.UNAUTHORIZED);
         }
         if (tokenRole.equals(ClientType.ADMIN.toString()) ){
             return ClientType.ADMIN.ordinal() ;

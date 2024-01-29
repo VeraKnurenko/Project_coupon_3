@@ -11,7 +11,7 @@ import {useNavigate} from "react-router-dom";
 function AddCompany(): JSX.Element {
 
     const {register, handleSubmit,
-        formState: {errors}, getValues} = useForm<Company>()
+        formState: {errors}, getValues} = useForm<Company>({mode:"onBlur"})
     const navigate = useNavigate();
 
      function addNewCompany(comp: Company){

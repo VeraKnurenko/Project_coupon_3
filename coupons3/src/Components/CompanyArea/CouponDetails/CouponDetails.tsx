@@ -30,17 +30,17 @@ function CouponDetails(): JSX.Element {
                 <Card>
                     <CouponCard title={coupon.title} price={coupon.price} description={coupon.description} startDate={coupon.startDate} endDate={coupon.endDate} image={coupon.image} id={coupon.id} />
                         {/*<Button value={coupon.id} onClick={update}>Update Coupon</Button>*/}
-                    <NavLink to={"/updateCoupon/" + coupon.id}  > Update Coupon  </NavLink>
-                    <NavLink to={"" + coupon.id}  > Delete Coupon  </NavLink>//to write
+                    <Button variant={"contained"} onClick={() => navigate("/updateCoupon/" + coupon.id)}  > Update Coupon  </Button><br/>
+                    <Button variant={"outlined"} onClick={() => navigate("/deleteCoupon/" + coupon.id)}  > Delete Coupon  </Button>
 
 
-                        <h3>{coupon?.title}</h3>
-                        <h4>{coupon?.category}</h4>
-                        <h4>{coupon?.description}</h4>
-                        <img src={coupon?.image} alt={coupon?.title}/><br/>
-                        $ price {coupon?.price} <br/>
-                        <div>Started: {coupon.startDate.toString()}</div>
-                        <div className={"couponEndDate"}>Promotion ending at: {coupon?.endDate.toString()}</div>
+                        {/*<h3>{coupon?.title}</h3>*/}
+                        {/*<h4>{coupon?.category}</h4>*/}
+                        {/*<h4>{coupon?.description}</h4>*/}
+                        {/*<img src={coupon?.image} alt={coupon?.title}/><br/>*/}
+                        {/*$ price {coupon?.price} <br/>*/}
+                        {/*<div>Started: {coupon.startDate.toString()}</div>*/}
+                        {/*<div className={"couponEndDate"}>Promotion ending at: {coupon?.endDate.toString()}</div>*/}
 
                 </Card>
             </>
