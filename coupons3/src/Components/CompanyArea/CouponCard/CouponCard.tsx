@@ -4,6 +4,7 @@ import "./CouponCard.css";
 import {Card, CardContent} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {authStore} from "../../../Redux/OurStore";
+import {Category} from "../../../Models/Category";
 
 
 
@@ -11,6 +12,7 @@ interface CouponProps{
     id: number;
     // company: any;
     title: string,
+    category: Category,
     price: number,
     description: string,
     startDate: Date,
@@ -37,9 +39,10 @@ function CouponCard(props : CouponProps): JSX.Element {
                                     </>}
 
                <CardContent sx={{minHeight:350, minWidth:250,}}>
-                    <h3>{props?.title}</h3>
+                    <h2>{props?.title}</h2>
                     <img src={`data:image/jpeg;base64,${decodedImage}`} alt={props?.title}/><br/>
-                    $ price {props?.price} <br/>
+                    ₪ price {props?.price} <br/>
+                   <h4>{props?.category.toString()}</h4>
                     <div className={"couponStartDate"}>From: {props?.startDate.toString()}</div>
                     <div className={"couponEndDate"}>Promotion ending at: {props?.endDate.toString()}</div>
                     {/*<h5>{props.company}</h5>*/}

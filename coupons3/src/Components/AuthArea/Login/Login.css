@@ -1,7 +1,17 @@
 .Login {
     text-align: center;
-	
+
 }
 .Login .MuiFormControl-root{
-    margin-bottom: 15px;
+    margin: 15px;
+
+}
+.Login .loginForm{
+    border: solid 2px purple;
+    border-radius: 10%;
+    padding: 15px;
+    opacity: 0.8;
+    background-color: #b0ceff;
+
+
 }

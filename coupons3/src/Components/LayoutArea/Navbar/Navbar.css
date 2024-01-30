@@ -1,3 +1,38 @@
-.Navbar .navlink{
-        margin: 10px;
+.Navbar{
+        background-image: linear-gradient(to right,  #b0ceff, #ff8dfc);
+        padding-left: 10px;
+
+
+}
+.Navbar .navlink {
+        padding: 10px;
+        text-decoration: none;
+        font-size: 20px;
+        font-family: "Bookman Old Style";
+        height: 5em;
+        width: 5em;
+
+
+}
+
+.navlink.transitioning{
+
+}
+.Navbar .navlink:visited{
+        color: blue;
+  }
+.navlink.active, .navlink:active {
+        color: deeppink!important;
+}
+.Navbar .navlink:hover{
+        /*font-size: 25px;*/
+        color: yellow;
+}
+.Navbar #welcomeUser{
+        padding: 10px;
+        padding-top: 4px;
+        font-size: 20px;
+        font-family: "Bookman Old Style";
+        border-bottom: solid 1px rebeccapurple ;
+
 }

@@ -1,5 +1,11 @@
 .Header {
     text-align: center;
-    font-size: 30px;
+    font-size: 40px;
+    font-family: "Book Antiqua";
+    color: #4467ff;
+    /*background-color: ;*/
+
+    background-image: linear-gradient(to right,  #b0ceff, #ff8dfc);
+
 	
 }

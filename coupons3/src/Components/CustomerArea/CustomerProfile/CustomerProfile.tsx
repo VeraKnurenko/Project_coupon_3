@@ -24,6 +24,7 @@ function CustomerProfile(): JSX.Element {
             <h5>coupons:{customer?.coupons?.map(coup => <CouponCard key={coup.id}
                                                                            title={coup.title}
                                                                             price={coup.price}
+                                                                            category={coup.category}
                                                                             description={coup.description}
                                                                            startDate={coup.startDate}
                                                                             endDate={coup.endDate} image={coup.image}  id={coup.id}  />)}</h5>

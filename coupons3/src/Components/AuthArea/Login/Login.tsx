@@ -42,7 +42,7 @@ function Login(): JSX.Element {
 
     return (
         <div className="Login">
-            <FormControl>
+            <FormControl className={"loginForm"}>
                 <FormLabel>Login Information</FormLabel>
                 <TextField variant={"outlined"} type={"email"} label={"Email"} id={"email"} {...register("email")} />
                 <TextField variant={"outlined"} type={"password"} label={"Password"} id={"password"} {...register("password")}/>

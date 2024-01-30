@@ -35,6 +35,9 @@ function Navbar(): JSX.Element {
 
     return (
         <div className="Navbar">
+            {name === "Guest" ?  <NavLink className={"navlink"} to={"login"} title={"Login"}>Login</NavLink> :
+                <button  onClick={logout}> Logout</button> }
+
             <NavLink className={"navlink"} to={"home"} title={"Home"}>Home</NavLink>
             <NavLink className={"navlink"} to={"aboutUs"}>About Us</NavLink>
             {authStore.getState().user?.role==="COMPANY" && <>
@@ -58,10 +61,8 @@ function Navbar(): JSX.Element {
                 <NavLink className={"navlink"} to={"customerProfile"}>info</NavLink>
 
             </> }
-            <div id={"welcomeUser"}>Hello <br/> {name}</div>
+            <div id={"welcomeUser"}>Hello {name}</div>
 
-            {name === "Guest" ?  <NavLink className={"navlink"} to={"login"} title={"Login"}>Login</NavLink> :
-                <button  onClick={logout}> Logout</button> }
 
 
 

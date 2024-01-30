@@ -50,6 +50,7 @@ function CustomerCouponsByCategory(): JSX.Element {
                 {coupons.map((coupon) => <CouponCard key={coupon.id} id={coupon.id}
                                                      title={coupon.title}
                                                      price={coupon.price}
+                                                     category={coupon.category}
                                                      description={coupon.description}
                                                      startDate={coupon.startDate}
                                                      endDate={coupon.endDate}

@@ -28,7 +28,7 @@ function CouponDetails(): JSX.Element {
         <div className="CouponDetails">
             {coupon && <>
                 <Card>
-                    <CouponCard title={coupon.title} price={coupon.price} description={coupon.description} startDate={coupon.startDate} endDate={coupon.endDate} image={coupon.image} id={coupon.id} />
+                    <CouponCard title={coupon.title} price={coupon.price} category={coupon.category} description={coupon.description} startDate={coupon.startDate} endDate={coupon.endDate} image={coupon.image} id={coupon.id} />
                         {/*<Button value={coupon.id} onClick={update}>Update Coupon</Button>*/}
                     <Button variant={"contained"} onClick={() => navigate("/updateCoupon/" + coupon.id)}  > Update Coupon  </Button><br/>
                     <Button variant={"outlined"} onClick={() => navigate("/deleteCoupon/" + coupon.id)}  > Delete Coupon  </Button>

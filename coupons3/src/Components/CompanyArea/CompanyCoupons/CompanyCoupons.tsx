@@ -37,6 +37,7 @@ function CompanyCoupons(): JSX.Element {
                 <CouponCard
                                            title={c.title}
                                            price={c.price}
+                                           category={c.category}
                                            description={c.description}
                                            startDate={c.startDate}
                                            endDate={c.endDate}

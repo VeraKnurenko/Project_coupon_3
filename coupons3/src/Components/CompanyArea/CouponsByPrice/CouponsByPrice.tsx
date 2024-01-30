@@ -44,7 +44,10 @@ function CouponsByPrice(): JSX.Element {
                 />
                 <Typography gutterBottom>Selected Price: {sliderValue} ₪</Typography>
             </Box>
-                    {coupons.map((coupon) => <CouponCard key={coupon.id} id={coupon.id} title={coupon.title}
+                    {coupons.map((coupon) => <CouponCard key={coupon.id}
+                                                         id={coupon.id}
+                                                         title={coupon.title}
+                                                         category={coupon.category}
                                                          price={coupon.price} description={coupon.description} startDate={coupon.startDate}
                                                          endDate={coupon.endDate} image={coupon.image}/>
 

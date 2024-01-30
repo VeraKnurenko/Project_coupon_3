@@ -23,6 +23,7 @@ const [coupons, setCoupons] = useState<Coupon[]>();
                                          id={c.id}
                                          title={c.title}
                                          price={c.price}
+                                         category={c.category}
                                          description={c.description}
                                          startDate={c.startDate}
                                          endDate={c.endDate}

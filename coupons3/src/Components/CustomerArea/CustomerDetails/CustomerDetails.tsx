@@ -40,6 +40,7 @@ function CustomerDetails(): JSX.Element {
                                                                                    title={coup.title}
                                                                                     price={coup.price}
                                                                                     description={coup.description}
+                                                                                    category={coup.category}
                                                                                    startDate={coup.startDate}
                                                                                     endDate={coup.endDate}
                                                                                     image={coup.image}  id={coup.id}  />)}</h5>

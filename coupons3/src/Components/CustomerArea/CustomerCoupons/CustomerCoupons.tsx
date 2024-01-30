@@ -21,7 +21,10 @@ function CustomerCoupons(): JSX.Element {
         <div className="CustomerCoupons">
             <Button variant={"contained"} onClick={()=> navigate("/customerCouponsByPrice")}>See Coupons by price</Button>
             <Button variant={"contained"} onClick={()=> navigate("/customerCouponsByCategory")}>See Coupons by category</Button>
-            {coupons?.map( c => <CouponCard id={c.id} title={c.title} price={c.price}
+            {coupons?.map( c => <CouponCard id={c.id}
+                                            title={c.title}
+                                            price={c.price}
+                                            category={c.category}
                                             description={c.description} startDate={c.startDate} endDate={c.endDate}
                                             image={c.image}/>)}
 
