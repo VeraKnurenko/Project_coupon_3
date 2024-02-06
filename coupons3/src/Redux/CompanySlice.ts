@@ -21,13 +21,13 @@ export const companySlice = createSlice({
             state.value.push(action.payload);
         },
         update:(state, action:PayloadAction<Company>)=>{
-            const indexToUpdate: number = state.value.findIndex(comp => comp.id = action.payload.id)
+            const indexToUpdate: number = state.value.findIndex(comp => comp.id === action.payload.id)
             if (indexToUpdate >= 0){
                 state.value[indexToUpdate] = action.payload;
             }
         },
         remove: (state, action: PayloadAction<number>)=>{
-            const indexToDelete: number = state.value.findIndex(comp => comp.id = action.payload)
+            const indexToDelete: number = state.value.findIndex(comp => comp.id === action.payload)
             if (indexToDelete >= 0){
                 state.value.splice(indexToDelete, 1);
             }

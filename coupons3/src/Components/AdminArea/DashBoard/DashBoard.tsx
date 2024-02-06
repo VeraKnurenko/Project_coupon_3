@@ -1,11 +1,11 @@
 import "./DashBoard.css";
 import React, {SyntheticEvent, useState} from "react";
-import {Box} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import {authStore} from "../../../Redux/OurStore";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 
 
@@ -14,6 +14,7 @@ function DashBoard(): JSX.Element {
 
 
         const [value, setValue] = useState('1');
+        const navigate = useNavigate();
 
         const handleChange = (event: SyntheticEvent, newValue: string) => {
             setValue(newValue);
@@ -32,7 +33,8 @@ function DashBoard(): JSX.Element {
                         </TabList>
                     </Box>
                     <TabPanel value="1">
-                        <NavLink className={"navlink"} to={"/AllCompanies"}>All Companies</NavLink>
+                        <Button variant={"contained"} onClick={()=>navigate("/AllCompanies")}>All Companies</Button><br/>
+                        <NavLink className={"navlink"} to={"/AllCompaniesGrid"}>All Companies Grid</NavLink>
                     </TabPanel>
                     <TabPanel value="2">
                         <NavLink className={"navlink"} to={"/AllCustomers"}>All Customers</NavLink>

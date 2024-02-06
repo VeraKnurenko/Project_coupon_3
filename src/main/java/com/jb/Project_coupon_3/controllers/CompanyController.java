@@ -45,7 +45,7 @@ public class CompanyController extends ClientController {
 //            coupon.setImage(new String(decodedImage));
 //        }
         System.out.println(coupon);
-        return companyService.addCoupon(coupon, companyId); //todo check if works
+        return companyService.addCoupon(coupon, companyId);
     }
 
     @PutMapping("coupon")

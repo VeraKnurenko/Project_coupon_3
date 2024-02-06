@@ -1,3 +1,21 @@
-.AllCompanies {
-	
+.AllCompanies{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    /*flex-wrap: wrap;*/
+}
+.AllCompanies .CompanyInAdmin{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content:space-between;
+    padding: 10px;
+
+}
+.AllCompanies .company{
+    background-color: #b0ceff;
+    padding: 10px;
 }

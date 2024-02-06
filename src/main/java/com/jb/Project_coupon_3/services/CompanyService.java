@@ -41,6 +41,9 @@ public class CompanyService extends ClientService {
         if (coupon.getEndDate().before(Date.valueOf(LocalDate.now()))){
             throw new CouponSystemException("Cannot add coupon with expiration in the past", HttpStatus.BAD_REQUEST);
         }
+        if (coupon.getStartDate().after(coupon.getEndDate())){
+            throw new CouponSystemException("Cannot add Coupon with Start Date after Coupon expiration date", HttpStatus.BAD_REQUEST);
+        }
         if (couponRepository.existsByCompanyNameAndTitle(companyRepository.getReferenceById(companyId).getName(), coupon.getTitle())){
             throw new CouponSystemException("Coupon with this name already exists", HttpStatus.CONFLICT);
         }
@@ -62,6 +65,7 @@ public class CompanyService extends ClientService {
             throw new CouponSystemException("No coupon with such id", HttpStatus.NOT_FOUND);
         }
         Company tempCompany = companyRepository.getReferenceById(companyId);
+        Coupon oldCoupon = couponRepository.getCouponById(coupon.getId());
         if(!coupon.getCompany().getName().equals(tempCompany.getName() )){
             throw new CouponSystemException("cannot update company name", HttpStatus.BAD_REQUEST);
         }
@@ -77,7 +81,10 @@ public class CompanyService extends ClientService {
             if (coupon.getImage() != null) {
                 String base64Image = Base64.getEncoder().encodeToString(coupon.getImage().getBytes());
                 coupon.setImage(base64Image);
-            }
+           }//else {
+//                coupon.setImage(oldCoupon.getImage());
+//                System.out.println(coupon);
+//            }
         return couponRepository.save(coupon);
     }
 
@@ -109,7 +116,7 @@ public class CompanyService extends ClientService {
         return couponRepository.findAllByCategoryAndCompanyId(category, companyId);
     }
     public List<Coupon> getCouponByMaxPrice(double price, int companyId){
-       return  (price < 0) ? List.of() : couponRepository.findAllByCompany_IdAndPriceLessThan(companyId, price);
+       return  (price <= 0) ? List.of() : couponRepository.findAllByCompany_IdAndPriceLessThan(companyId, price);
     }
 
 

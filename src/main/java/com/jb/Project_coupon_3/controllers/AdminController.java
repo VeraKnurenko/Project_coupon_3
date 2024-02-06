@@ -34,7 +34,6 @@ public class AdminController extends ClientController {
         return (email.equals("admin@admin.com") && password.equals("admin"));
     }
 
-    //TODO SOLVE "INTERNAL SERVEWR ERROR IF i DON'T SEND TOKEN WITH REQUEST, MUST MAKE EXCEPTION - FIX tOKEN FILTER
 
     // @RequestParam company?category=food&price=100 - for everything else
     // @PathVariable comapny/123 - for id (PK)

@@ -1,5 +1,7 @@
 .Navbar{
-        background-image: linear-gradient(to right,  #b0ceff, #ff8dfc);
+        /*background-image: linear-gradient(to right,  #b0ceff, #ff8dfc);*/
+        /*background-image: url("../../../assets/images/Blos1.png") ;*/
+        background-color: #e55eff;
         padding-left: 10px;
 
 

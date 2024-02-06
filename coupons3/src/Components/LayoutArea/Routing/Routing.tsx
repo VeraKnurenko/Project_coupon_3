@@ -28,6 +28,8 @@ import CustomerProfile from "../../CustomerArea/CustomerProfile/CustomerProfile"
 import DeleteCoupon from "../../CompanyArea/DeleteCoupon/DeleteCoupon";
 import CustomerCouponsByPrice from "../../CustomerArea/CustomerCouponsByPrice/CustomerCouponsByPrice";
 import CustomerCouponsByCategory from "../../CustomerArea/CustomerCouponsByCategory/CustomerCouponsByCategory";
+import AllCompaniesGrid from "../../AdminArea/CompanyControl/AllCompaniesGrid/AllCompaniesGrid";
+import PageNotFound from "../PageNotFound/PageNotFound";
 
 
 function Routing(): JSX.Element {
@@ -51,6 +53,7 @@ function Routing(): JSX.Element {
                 <Route path={"AllCompanies/updateCompany/:compId"} element={<UpdateCompany/>}/>
                 <Route path={"AllCompanies/deleteCompany/:compId"} element={<DeleteCompany/>}/>
                 <Route path={"AllCompanies"} element={<AllCompanies/>}/>
+                <Route path={"AllCompaniesGrid"} element={<AllCompaniesGrid/>}/>
                 <Route path={"oneCompany/:compId"} element={<OneCompany/>}/>
                 <Route path={"AllCustomers"} element={<AllCustomers/>}/>
                 <Route path={"AllCustomers/:custId"} element={<OneCustomerDetails/>}/>
@@ -66,7 +69,7 @@ function Routing(): JSX.Element {
                 <Route path={"purchaseCoupon/:coupId"} element={<PurchaseCoupon/>}/>
 
                 <Route path={"/"} element={<Navigate to={"home"}/>}/>
-                <Route path={"*"} element={<div>Oops No Page Found!</div>}/>
+                <Route path={"*"} element={<PageNotFound/>}/>
 
             </Routes>
 			

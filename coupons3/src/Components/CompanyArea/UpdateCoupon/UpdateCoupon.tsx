@@ -7,84 +7,61 @@ import companyService from "../../../services/CompanyService";
 import {Button, FormControl, FormLabel, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {toast} from "react-toastify";
 import errorHandler from "../../../services/ErrorHandler";
-import {authStore} from "../../../Redux/OurStore";
+import {authStore, couponStore} from "../../../Redux/OurStore";
 import {Category} from "../../../Models/Category";
 
 function UpdateCoupon(): JSX.Element {
 
-    const coupId = +(useParams().coupId!);//todo - fix receiving the param as string???
+    const coupId = +(useParams().coupId!);
     const currentDate = new Date().toISOString().split('T')[0];
     const navigate = useNavigate();
     const [category, setCategory] = useState<Category>()
-
+    const [coupon, setCoupon] = useState<Coupon>(couponStore.getState().value.find((c)=> {
+        return c.id === coupId
+    } ));
+    console.log("image: " + coupon.image);
 
     const { register, handleSubmit,
         formState: {errors } , setValue, getValues, control
-    } = useForm<Coupon>({mode: "onBlur"});
+    } = useForm<Coupon>({mode: "onBlur", defaultValues:{...coupon}});
 
 
-
-    useEffect(()=>{
-        companyService.getOneCoupon(coupId)
-            .then( c => {
-                    setValue("id", c.id)
-                    setValue("title", c.title)
-                    setValue("description", c.description )
-                    setValue("startDate", c.startDate)
-                    setValue("endDate", c.endDate)
-                    setCategory( c.category)
-                    setValue("category", c.category)
-                    setValue("amount", c.amount)
-                    setValue("price", c.price)
-                    // setValue("image", c.image || null)
-            })
-            .catch(err => {errorHandler.showError(err); navigate("/company_coupons")})
-
-    }, [coupId, setValue, navigate]);
-
-    const updateCoupon = async () => {
-            if (getValues('image')) {
-                const fileImage = (getValues('image') as FileList)[0];
+    function updateCoupon (coupon: Coupon) {
+            console.log("updateImage"+ coupon.image)
+            if ((coupon.image as FileList).length > 0) {
+                const fileImage = (coupon.image as FileList)[0];
 
                 const reader = new FileReader();
                 reader.onloadend = async () => {
-                    const base64Image = reader.result?.toString().split(',')[1];
+                    const base64Image = reader.result; //?.toString().split(',')[1];
                     const companyId = authStore.getState().user.id;
                     const companyDetails = await companyService.getCompanyDetails(companyId);
 
-                    const updatedCoupon: Coupon = {
-                        id: coupId,
-                        company: companyDetails,
-                        title: getValues('title'),
-                        description: getValues('description'),
-                        startDate: getValues('startDate'),
-                        endDate: getValues('endDate'),
-                        category: getValues('category') as Category,
-                        amount: +getValues('amount'),
-                        price: +getValues('price'),
-                        image: base64Image,
-                    };
-
-                    // Call the service method to update the coupon
-                    await companyService.updateCoupon(updatedCoupon)
+                    await companyService.updateCoupon(coupon)
                         .then(() => {
                             toast.success('Coupon Updated');
                             navigate('/company_coupons')
                         })
                         .catch(err => errorHandler.showError(err));
-
                 };
 
                 reader.readAsDataURL(fileImage);
+            }else{
+                coupon.image="";
+                companyService.updateCoupon(coupon)
+                    .then(() => {
+                        toast.success('Coupon Updated');
+                        navigate('/company_coupons')
+                    })
+                    .catch(err => errorHandler.showError(err));
             }
-
     };
 
 
 
     return (
         <div className="UpdateCoupon">
-            <FormControl>
+            <FormControl onSubmit={handleSubmit(updateCoupon)}>
 
                 <FormLabel>Update Coupon</FormLabel>
                 <TextField variant="outlined"
@@ -119,7 +96,7 @@ function UpdateCoupon(): JSX.Element {
                 {errors.endDate && <span>{errors.endDate.message}</span>}
 
 
-                <InputLabel id="category-label">Category</InputLabel>
+                <InputLabel id="category-label"></InputLabel>
                 <Controller control={control}
                             name={"category"}
 
@@ -129,8 +106,8 @@ function UpdateCoupon(): JSX.Element {
                 <Select
                     labelId="category-label"
                     id="category"
-                    defaultValue={"FOOD"}
-                    value={Category[value]}
+                    defaultValue={coupon.category}
+                    // value={Category[value]}
                     className={"category-field"}
 
                     name={"category"}
@@ -167,7 +144,7 @@ function UpdateCoupon(): JSX.Element {
                 <input type={"file"} id={"image"} {...register("image")}/>
 
 
-                <Button type="button" onClick={handleSubmit(updateCoupon)}>Update</Button>
+                <Button type="button">Update</Button>
             </FormControl>
 
 

@@ -24,10 +24,10 @@ function AllCompanies(): JSX.Element {
 
     return (
         <div className="AllCompanies">
-            <div>
+            <div className={"CompanyInAdmin"}>
                 <Button variant={"contained"} onClick={()=>{navigate("/AddCompany")}}>Add Company</Button>
             {companies?.map(company =><Card key={company.id} >
-                <CardContent>
+                <CardContent className={"company"}>
                     <h1>{company.name}</h1>
                     <h3>{company.email}</h3>
                     <h3>{company.password}</h3>

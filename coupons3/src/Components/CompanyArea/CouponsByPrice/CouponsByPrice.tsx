@@ -6,6 +6,7 @@ import companyService from "../../../services/CompanyService";
 import errorHandler from "../../../services/ErrorHandler";
 import CouponCard from "../CouponCard/CouponCard";
 import {useForm} from "react-hook-form";
+import {couponStore} from "../../../Redux/OurStore";
 
 
 
@@ -13,18 +14,30 @@ function CouponsByPrice(): JSX.Element {
 
 
     const [coupons, setCoupons] = useState<Coupon[]>([]);
+    const allCoupons= couponStore.getState().value;
     const [sliderValue, setSliderValue] = useState<number>(1);
+    const [maxPrice, setMaxPrice ] = useState<number>(0)
 
     const handleSliderChange = (event: Event, price: number | number []) => {
         setSliderValue(price as number);
         getMaxPriceList(price as number)
     }
 
+
+    useEffect(() => {
+        console.log("coupons length" + allCoupons.length)
+        setMaxPrice((Math.max(...allCoupons.map(c => c.price)))+10) ;
+
+
+        console.log("max price" + maxPrice)
+    }, []);
+
     function getMaxPriceList(price: number) {
-            console.log(price)
-            companyService.getCouponsByMAxPrice(price)
-                .then(c => setCoupons(c))
-                .catch(err => errorHandler.showError(err));
+
+            setCoupons(allCoupons.filter((c)=> c.price <= sliderValue))
+            // companyService.getCouponsByMAxPrice(price)
+            //     .then(c => setCoupons(c))
+            //     .catch(err => errorHandler.showError(err));
     }
 
 
@@ -40,7 +53,7 @@ function CouponsByPrice(): JSX.Element {
                     step={10}
                     marks
                     min={10}
-                    max={1000}
+                    max={maxPrice}
                 />
                 <Typography gutterBottom>Selected Price: {sliderValue} ₪</Typography>
             </Box>

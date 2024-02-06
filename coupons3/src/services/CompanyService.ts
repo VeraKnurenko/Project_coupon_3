@@ -3,6 +3,9 @@ import Company from "../Models/Company";
 import Coupon from "../Models/Coupon";
 import globals from "./globals/Globals";
 import {Category} from "../Models/Category";
+import {couponStore} from "../Redux/OurStore";
+import {companySlice} from "../Redux/CompanySlice";
+import {couponSlice} from "../Redux/CouponSlice";
 
 class CompanyService {
 
@@ -15,7 +18,10 @@ class CompanyService {
     }
 
     public async getCompanyCoupons(){
-        return (await axios.get<Coupon[]>(globals.urls.companies + "coupons")).data
+        const response = (await axios.get<Coupon[]>(globals.urls.companies + "coupons")).data
+        couponStore.dispatch(couponSlice.actions.fetch(response))
+        return response;
+
     }
 
     public async deleteCoupon(couponId: number){

@@ -39,7 +39,9 @@ class AdminService {
     }
 
      public async deleteCompany (companyId: number){
-        return (await axios.delete(globals.urls.admin + "company/" + companyId)).data;
+         await axios.delete(globals.urls.admin + "company/" + companyId);
+         companyStore.dispatch(companySlice.actions.remove(companyId));
+         // return response;
     }
 
     public async addCustomer (customer: Customer) {
