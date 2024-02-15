@@ -1,8 +1,68 @@
-.CouponCard img {
-	width: 150px;
-	height: 125px;
-}
 
 .CouponCard {
 	padding: 15px;
+}
+
+.CouponCard h2 {
+	text-align: center;
+	font-family: Arial, sans-serif;
+}
+
+
+.CouponCard .MuiButton-root {
+	margin-top: 10px;
+}
+
+.CouponCard .MuiButton-contained {
+	border-radius: 5px;
+	text-transform: none;
+	padding: 8px 16px;
+}
+
+.CouponCard .MuiButton-containedPrimary {
+	background-color: #4caf50; /* Green */
+	color: #fff;
+}
+
+.CouponCard .MuiButton-containedPrimary:hover {
+	background-color: #388e3c; /* Darker Green on hover */
+}
+
+
+.CouponCard .MuiCardContent-root {
+	min-height: 250px;
+	min-width: 250px;
+}
+
+.CouponCard h2 {
+	margin-bottom: 10px;
+}
+
+.CouponCard img {
+	width: 250px;
+	height: 150px;
+	margin-bottom: 10px;
+}
+
+.CouponCard h3 {
+	margin-bottom: 10px;
+}
+
+.CouponCard h5 {
+	margin-bottom: 5px;
+}
+
+.CouponCard .couponStartDate,
+.CouponCard .couponEndDate {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.CouponCard .MuiButton-contained.DeleteButton {
+	background-color: #f44336; /* Red */
+	color: #fff;
+}
+
+.CouponCard .MuiButton-contained.DeleteButton:hover {
+	background-color: #d32f2f; /* Darker Red on hover */
 }

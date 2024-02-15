@@ -1,5 +1,5 @@
 import "./OneCompany.css";
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Button, Card, CardActions, CardContent} from "@mui/material";
 import Company from "../../../../Models/Company";
@@ -10,6 +10,8 @@ function OneCompany(): JSX.Element {
 
     const companyId = +(useParams().compId!);
     const  [company, setCompany] = useState<Company | null>()
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         adminService.getOneCompany(companyId)
@@ -21,6 +23,8 @@ function OneCompany(): JSX.Element {
 
     return (
         <div className="OneCompany">
+            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+
             { company    &&
                 <Card >
                     <CardContent>

@@ -41,14 +41,12 @@ class AdminService {
      public async deleteCompany (companyId: number){
          await axios.delete(globals.urls.admin + "company/" + companyId);
          companyStore.dispatch(companySlice.actions.remove(companyId));
-         // return response;
     }
 
     public async addCustomer (customer: Customer) {
         const response = (await axios.post<Customer>(globals.urls.admin + "customer", customer)).data;
         customerStore.dispatch(customerSlice.actions.add(response));
         return response;
-
 
     }
 
@@ -76,7 +74,6 @@ class AdminService {
     public async deleteCustomer (customerId: number)  {
         const response =   (await axios.delete<Customer>(globals.urls.admin + "customer/" + customerId));
         customerStore.dispatch(customerSlice.actions.remove(customerId));
-        return response;
 
     }
 

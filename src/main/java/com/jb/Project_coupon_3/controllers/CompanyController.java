@@ -44,7 +44,6 @@ public class CompanyController extends ClientController {
 //            byte[] decodedImage = Base64.getDecoder().decode(coupon.getImage());
 //            coupon.setImage(new String(decodedImage));
 //        }
-        System.out.println(coupon);
         return companyService.addCoupon(coupon, companyId);
     }
 

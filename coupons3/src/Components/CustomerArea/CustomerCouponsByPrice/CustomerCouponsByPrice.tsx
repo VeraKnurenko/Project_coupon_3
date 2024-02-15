@@ -28,6 +28,7 @@ function CustomerCouponsByPrice(): JSX.Element {
             <Box sx={{ width: 300, padding: 2 }}>
                 <Typography gutterBottom>Coupons By Price</Typography>
                 <Slider
+                    id={"slider"}
                     value={sliderValue}
                     onChange={handleSliderChange}
                     aria-label="Slider"
@@ -43,8 +44,9 @@ function CustomerCouponsByPrice(): JSX.Element {
                                                  title={coupon.title}
                                                  price={coupon.price}
                                                  category={coupon.category}
+                                                 amount={coupon.amount}
                                                  description={coupon.description} startDate={coupon.startDate}
-                                                 endDate={coupon.endDate} image={coupon.image}/>
+                                                 endDate={coupon.endDate} image={coupon.image} companyId={-1}/>
 
             )}
 

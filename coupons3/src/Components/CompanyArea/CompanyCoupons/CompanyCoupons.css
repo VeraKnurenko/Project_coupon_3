@@ -1,13 +1,27 @@
-.CompanyCoupons{
+.CompanyCoupons, .CompanyButtons  {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    padding: 10px;
+    gap: 15px
 }
 .CompanyCoupons .CouponCard{
+    justify-content:space-between;
+
     /*width: 70%;*/
     /*margin: 15px;*/
     /*padding: 10px;*/
 }
-.CompanyCoupons .CompanyCouponsButton {
-    width: 30%;
-    gap: 15px;
+
+.CompanyCoupons Card{
+    color: #e55eff;
 }
+.CompanyButtons .CompanyCouponsButton {
+    width: 30%;
+    gap: 20px;
+
+}
+
+

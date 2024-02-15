@@ -2,11 +2,11 @@ import Coupon from "./Coupon";
 
 
 class Company {
-    private _id: number;
-    private _name: string;
-    private _email: string;
-    private _password: string;
-    private _companyCoupons?: Array<Coupon>;
+    public  _id: number;
+    public _name: string;
+    public _email: string;
+    public _password: string;
+    public _companyCoupons?: Array<Coupon>;
 
 
     constructor(id: number, name: string, email: string, password: string, companyCoupons?: Array<Coupon>) {

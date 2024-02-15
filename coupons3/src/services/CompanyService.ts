@@ -28,7 +28,7 @@ class CompanyService {
         return (await axios.delete(globals.urls.companies + "coupons/" + couponId));//DATA?
     }
 
-    public async getCouponsByCategory(category :Category){
+    public async getCouponsByCategory(category :string){
         return (await axios.get<Coupon[]>(globals.urls.companies + "coupons/category",
             {params: {category:category}})).data;
     }

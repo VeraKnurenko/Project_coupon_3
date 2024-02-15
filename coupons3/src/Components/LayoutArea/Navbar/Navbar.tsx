@@ -27,16 +27,16 @@ function Navbar(): JSX.Element {
         }
     }, []);
 
-    function logout(){
-        authService.logout()
-            .then(() => navigate("/")).catch(err => errorHandler.showError(err));
-    }
+    // function logout(){
+    //     authService.logout()
+    //         .then(() => navigate("/")).catch(err => errorHandler.showError(err));
+    // }
 
 
     return (
         <div className="Navbar">
             {name === "Guest" ?  <NavLink className={"navlink"} to={"login"} title={"Login"}>Login</NavLink> :
-                <button  onClick={logout}> Logout</button> }
+                <button  onClick={()=>{navigate("/logout")}} > Logout</button> }
 
             <NavLink className={"navlink"} to={"home"} title={"Home"}>Home</NavLink>
             <NavLink className={"navlink"} to={"aboutUs"}>About Us</NavLink>

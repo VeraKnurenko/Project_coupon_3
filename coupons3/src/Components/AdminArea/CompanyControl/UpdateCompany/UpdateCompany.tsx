@@ -38,6 +38,8 @@ function UpdateCompany(): JSX.Element {
 
     return (
         <div className="UpdateCompany">
+            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+
             <h1>Update Company Form</h1>
             <FormControl>
                 <FormLabel>Update Company</FormLabel>
@@ -54,13 +56,12 @@ function UpdateCompany(): JSX.Element {
 
                 <TextField variant={"outlined"}
                            type={"email"}
-                           label={"Email"}
                            error={!!errors.email}
                            id={"email"} {...register("email",{
                     required: "Email is required",
                     minLength: {value: 3, message: 'Email must be at least 3 letters long'}
                 })} />
-                <TextField variant={"outlined"} type={"password"} label={"Password"} id={"password"} {...register("password",{
+                <TextField variant={"outlined"} type={"password"}  id={"password"} {...register("password",{
                     required: "Password is required",
                     minLength: {value: 3, message: "Password must be at least 3 letters/ numbers long"}
                 })}/>

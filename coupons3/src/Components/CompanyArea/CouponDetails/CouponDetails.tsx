@@ -26,12 +26,24 @@ function CouponDetails(): JSX.Element {
 
     return (
         <div className="CouponDetails">
+            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+
             {coupon && <>
                 <Card>
-                    <CouponCard title={coupon.title} price={coupon.price} category={coupon.category} description={coupon.description} startDate={coupon.startDate} endDate={coupon.endDate} image={coupon.image} id={coupon.id} />
+                    <CouponCard title={coupon.title}
+                                price={coupon.price}
+                                category={coupon.category}
+                                amount={coupon.amount}
+                                description={coupon.description}
+                                startDate={coupon.startDate}
+                                endDate={coupon.endDate}
+                                image={coupon.image}
+                                id={coupon.id}
+                                companyId={coupon.company.id}/>
                         {/*<Button value={coupon.id} onClick={update}>Update Coupon</Button>*/}
                     <Button variant={"contained"} onClick={() => navigate("/updateCoupon/" + coupon.id)}  > Update Coupon  </Button><br/>
                     <Button variant={"outlined"} onClick={() => navigate("/deleteCoupon/" + coupon.id)}  > Delete Coupon  </Button>
+
 
 
                         {/*<h3>{coupon?.title}</h3>*/}

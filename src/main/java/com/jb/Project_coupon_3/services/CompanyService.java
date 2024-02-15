@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CompanyService extends ClientService {
@@ -66,9 +67,7 @@ public class CompanyService extends ClientService {
         }
         Company tempCompany = companyRepository.getReferenceById(companyId);
         Coupon oldCoupon = couponRepository.getCouponById(coupon.getId());
-        if(!coupon.getCompany().getName().equals(tempCompany.getName() )){
-            throw new CouponSystemException("cannot update company name", HttpStatus.BAD_REQUEST);
-        }
+
         if (couponRepository.existsByCompanyNameAndTitleAndIdNot(tempCompany.getName(), coupon.getTitle(), coupon.getId())){
             throw new CouponSystemException("Coupon with this title already exists", HttpStatus.CONFLICT );
         }
@@ -81,10 +80,10 @@ public class CompanyService extends ClientService {
             if (coupon.getImage() != null) {
                 String base64Image = Base64.getEncoder().encodeToString(coupon.getImage().getBytes());
                 coupon.setImage(base64Image);
-           }//else {
-//                coupon.setImage(oldCoupon.getImage());
-//                System.out.println(coupon);
-//            }
+           }else {
+                coupon.setImage(oldCoupon.getImage());
+                System.out.println(coupon);
+            }
         return couponRepository.save(coupon);
     }
 
@@ -116,7 +115,7 @@ public class CompanyService extends ClientService {
         return couponRepository.findAllByCategoryAndCompanyId(category, companyId);
     }
     public List<Coupon> getCouponByMaxPrice(double price, int companyId){
-       return  (price <= 0) ? List.of() : couponRepository.findAllByCompany_IdAndPriceLessThan(companyId, price);
+       return  (price < 0) ? List.of() : couponRepository.findAllByCompany_IdAndPriceLessThan(companyId, price);
     }
 
 

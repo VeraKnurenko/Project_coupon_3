@@ -1,6 +1,7 @@
 import "./UpdateCoupon.css";
 import {Controller, useForm} from "react-hook-form";
 import Coupon from "../../../Models/Coupon";
+import Company from "../../../Models/Company";
 import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import companyService from "../../../services/CompanyService";
@@ -15,53 +16,127 @@ function UpdateCoupon(): JSX.Element {
     const coupId = +(useParams().coupId!);
     const currentDate = new Date().toISOString().split('T')[0];
     const navigate = useNavigate();
-    const [category, setCategory] = useState<Category>()
     const [coupon, setCoupon] = useState<Coupon>(couponStore.getState().value.find((c)=> {
-        return c.id === coupId
-    } ));
-    console.log("image: " + coupon.image);
+        return c.id === coupId } ));
 
+    if (coupon ==  undefined) {
+        navigate("/company_Coupons")
+    }
+
+    // const [company, setCompany] = useState<Company>(null)
+    //
+    const decodedImage = coupon == undefined ? false : atob(coupon.image);
+    const cat  = coupon == undefined ? "FOOD" : coupon.category;
+    let  isUserProvidedImage : boolean = false;
     const { register, handleSubmit,
-        formState: {errors } , setValue, getValues, control
+        formState: {errors } , setValue,
+        getValues, control, watch
     } = useForm<Coupon>({mode: "onBlur", defaultValues:{...coupon}});
 
 
+    // const updateCoupon = async (data: Coupon) => {
+    //     try {
+    //         const updatedCoupon: Coupon = {
+    //             ...data,
+    //             id: coupId,
+    //             // company: {
+    //             //     _id: authStore.getState().user.id,
+    //             //     _name: authStore.getState().user.name,
+    //             //     _email: authStore.getState().user.email,
+    //             //     _password: null
+    //             // },
+    //             image: null // Initialize as null
+    //         };
+    //
+    //         if (isUserProvidedImage && data.image && data.image.length > 0) {
+    //             const fileImage = data.image[0];
+    //             const reader = new FileReader();
+    //             reader.onloadend = async () => {
+    //                 const base64Image = reader.result?.toString().split(',')[1];
+    //                 updatedCoupon.image = base64Image;
+    //                 await companyService.updateCoupon(updatedCoupon);
+    //                 toast.success('Coupon Updated');
+    //                 navigate('/company_coupons');
+    //             };
+    //             reader.readAsDataURL(fileImage);
+    //         } else {
+    //             if (!isUserProvidedImage) {
+    //                 alert("no image selected");
+    //             }
+    //             await companyService.updateCoupon(updatedCoupon);
+    //             toast.success('Coupon Updated');
+    //             navigate('/company_coupons');
+    //         }
+    //     } catch (err) {
+    //         errorHandler.showError(err);
+    //     }
+    // };
+    //
+    // const companyId = authStore.getState().user.id
+    // console.log(companyId)
+    // const companyName = authStore.getState().user.name
+    // console.log(companyName)
+    // const companyEmail = authStore.getState().user.name
+    // console.log(companyEmail)
+    //
+    //
+    //
+    //
+    //
     function updateCoupon (coupon: Coupon) {
-            console.log("updateImage"+ coupon.image)
-            if ((coupon.image as FileList).length > 0) {
-                const fileImage = (coupon.image as FileList)[0];
+        if (isUserProvidedImage){
+            const fileImage = (getValues('image') as FileList)[0];
 
-                const reader = new FileReader();
-                reader.onloadend = async () => {
-                    const base64Image = reader.result; //?.toString().split(',')[1];
-                    const companyId = authStore.getState().user.id;
-                    const companyDetails = await companyService.getCompanyDetails(companyId);
+            const reader = new FileReader();
+            reader.onloadend = async () => {
 
-                    await companyService.updateCoupon(coupon)
-                        .then(() => {
-                            toast.success('Coupon Updated');
-                            navigate('/company_coupons')
-                        })
-                        .catch(err => errorHandler.showError(err));
+                const companyId = authStore.getState().user.id;
+                const companyDetails =  await companyService.getCompanyDetails(companyId)!;
+                // const companyId = authStore.getState().user.id;
+                const base64Image = reader.result?.toString().split(',')[1];
+
+                const updatedCoupon: Coupon = {
+                    id: coupId,
+                    company: companyDetails,
+                    title: getValues('title'),
+                    description: getValues('description'),
+                    startDate: getValues('startDate'),
+                    endDate: getValues('endDate'),
+                    category: getValues('category') as Category,
+                    amount: +getValues('amount'),
+                    price: +getValues('price'),
+                    image: base64Image,
                 };
 
-                reader.readAsDataURL(fileImage);
-            }else{
-                coupon.image="";
-                companyService.updateCoupon(coupon)
+                await companyService.updateCoupon(updatedCoupon)
                     .then(() => {
                         toast.success('Coupon Updated');
                         navigate('/company_coupons')
                     })
                     .catch(err => errorHandler.showError(err));
-            }
-    };
 
+            };
+            reader.readAsDataURL(fileImage);
+        }else{
+                        //const companyId = authStore.getState().user.id;
+                        // const companyDetails =  await companyService.getCompanyDetails(companyId)!;
 
+                        //alert("no image selected");
+                        coupon.image=null;
+                        //coupon.company.id = authStore.getState().user.id;
+
+                        companyService.updateCoupon(coupon)
+                            .then(() => {
+                                toast.success('Coupon Updated');
+                                navigate('/company_coupons')
+                            })
+                            .catch(err => errorHandler.showError(err));
+        }
+    }
 
     return (
         <div className="UpdateCoupon">
-            <FormControl onSubmit={handleSubmit(updateCoupon)}>
+            <FormControl >
 
                 <FormLabel>Update Coupon</FormLabel>
                 <TextField variant="outlined"
@@ -97,22 +172,18 @@ function UpdateCoupon(): JSX.Element {
 
 
                 <InputLabel id="category-label"></InputLabel>
+
                 <Controller control={control}
                             name={"category"}
-
-
-                            render={({field: {onChange, value}}) => (
-
+                            render={({field: {onChange}}) => (
                 <Select
                     labelId="category-label"
                     id="category"
-                    defaultValue={coupon.category}
+                    defaultValue={cat}
                     // value={Category[value]}
                     className={"category-field"}
-
                     name={"category"}
-                    {...register('category', { required: 'Please select a category' })}
-                >
+                    {...register('category', { required: 'Please select a category' })} >
                     <MenuItem value="FOOD">Food</MenuItem>
                     <MenuItem value="ELECTRICITY">Electricity</MenuItem>
                     <MenuItem value="RESTAURANT">Restaurant</MenuItem>
@@ -140,11 +211,13 @@ function UpdateCoupon(): JSX.Element {
                            })}
                            error={!!errors.price}
                            helperText={errors.price? errors.price.message : null}/>
+                <img title={"image"} src={`data:image/jpeg;base64,${decodedImage}`} id={"imageView"}  />
+                <input type={"button"} value={"clear image"} id={"clear"} onClick={()=>{setValue("image", null)}}/>
                 {/*<TextField type={"file"}  variant="outlined" label={"Image"} id={"image"} {...register("image")}/>*/}
-                <input type={"file"} id={"image"} {...register("image")}/>
-
-
-                <Button type="button">Update</Button>
+                <input type={"file"} id={"image"} {...register("image")}
+                       onChange={(event)=>{isUserProvidedImage=true}}
+                />
+                <Button type="submit" onClick={handleSubmit(updateCoupon)}>Update</Button>
             </FormControl>
 
 

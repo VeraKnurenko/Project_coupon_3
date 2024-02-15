@@ -25,6 +25,8 @@ function AddCompany(): JSX.Element {
     return (
         <div className="AddCompany">
             <h1>New Company Form</h1>
+            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+
             <FormControl>
                 <FormLabel>New Company</FormLabel>
                 <TextField variant="outlined"
@@ -42,10 +44,14 @@ function AddCompany(): JSX.Element {
                            type={"email"}
                            label={"Email"}
                            error={!!errors.email}
-                           id={"email"} {...register("email",{
-                    required: "Email is required",
-                    minLength: {value: 3, message: 'Email must be at least 3 letters long'}
-                })} />
+                           id={"email"}
+                           helperText={errors.email ? "Email is required and should be at least 5 letters" : null}
+                           InputProps={{...register('email', {
+                                   required: 'Email is required',
+                                   minLength: {value: 5, message: 'Email should be at least 5 letters'},
+                               }),
+
+                }} />
                 <TextField variant={"outlined"} type={"password"} label={"Password"} id={"password"} {...register("password",{
                     required: "Password is required",
                     minLength: {value: 3, message: "Password must be at least 3 letters/ numbers long"}

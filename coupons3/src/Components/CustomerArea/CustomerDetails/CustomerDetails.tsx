@@ -41,9 +41,10 @@ function CustomerDetails(): JSX.Element {
                                                                                     price={coup.price}
                                                                                     description={coup.description}
                                                                                     category={coup.category}
+                                                                                    amount={coup.amount}
                                                                                    startDate={coup.startDate}
                                                                                     endDate={coup.endDate}
-                                                                                    image={coup.image}  id={coup.id}  />)}</h5>
+                                                                                    image={coup.image}  id={coup.id}   companyId={-1}/>)}</h5>
                 </CardContent>
                 </>
 

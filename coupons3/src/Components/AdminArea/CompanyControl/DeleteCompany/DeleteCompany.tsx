@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import adminService from "../../../../services/AdminService";
 import {toast} from "react-toastify";
 import errorHandler from "../../../../services/ErrorHandler";
+import {Button} from "@mui/material";
 
 function DeleteCompany(): JSX.Element {
     const companyId = +(useParams().compId!);
@@ -18,6 +19,8 @@ function DeleteCompany(): JSX.Element {
                     navigate("/AllCompanies")
                 })
                 .catch(err => errorHandler.showError(err))
+        }else {
+            navigate("/oneCompany/" + companyId);
         }
     }, []);
 
@@ -28,7 +31,9 @@ function DeleteCompany(): JSX.Element {
 
     return (
         <div className="DeleteCompany">
-			
+            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+
+
         </div>
     );
 }

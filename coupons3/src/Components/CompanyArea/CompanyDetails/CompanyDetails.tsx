@@ -1,5 +1,5 @@
 import "./CompanyDetails.css";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Company from "../../../Models/Company";
 import {authStore} from "../../../Redux/OurStore";
 import {Button, Card, CardActions, CardContent} from "@mui/material";
@@ -22,12 +22,8 @@ function CompanyDetails(): JSX.Element {
 
     return (
         <div className="CompanyDetails">
-            companyId: { authStore.getState().user.id}<br/>
-            companyName: { authStore.getState().user.name}<br/>
-            companyEmail: { authStore.getState().user.email}<br/>
-            companyRole: { authStore.getState().user.role}<br/>
-            companyFN: { authStore.getState().user.firstName}<br/>
-            companyLN: { authStore.getState().user.lastName}<br/>
+            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+
 
 
             { company  &&

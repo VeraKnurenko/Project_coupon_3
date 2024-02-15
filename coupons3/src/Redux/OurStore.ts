@@ -3,6 +3,7 @@ import {couponSlice} from "./CouponSlice";
 import {authSlice} from "./AuthSlice";
 import {companySlice} from "./CompanySlice";
 import {customerSlice} from "./CustomerSlice";
+import {purchaseSlice} from "./PurchaseSlice";
 
 export const store = configureStore({
     reducer: couponSlice.reducer
@@ -23,6 +24,10 @@ export const customerStore = configureStore({
 
 export const couponStore = configureStore({
     reducer: couponSlice.reducer
+})
+
+export const purchaseStore = configureStore({
+    reducer: purchaseSlice.reducer
 })
 
 export type RootState = ReturnType<typeof authStore.getState>

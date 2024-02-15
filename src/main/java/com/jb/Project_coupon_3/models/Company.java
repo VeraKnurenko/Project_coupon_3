@@ -40,8 +40,8 @@ public class Company {
         this.companyCoupons = companyCoupons;
     }
 
-    public Company(String name) {
-        this.name = name;
+    public Company(int id) {
+        this.id = id;
     }
 
     @Override

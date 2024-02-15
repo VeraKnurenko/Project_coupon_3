@@ -1,5 +1,10 @@
 .AllCustomers {
     display: flex;
     flex-wrap: wrap;
+    padding: 15px;
 	
+}
+.AllCustomers Card{
+    padding: 15px;
+    margin: 10px;
 }

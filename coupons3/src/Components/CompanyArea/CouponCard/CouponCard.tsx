@@ -1,19 +1,21 @@
 
 
 import "./CouponCard.css";
-import {Card, CardContent} from "@mui/material";
+import {Button, Card, CardContent} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import {authStore} from "../../../Redux/OurStore";
+import {authStore, purchaseStore} from "../../../Redux/OurStore";
 import {Category} from "../../../Models/Category";
+import {useEffect, useState} from "react";
 
 
 
 interface CouponProps{
     id: number;
-    // company: any;
+    companyId: number;
     title: string,
     category: Category,
     price: number,
+    amount: number,
     description: string,
     startDate: Date,
     endDate: Date,
@@ -22,32 +24,45 @@ interface CouponProps{
 }
 
 function CouponCard(props : CouponProps): JSX.Element {
-    console.log("Image:", props.image);
+   const [couponIds, setCouponIds] = useState<number[]>(purchaseStore.getState().value)
     const decodedImage = atob(props.image);
+
+    useEffect(() => {
+        purchaseStore.subscribe(()=>{
+            setCouponIds(purchaseStore.getState().value)
+        })
+
+    }, []);
+
+   function isAlreadyPurchased() : boolean {
+      return couponIds.includes(props.id)
+   }
 
 
     return (
         <div className="CouponCard">
-           <Card  sx={{display:"flex",flexDirection:"column",maxWidth:350}}>
+
+            <Card  sx={{display:"flex",flexDirection:"column",maxWidth:350}}>
                {authStore.getState().user && <>
-               {authStore.getState().user.role === "CUSTOMER" &&
-                   <>    <NavLink className={"navlink"} to={"/purchaseCoupon/"+ props.id} > Purchase</NavLink > </> }
-               {authStore.getState().user.role === "COMPANY" && <>
-               <NavLink to={"/couponDetails/" + props.id}  > Coupon Details  </NavLink><br/>
-               <NavLink to={"/updateCoupon/" + props.id}  > Update Coupon  </NavLink><br/>
-               <NavLink to={"/deleteCoupon/" + props.id}  > Delete Coupon  </NavLink></>}
+               {(authStore.getState().user.role === "CUSTOMER" && !isAlreadyPurchased() )&&
+                   <><Button className={"PurchaseButton"} variant={"contained"} component={NavLink} to={"/purchaseCoupon/"+ props.id} > Buy </Button > </> }
+               {(authStore.getState().user.role === "COMPANY" && authStore.getState().user.id == props.companyId) &&  <>
+               <Button className={"DetailsButton"} variant={"contained"} component={NavLink} to={"/couponDetails/" + props.id}  > Details  </Button>
+               <Button className={"UpdateButton"} variant={"contained"} component={NavLink} to={"/updateCoupon/" + props.id}  > Update Coupon  </Button><br/>
+               <Button className={"DeleteButton"} variant={"contained"} component={NavLink} to={"/deleteCoupon/" + props.id}  > Delete Coupon  </Button></>}
                                     </>}
 
                <CardContent sx={{minHeight:350, minWidth:250,}}>
                     <h2>{props?.title}</h2>
-                    <img src={`data:image/jpeg;base64,${decodedImage}`} alt={props?.title}/><br/>
-                    ₪ price {props?.price} <br/>
-                   <h4>{props?.category.toString()}</h4>
+                    <img src={`data:image/jpeg;base64,${decodedImage}`} alt={props?.title}/>
+                   <h3> ₪ price {props?.price} </h3>
+                   <h3> Only {props?.amount} left!!!</h3>
+                   <h5>{props?.category.toString()}</h5>
                     <div className={"couponStartDate"}>From: {props?.startDate.toString()}</div>
                     <div className={"couponEndDate"}>Promotion ending at: {props?.endDate.toString()}</div>
                     {/*<h5>{props.company}</h5>*/}
 
-                    <h4>id: {props?.id}</h4>
+                    {/*<h4>id: {props?.id}</h4>*/}
 
                 </CardContent>
             </Card>

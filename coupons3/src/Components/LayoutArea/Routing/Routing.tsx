@@ -30,6 +30,7 @@ import CustomerCouponsByPrice from "../../CustomerArea/CustomerCouponsByPrice/Cu
 import CustomerCouponsByCategory from "../../CustomerArea/CustomerCouponsByCategory/CustomerCouponsByCategory";
 import AllCompaniesGrid from "../../AdminArea/CompanyControl/AllCompaniesGrid/AllCompaniesGrid";
 import PageNotFound from "../PageNotFound/PageNotFound";
+import Logout from "../../AuthArea/Logout/Logout";
 
 
 function Routing(): JSX.Element {
@@ -38,6 +39,7 @@ function Routing(): JSX.Element {
             <Routes>
                 <Route path={"home"} element={<Home/>} />
                 <Route path={"login"} element={<Login/>} />
+                <Route path={"logout"} element={<Logout/>} />
                 <Route path={"dash"} element={<DashBoard/>} />
 
                 <Route path={"aboutUs"} element={<AboutUs/>} />

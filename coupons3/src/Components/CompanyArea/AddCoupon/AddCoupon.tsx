@@ -65,6 +65,8 @@ function AddCoupon(): JSX.Element {
 
     return (
         <div className="AddCoupon">
+            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+
             <h1>New Coupon Form</h1>
            <FormControl>
 

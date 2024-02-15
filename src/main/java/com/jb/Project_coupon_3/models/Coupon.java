@@ -84,8 +84,8 @@ public class Coupon {
     }
 
     @JsonGetter("company")
-    public String companyName(){
-        return company.getName();
+    public int companyId(){
+        return company.getId();
     }
 
 

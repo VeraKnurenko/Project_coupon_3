@@ -25,9 +25,10 @@ function CustomerProfile(): JSX.Element {
                                                                            title={coup.title}
                                                                             price={coup.price}
                                                                             category={coup.category}
+                                                                            amount={coup.amount}
                                                                             description={coup.description}
-                                                                           startDate={coup.startDate}
-                                                                            endDate={coup.endDate} image={coup.image}  id={coup.id}  />)}</h5>
+                                                                            startDate={coup.startDate}
+                                                                            endDate={coup.endDate} image={coup.image}  id={coup.id}   companyId={-1}/>)}</h5>
 
 			
         </div>
