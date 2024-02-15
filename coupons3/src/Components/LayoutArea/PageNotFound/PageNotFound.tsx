@@ -2,11 +2,13 @@ import "./PageNotFound.css";
 import notFound1 from '../../../assets/images/notFound1.jpg';
 import notFound2 from '../../../assets/images/notFound2.jpg';
 import notFound3 from '../../../assets/images/notFound3.png';
+import notFound4 from '../../../assets/images/notFound4.jpg';
+import notFound5 from '../../../assets/images/notFound5.jpg';
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 function PageNotFound(): JSX.Element {
-    const images = [notFound1, notFound2, notFound3];
+    const images = [notFound1, notFound2, notFound3, notFound4, notFound5];
     const navigate = useNavigate();
     function getRandomInt( max: number) {
         // min = Math.ceil(min);

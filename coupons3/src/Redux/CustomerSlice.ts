@@ -18,6 +18,7 @@ export const customerSlice = createSlice({
         },
         add: (state, action: PayloadAction<Customer>)=>{
             state.value.push(action.payload);
+            console.log(state.value)
         },
         update:(state, action:PayloadAction<Customer>)=>{
             const indexToUpdate: number = state.value.findIndex(c => c.id == action.payload.id)

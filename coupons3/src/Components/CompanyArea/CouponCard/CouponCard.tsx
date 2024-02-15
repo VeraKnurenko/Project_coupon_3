@@ -39,12 +39,14 @@ function CouponCard(props : CouponProps): JSX.Element {
    }
 
 
+
+
     return (
         <div className="CouponCard">
 
             <Card  sx={{display:"flex",flexDirection:"column",maxWidth:350}}>
                {authStore.getState().user && <>
-               {(authStore.getState().user.role === "CUSTOMER" && !isAlreadyPurchased() )&&
+               {(authStore.getState().user.role === "CUSTOMER" && !isAlreadyPurchased() && props.amount > 0)&&
                    <><Button className={"PurchaseButton"} variant={"contained"} component={NavLink} to={"/purchaseCoupon/"+ props.id} > Buy </Button > </> }
                {(authStore.getState().user.role === "COMPANY" && authStore.getState().user.id == props.companyId) &&  <>
                <Button className={"DetailsButton"} variant={"contained"} component={NavLink} to={"/couponDetails/" + props.id}  > Details  </Button>
@@ -56,7 +58,7 @@ function CouponCard(props : CouponProps): JSX.Element {
                     <h2>{props?.title}</h2>
                     <img src={`data:image/jpeg;base64,${decodedImage}`} alt={props?.title}/>
                    <h3> ₪ price {props?.price} </h3>
-                   <h3> Only {props?.amount} left!!!</h3>
+                   <h3>  {(props?.amount > 0) ? "Only " + props.amount +  " left!! " : "No Coupons left to purchase" } </h3>
                    <h5>{props?.category.toString()}</h5>
                     <div className={"couponStartDate"}>From: {props?.startDate.toString()}</div>
                     <div className={"couponEndDate"}>Promotion ending at: {props?.endDate.toString()}</div>

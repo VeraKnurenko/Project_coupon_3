@@ -48,12 +48,13 @@ function AllCompaniesGrid(): JSX.Element {
                         `)}>
                             Update
                         </Button>
-                        <Button variant="outlined" onClick={() => navigate(`/deleteCompany/${params.row.id}`)}>
-                            Delete
-                        </Button>
+
                         <Button variant="contained" onClick={(e) => handleDetailsClick(e, params.row as Company)}>
                             Details
                         </Button>
+                            <Button variant="outlined" onClick={() => navigate(`/deleteCompany/${params.row.id}`)}>
+                                Delete
+                            </Button>
                     </div>
 
 
@@ -97,11 +98,10 @@ function AllCompaniesGrid(): JSX.Element {
                                 <Button variant="contained" onClick={() => navigate('/AddCompany')}>
                                     Add Company
                                 </Button>
-                    //         </GridToolbarContainer>
+                             </GridToolbarContainer>
                         ),
                     }}
-                    // pageSize={5}
-                    // checkboxSelection
+
                     disableRowSelectionOnClick
                 />
 

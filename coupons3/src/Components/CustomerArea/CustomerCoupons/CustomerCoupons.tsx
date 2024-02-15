@@ -21,13 +21,14 @@ function CustomerCoupons(): JSX.Element {
      }, []);
 
     return (
-        <div className="CustomerCoupons">
-            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+        <div className="AllCustomerCoupons">
+            <div className={"CustomerButtons"}>
+                <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+                <Button variant={"contained"} onClick={()=> navigate("/customerCouponsByPrice")}>See Coupons by price</Button>
+                <Button variant={"contained"} onClick={()=> navigate("/customerCouponsByCategory")}>See Coupons by category</Button>
+            </div>
 
-            <Button variant={"contained"} onClick={()=> navigate("/customerCouponsByPrice")}>See Coupons by price</Button>
-            <Button variant={"contained"} onClick={()=> navigate("/customerCouponsByCategory")}>See Coupons by category</Button>
-
-
+            <div className="CustomerCoupons">
             {coupons?.length > 0 ?  coupons?.map( c => <CouponCard id={c.id}
                                             title={c.title}
                                             price={c.price}
@@ -37,6 +38,7 @@ function CustomerCoupons(): JSX.Element {
                                             image={c.image} companyId={-1}/>)
                 : <h2> no Coupons to show yet </h2>
             }
+            </div>
 
 
 			

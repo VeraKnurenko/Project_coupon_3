@@ -63,7 +63,7 @@ public class Coupon {
         this.amount = amount;
         this.price = price;
         this.image = image;
-//        this.customers = customers;
+//       this.customers = customers;
     }
 
 

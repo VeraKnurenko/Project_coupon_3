@@ -1,7 +1,7 @@
 .Navbar{
         /*background-image: linear-gradient(to right,  #b0ceff, #ff8dfc);*/
         /*background-image: url("../../../assets/images/Blos1.png") ;*/
-        background-color: #e55eff;
+        background-color: #47ab8a;
         padding-left: 10px;
 
 
@@ -24,7 +24,7 @@
         color: blue;
   }
 .navlink.active, .navlink:active {
-        color: deeppink!important;
+        color: lightgreen!important;
 }
 .Navbar .navlink:hover{
         /*font-size: 25px;*/
