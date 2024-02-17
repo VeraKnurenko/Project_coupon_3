@@ -41,9 +41,13 @@ function UpdateCustomer(): JSX.Element {
 
     return (
         <div className="UpdateCustomer">
+            <div className={"BackButton"} >
+                <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+            </div>
+            <div className="UpdateCustomer">
             <h1>Update Customer</h1>
             <FormControl>
-                <FormLabel>Customer Update</FormLabel>
+                <FormLabel></FormLabel>
                 <TextField variant="outlined"
                            id={"firstName"}
                            error={!!errors.firstName}
@@ -77,9 +81,10 @@ function UpdateCustomer(): JSX.Element {
                     minLength: {value: 3, message: "Password must be at least 3 letters/ numbers long"}
                 })}/>
 
-                <Button variant={"contained"} type={"submit"} onClick={handleSubmit(updateOneCustomer)}>Update 👩‍🚀</Button>
+                <Button id={"UpdateCustomerButton"} variant={"outlined"} type={"submit"} onClick={handleSubmit(updateOneCustomer)}>Update 👩‍🚀 </Button>
             </FormControl>
-			
+            </div>
+
         </div>
     );
 }

@@ -26,20 +26,16 @@ function CouponsByPrice(): JSX.Element {
     }
 
     useEffect(() => {
-        console.log("coupons length" + allCoupons.length)
-        setCoupons(allCoupons.filter((c)=> c.price < sliderValue))
-        setMaxPrice((Math.max(...allCoupons.map(c => c.price)))+100) ;
-
-
-        console.log("max price" + maxPrice)
+        // setCoupons(allCoupons.filter((c)=> c.price < sliderValue))
+        setMaxPrice((Math.max(...allCoupons.map(c => c.price)))+10) ;
     }, [allCoupons, maxPrice]);
 
     function getMaxPriceList(price: number) {
 
-            //setCoupons(allCoupons.filter((c)=> c.price < sliderValue))
-            companyService.getCouponsByMAxPrice(price)
-                .then(c => setCoupons(c))
-                .catch(err => errorHandler.showError(err));
+            setCoupons(allCoupons.filter((c)=> c.price <= price))
+            // companyService.getCouponsByMAxPrice(price)
+            //     .then(c => setCoupons(c))
+            //     .catch(err => errorHandler.showError(err));
     }
 
 

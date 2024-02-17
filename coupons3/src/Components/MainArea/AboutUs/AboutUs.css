@@ -1,3 +1,24 @@
 .AboutUs {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 	
+}
+
+.AboutUs h1 {
+    font-size: 30px; /* Set the font size for the heading */
+}
+
+.AboutUs p {
+    font-size: 22px; /* Set the font size for the paragraphs */
+    margin-bottom: 20px; /* Add margin at the bottom of each paragraph */
+}
+
+.AboutUs img {
+    margin-top: 20px; /* Add margin at the top of the image */
+    margin-bottom: 5px;
+    height: 500px;
+
 }

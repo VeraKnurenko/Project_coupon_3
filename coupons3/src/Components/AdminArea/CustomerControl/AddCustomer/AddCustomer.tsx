@@ -49,13 +49,20 @@ function AddCustomer(): JSX.Element {
                            type={"email"}
                            label={"Email"}
                            error={!!errors.email}
+                           helperText={errors.email ? "Email is required and should be at least 5 letters" : null}
                            id={"email"} {...register("email",{
                                required: "Email is required",
-                               minLength: {value: 3, message: 'Email must be at least 3 letters long'}
+                               minLength: {value: 5, message: 'Email must be at least 5 letters long'}
                 })} />
-                <TextField variant={"outlined"} type={"password"} label={"Password"} id={"password"} {...register("password",{
+                <TextField variant={"outlined"}
+                           type={"password"}
+                           label={"Password"}
+                           error={!!errors.password}
+                           helperText={errors.password ? "Password is required and should be at least 4 letters" : null}
+                           id={"password"}
+                           {...register("password",{
                     required: "Password is required",
-                    minLength: {value: 3, message: "Password must be at least 3 letters/ numbers long"}
+                    minLength: {value: 4, message: "Password must be at least 4 letters/ numbers long"}
                 })}/>
 
                 <Button type={"submit"} onClick={handleSubmit(addNewCustomer)}>Add 👩‍🚀</Button>

@@ -1,3 +1,17 @@
 .UpdateCustomer {
-	
+    text-align: center;
+
+
+}
+.BackButton{
+    text-align: left;
+}
+
+#UpdateCustomerButton{
+    width: 70%;
+    align-self: center;
+}
+
+.css-1nrlq1o-MuiFormControl-root{
+    padding: 15px;
 }

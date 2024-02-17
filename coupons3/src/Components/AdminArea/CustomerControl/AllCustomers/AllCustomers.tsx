@@ -25,22 +25,26 @@ function AllCustomers(): JSX.Element {
 
 
     return (
-        <div className="AllCustomers">
-            <Button variant={"contained"} onClick={addCustomer}>Add 👩‍🚀</Button><br/>
+        <div>
+            <div className={"AddCustomerButton"} >
+                <Button  variant={"contained"} onClick={addCustomer}>Add 👩‍🚀</Button>
+            </div>
+                <div className="AllCustomers" >
+                    {customers.length == 0 ? <h1>No customers yet</h1> : <>
+                    {customers?.map(c => <Card key={c.id}>
+                      <NavLink to={"/AllCustomers/" + c.id}>
+                          <h2>{c.firstName}   {c.lastName}</h2>
+                      </NavLink>
+                         <h3>{c.email}</h3>
+                        <Button variant={"contained"} onClick={()=> {navigate( "/updateCustomer/" + c.id)}}>UPDATE</Button><br/>
+                        <Button variant={"outlined"} onClick={()=> {navigate( "/deleteCustomer/" + c.id); setFlag(!flag)}}>DELETE</Button><br/>
 
-            {customers.length == 0 ? <h1>No customers yet</h1> : <>
-            {customers?.map(c => <Card key={c.id}>
-              <NavLink to={"/AllCustomers/" + c.id}>
-                  <h2>{c.firstName}   {c.lastName}</h2>
-              </NavLink>
-                 <h3>{c.email}</h3>
-                <Button variant={"contained"} onClick={()=> {navigate( "/updateCustomer/" + c.id)}}>UPDATE</Button><br/>
-                <Button variant={"outlined"} onClick={()=> {navigate( "/deleteCustomer/" + c.id); setFlag(!flag)}}>DELETE</Button><br/>
+                    </Card> )}
+                    </>}
 
-            </Card>)}
-            </>}
-			
+            </div>
         </div>
+
     );
 }
 

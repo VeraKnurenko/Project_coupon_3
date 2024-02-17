@@ -32,7 +32,6 @@ function DashBoard(): JSX.Element {
                     </Box>
                     <TabPanel value="1">
                         <Button variant={"contained"} onClick={()=>navigate("/AllCompanies")}>All Companies</Button><br/>
-                        <Button variant={"contained"} onClick={()=>navigate("/AllCompaniesGrid")}>All Companies Grid</Button><br/>
                     </TabPanel>
                     <TabPanel value="2">
                         <Button variant={"contained"} onClick={()=>navigate("/AllCustomers")}>All Customers</Button><br/>

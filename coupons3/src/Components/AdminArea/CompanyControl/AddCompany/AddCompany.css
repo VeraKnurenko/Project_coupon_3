@@ -1,3 +1,21 @@
-.AddCompany {
-	
+.AddCompany{
+    text-align: center;
+    gap: 20px;
+
+}
+.AddCompanyForm {
+
+    gap: 10px;
+    padding: 20px;
+
+}
+
+.AddCompanyForm, #AddButton  {
+    width: 50%;
+    align-self: center;
+}
+
+.BackButton {
+    margin: 7px;
+    text-align: left;
 }

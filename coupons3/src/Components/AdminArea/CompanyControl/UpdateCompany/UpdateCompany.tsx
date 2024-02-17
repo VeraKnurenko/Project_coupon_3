@@ -11,7 +11,7 @@ import React, {useEffect, useState} from "react";
 function UpdateCompany(): JSX.Element {
 
     const {register, handleSubmit,
-        formState: {errors}, setValue, getValues} = useForm<Company>()
+        formState: {errors}, setValue, getValues} = useForm<Company>({mode:"onBlur"})
     const navigate = useNavigate();
     const companyId = +(useParams().compId);
     const  tempCompany : Company= null;
@@ -37,37 +37,40 @@ function UpdateCompany(): JSX.Element {
     }
 
     return (
-        <div className="UpdateCompany">
-            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+        <div >
+            <div className={"BackButton"} >
+                <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+            </div>
 
-            <h1>Update Company Form</h1>
-            <FormControl>
-                <FormLabel>Update Company</FormLabel>
-                {/*<TextField variant="outlined"*/}
-                {/*           label={"Name"} id={"name"}*/}
-                {/*           error={!!errors.name}*/}
-                {/*           helperText={errors.name ? "Name is required and should be at least 2 letters" : null}*/}
-                {/*           InputProps={{...register('name', {*/}
-                {/*                   required: 'Name is required',*/}
-                {/*                   minLength: {value: 2, message: 'Name should be at least 2 letters'},*/}
-                {/*               }),*/}
-                {/*           }}*/}
-                {/*/>*/}
+            <div className="UpdateCompany">
+                    <h1>Update Company Form</h1>
+                    <FormControl>
+                        <FormLabel></FormLabel>
 
-                <TextField variant={"outlined"}
-                           type={"email"}
-                           error={!!errors.email}
-                           id={"email"} {...register("email",{
-                    required: "Email is required",
-                    minLength: {value: 3, message: 'Email must be at least 3 letters long'}
-                })} />
-                <TextField variant={"outlined"} type={"password"}  id={"password"} {...register("password",{
-                    required: "Password is required",
-                    minLength: {value: 3, message: "Password must be at least 3 letters/ numbers long"}
-                })}/>
+                        <TextField variant={"outlined"}
+                                   type={"email"}
+                                   error={!!errors.email}
+                                   id={"email"}
+                                   helperText={errors.email ? "Email is required and should be at least 5 letters" : null}
+                                   {...register("email",{
+                            required: "Email is required",
+                            minLength: {value: 3, message: 'Email must be at least 5 letters long'}
+                        })} />
 
-                <Button type={"submit"} onClick={handleSubmit(updateNewCompany)}>Update 🏨</Button>
-            </FormControl>
+                        <TextField variant={"outlined"}
+                                   type={"password"}
+                                   error={!!errors.password}
+
+                                   id={"password"}
+                                   helperText={errors.password ? "Password is required and should be at least 4 letters/ numbers long" : null}
+                                   {...register("password",{
+                            required: "Password is required",
+                            minLength: {value: 4, message: "Password must be at least 4 letters/ numbers long"}
+                        })}/>
+
+                        <Button id={"UpdateButton"} variant={"outlined"} type={"submit"} onClick={handleSubmit(updateNewCompany)}>Update 🏨</Button>
+                    </FormControl>
+            </div>
 
         </div>
     );

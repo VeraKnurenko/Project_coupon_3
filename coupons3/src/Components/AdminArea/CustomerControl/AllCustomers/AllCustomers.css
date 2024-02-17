@@ -1,10 +1,21 @@
 .AllCustomers {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 15px;
-	
+   display: flex;
+   flex-wrap: wrap;
+   gap: 15px;
+   margin: 15px;
+   text-align: center;
 }
-.AllCustomers Card{
+.css-bhp9pd-MuiPaper-root-MuiCard-root{
+   padding: 20px;
+}
+
+.AllCustomers Button{
+  text-align: center;
+   margin: 3px;
+
+}
+.AddCustomerButton{
+    width: 150px;
     padding: 15px;
-    margin: 10px;
+    text-align: center;
 }

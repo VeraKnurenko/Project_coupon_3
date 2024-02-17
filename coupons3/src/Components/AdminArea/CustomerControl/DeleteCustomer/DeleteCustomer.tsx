@@ -20,6 +20,8 @@ function DeleteCustomer(): JSX.Element {
                 })
                 .catch(err => errorHandler.showError(err));
         }
+        else
+            navigate("/AllCustomers")
 
     }, []);
 

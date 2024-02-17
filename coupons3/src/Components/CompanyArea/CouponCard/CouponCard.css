@@ -1,11 +1,13 @@
 
 .CouponCard {
-	padding: 15px;
+	padding: 10px;
+
 }
 
 .CouponCard h2 {
 	text-align: center;
 	font-family: Arial, sans-serif;
+	margin-bottom: 10px;
 }
 
 
@@ -34,9 +36,6 @@
 	min-width: 250px;
 }
 
-.CouponCard h2 {
-	margin-bottom: 10px;
-}
 
 .CouponCard img {
 	width: 250px;

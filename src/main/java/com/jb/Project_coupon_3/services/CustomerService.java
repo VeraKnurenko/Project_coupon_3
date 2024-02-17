@@ -20,7 +20,6 @@ public class CustomerService extends ClientService{
         return getCustomerDetails(email, password) != null;
     }
 
-    //TODO decide if needs to be changed from void? return boolean?
     public void couponPurchase(int couponId, int customerId) throws CouponSystemException {
         if(couponId <= 0){
             throw new CouponSystemException("invalid coupon Id", HttpStatus.BAD_REQUEST);
@@ -43,11 +42,15 @@ public class CustomerService extends ClientService{
         if (coupon.getEndDate().before(Date.valueOf(LocalDate.now()))){
             throw new CouponSystemException("Cannot purchase expired coupon", HttpStatus.BAD_REQUEST);
         }
+        customer.getCoupons().add(coupon);
+        System.out.println("debug1");
         coupon.getCustomers().add(customer);
         coupon.setAmount(coupon.getAmount()-1);
-        couponRepository.save(coupon);
+        System.out.println("debug2");
         coupons.add(coupon);
         customerRepository.save(customer);
+        couponRepository.save(coupon);
+        System.out.println("debug3");
     }
 
     public Customer getOneCustomer(int customerId){

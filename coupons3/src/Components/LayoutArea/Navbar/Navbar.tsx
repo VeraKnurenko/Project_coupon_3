@@ -36,7 +36,7 @@ function Navbar(): JSX.Element {
     return (
         <div className="Navbar">
             {name === "Guest" ?  <NavLink className={"navlink"} to={"login"} title={"Login"}>Login</NavLink> :
-                <button  onClick={()=>{navigate("/logout")}} > Logout</button> }
+                <NavLink className={"navlink"}  to={"/logout"} > Logout</NavLink> }
 
             <NavLink className={"navlink"} to={"home"} title={"Home"}>Home</NavLink>
             <NavLink className={"navlink"} to={"aboutUs"}>About Us</NavLink>
@@ -48,8 +48,6 @@ function Navbar(): JSX.Element {
             }
             {authStore.getState().user?.role==="ADMIN" && <>
                 <NavLink className={"navlink"} to={"/dash"}>Dashboard</NavLink>
-                {/*<NavLink className={"navlink"} to={"AllCompanies"}>All Companies</NavLink>*/}
-                {/*<NavLink className={"navlink"} to={"AllCustomers"}>All Customers</NavLink>*/}
 
 
 
@@ -57,8 +55,7 @@ function Navbar(): JSX.Element {
             }
             {authStore.getState().user?.role === "CUSTOMER" && <>
                 <NavLink className={"navlink"} to={"customerCoupons"}>Coupons</NavLink>
-                <NavLink className={"navlink"} to={"customerDetails"}>Profile</NavLink>
-                <NavLink className={"navlink"} to={"customerProfile"}>info</NavLink>
+                <NavLink className={"navlink"} to={"customerProfile"}>Profile</NavLink>
 
             </> }
             <div id={"welcomeUser"}>Hello {name}</div>

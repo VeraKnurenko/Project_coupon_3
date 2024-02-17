@@ -27,13 +27,15 @@ function AllCompanies(): JSX.Element {
             <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
 
             <div className={"CompanyInAdmin"}>
-                <Button variant={"contained"} onClick={()=>{navigate("/AddCompany")}}>Add Company</Button>
+                <div className={"AddButton"}>
+                 <Button variant={"contained"} onClick={()=>{navigate("/AddCompany")}}>Add Company</Button> <br/>
+                </div>
             {companies?.map(company =><Card key={company.id} >
                 <CardContent className={"company"}>
                     <h1>{company.name}</h1>
                     <h3>{company.email}</h3>
-                    <h3>{company.password}</h3>
-                    <h4>id: {company.id}</h4>
+                    {/*<h3>{company.password}</h3>*/}
+                    {/*<h4>id: {company.id}</h4>*/}
                 </CardContent>
                 <Button variant={"contained"} onClick={() => navigate("/oneCompany/" + company.id)}>Company Details</Button><br/>
                 <Button variant={"contained"} onClick={() => navigate("updateCompany/" + company.id)}>Update</Button><br/><br/>

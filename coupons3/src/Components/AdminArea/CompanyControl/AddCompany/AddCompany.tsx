@@ -23,42 +23,54 @@ function AddCompany(): JSX.Element {
 
 
     return (
-        <div className="AddCompany">
+        <div >
+            <div className={"BackButton"}>
+                <Button  variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button><br/>
+            </div>
+
+            <div className="AddCompany">
+
             <h1>New Company Form</h1>
-            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
 
-            <FormControl>
-                <FormLabel>New Company</FormLabel>
-                <TextField variant="outlined"
-                           label={"Name"} id={"name"}
-                           error={!!errors.name}
-                           helperText={errors.name ? "Name is required and should be at least 2 letters" : null}
-                           InputProps={{...register('name', {
-                                   required: 'Name is required',
-                                   minLength: {value: 2, message: 'Name should be at least 2 letters'},
-                               }),
-                           }}
-                />
+                <FormControl className={"AddCompanyForm"}>
+                    <FormLabel>New Company</FormLabel>
+                    <TextField variant="outlined"
+                               label={"Name"} id={"name"}
+                               error={!!errors.name}
+                               helperText={errors.name ? "Name is required and should be at least 2 letters" : null}
+                               InputProps={{...register('name', {
+                                       required: 'Name is required',
+                                       minLength: {value: 2, message: 'Name should be at least 2 letters'},
+                                   }),
+                               }}
+                    />
 
-                <TextField variant={"outlined"}
-                           type={"email"}
-                           label={"Email"}
-                           error={!!errors.email}
-                           id={"email"}
-                           helperText={errors.email ? "Email is required and should be at least 5 letters" : null}
-                           InputProps={{...register('email', {
-                                   required: 'Email is required',
-                                   minLength: {value: 5, message: 'Email should be at least 5 letters'},
-                               }),
+                    <TextField variant={"outlined"}
+                               type={"email"}
+                               label={"Email"}
+                               error={!!errors.email}
+                               id={"email"}
+                               helperText={errors.email ? "Email is required and should be at least 5 letters" : null}
+                               InputProps={{...register('email', {
+                                       required: 'Email is required',
+                                       minLength: {value: 5, message: 'Email should be at least 5 letters'},
+                                   }),
 
-                }} />
-                <TextField variant={"outlined"} type={"password"} label={"Password"} id={"password"} {...register("password",{
-                    required: "Password is required",
-                    minLength: {value: 3, message: "Password must be at least 3 letters/ numbers long"}
-                })}/>
+                    }} />
+                    <TextField variant={"outlined"}
+                               type={"password"}
+                               error={!!errors.password}
+                               label={"Password"}
+                               id={"password"}
+                               helperText={errors.password ? "Password is required and should be at least 3 letters/ numbers long" : null}
+                               {...register("password",{
+                        required: "Password is required",
+                        minLength: {value: 4, message: "Password must be at least 3 letters/ numbers long"}
+                    })}/>
 
-                <Button type={"submit"} onClick={handleSubmit(addNewCompany)}>Add 🏨</Button>
-            </FormControl>
+                    <Button id={"AddButton"} variant={"outlined"} type={"submit"} onClick={handleSubmit(addNewCompany)}>Add 🏨</Button>
+                </FormControl>
+            </div>
 			
         </div>
     );

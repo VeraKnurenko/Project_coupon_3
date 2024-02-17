@@ -29,28 +29,32 @@ function CustomerCouponsByCategory(): JSX.Element {
 
     return (
         <div className="CustomerCouponsByCategory">
-            <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
-
-            <Box sx={{ minWidth: 120 }}>
-                {/*<FormControl fullWidth>*/}
-                <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={category.toString()}
-                    label="Category"
-                    onChange={handleChange}
-                >
-                    <MenuItem value={'FOOD'}>Food</MenuItem>
-                    <MenuItem value={'ELECTRICITY'}>Electricity</MenuItem>
-                    <MenuItem value={'RESTAURANT'}>Restaurant</MenuItem>
-                    <MenuItem value={'VACATION'}>Vacation</MenuItem>
-                    <MenuItem value={'BEAUTY'}>Beauty</MenuItem>
-                </Select>
-                {/*</FormControl>*/}
-            </Box>
             <div>
-                <h2>Coupons by Category: {category}</h2>
+                <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+
+                <Box sx={{ minWidth: 120 }}>
+                    {/*<FormControl fullWidth>*/}
+                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={category.toString()}
+                        label="Category"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value={'FOOD'}>Food</MenuItem>
+                        <MenuItem value={'ELECTRICITY'}>Electricity</MenuItem>
+                        <MenuItem value={'RESTAURANT'}>Restaurant</MenuItem>
+                        <MenuItem value={'VACATION'}>Vacation</MenuItem>
+                        <MenuItem value={'BEAUTY'}>Beauty</MenuItem>
+                    </Select>
+                    {/*</FormControl>*/}
+                </Box>
+            </div>
+            <div className={"ListOfCoupons"}>
+                <div className={"CatHeadline"}>
+                    <h2>Coupons by Category: {category}</h2>
+                </div>
                 {coupons.map((coupon) => <CouponCard key={coupon.id} id={coupon.id}
                                                      title={coupon.title}
                                                      price={coupon.price}

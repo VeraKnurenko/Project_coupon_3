@@ -1,3 +1,29 @@
 .CustomerProfile {
-	
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    text-align: left;
+    margin-left: 20px ;
+
 }
+
+.CustomerCouponsList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+.CouponCard {
+    flex: 0 0 auto; /* Prevent flex items from shrinking */
+    margin: 10px; /* Add margin between cards */
+}
+
+
+/*.css-16u64lx-MuiPaper-root-MuiCard-root{*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    flex-direction: row;*/
+/*    align-items: center;*/
+/*    justify-content:space-between;*/
+/*}*/
+

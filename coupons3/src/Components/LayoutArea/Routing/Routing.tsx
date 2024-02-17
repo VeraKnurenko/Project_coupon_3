@@ -23,12 +23,11 @@ import OneCompany from "../../AdminArea/CompanyControl/OneCompany/OneCompany";
 import CouponsByCategory from "../../CompanyArea/CouponsByCategory/CouponsByCategory";
 import UpdateCustomer from "../../AdminArea/CustomerControl/UpdateCustomer/UpdateCustomer";
 import DashBoard from "../../AdminArea/DashBoard/DashBoard";
-import CustomerDetails from "../../CustomerArea/CustomerDetails/CustomerDetails";
+// import CustomerDetails from "../../CustomerArea/CustomerDetails/CustomerDetails";
 import CustomerProfile from "../../CustomerArea/CustomerProfile/CustomerProfile";
 import DeleteCoupon from "../../CompanyArea/DeleteCoupon/DeleteCoupon";
 import CustomerCouponsByPrice from "../../CustomerArea/CustomerCouponsByPrice/CustomerCouponsByPrice";
 import CustomerCouponsByCategory from "../../CustomerArea/CustomerCouponsByCategory/CustomerCouponsByCategory";
-import AllCompaniesGrid from "../../AdminArea/CompanyControl/AllCompaniesGrid/AllCompaniesGrid";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import Logout from "../../AuthArea/Logout/Logout";
 
@@ -55,7 +54,6 @@ function Routing(): JSX.Element {
                 <Route path={"AllCompanies/updateCompany/:compId"} element={<UpdateCompany/>}/>
                 <Route path={"AllCompanies/deleteCompany/:compId"} element={<DeleteCompany/>}/>
                 <Route path={"AllCompanies"} element={<AllCompanies/>}/>
-                <Route path={"AllCompaniesGrid"} element={<AllCompaniesGrid/>}/>
                 <Route path={"oneCompany/:compId"} element={<OneCompany/>}/>
                 <Route path={"AllCustomers"} element={<AllCustomers/>}/>
                 <Route path={"AllCustomers/:custId"} element={<OneCustomerDetails/>}/>
@@ -64,7 +62,7 @@ function Routing(): JSX.Element {
                 <Route path={"customerCoupons"} element={<CustomerCoupons/>}/>
                 <Route path={"customerCouponsByPrice"} element={<CustomerCouponsByPrice/>}/>
                 <Route path={"customerCouponsByCategory"} element={<CustomerCouponsByCategory/>}/>
-                <Route path={"customerDetails"} element={<CustomerDetails/>}/>
+                {/*<Route path={"customerDetails"} element={<CustomerDetails/>}/>*/}
                 <Route path={"customerProfile"} element={<CustomerProfile/>}/>
 
                 <Route path={"addCustomer"} element={<AddCustomer/>}/>

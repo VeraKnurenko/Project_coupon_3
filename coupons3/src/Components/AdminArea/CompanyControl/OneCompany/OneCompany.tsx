@@ -22,24 +22,25 @@ function OneCompany(): JSX.Element {
 
 
     return (
-        <div className="OneCompany">
+        <div >
             <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
-
+            <div className="OneCompany">
             { company    &&
-                <Card >
+                <Card className={"CompanyCard"}>
                     <CardContent>
-                        <h1>{company.name}</h1>
-                        <h3>{company.email}</h3>
-                        <h4>{company.password}</h4>
-                        <h4>{company.id}</h4>
+                        <h1>Name:     {company.name}</h1>
+                        <h2>Email:    {company.email}</h2>
+                        <h4>Password: {company.password}</h4>
+                        <h4> ID:      {company.id}</h4>
                         <h4>Number of coupons: {company.companyCoupons.length}</h4>
                     </CardContent>
                     <CardActions>
-                        <Button variant={"contained"} component={NavLink} to={"/home"}>Back to home</Button>
+                        <Button variant={"contained"} component={NavLink} to={"/AllCompanies"}>Back to All Companies</Button>
                     </CardActions>
                 </Card>
 
             }
+            </div>
 			
         </div>
     );
