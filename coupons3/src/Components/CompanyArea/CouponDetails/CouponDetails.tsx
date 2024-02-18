@@ -29,7 +29,8 @@ function CouponDetails(): JSX.Element {
             <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
 
             {coupon && <>
-                <Card>
+                <div className={"CouponDetailsCard"}>
+
                     <CouponCard title={coupon.title}
                                 price={coupon.price}
                                 category={coupon.category}
@@ -43,19 +44,8 @@ function CouponDetails(): JSX.Element {
                         {/*<Button value={coupon.id} onClick={update}>Update Coupon</Button>*/}
                     <Button variant={"contained"} onClick={() => navigate("/updateCoupon/" + coupon.id)}  > Update Coupon  </Button><br/>
                     <Button variant={"outlined"} onClick={() => navigate("/deleteCoupon/" + coupon.id)}  > Delete Coupon  </Button>
-
-
-
-                        {/*<h3>{coupon?.title}</h3>*/}
-                        {/*<h4>{coupon?.category}</h4>*/}
-                        {/*<h4>{coupon?.description}</h4>*/}
-                        {/*<img src={coupon?.image} alt={coupon?.title}/><br/>*/}
-                        {/*$ price {coupon?.price} <br/>*/}
-                        {/*<div>Started: {coupon.startDate.toString()}</div>*/}
-                        {/*<div className={"couponEndDate"}>Promotion ending at: {coupon?.endDate.toString()}</div>*/}
-
-                </Card>
-            </>
+                </div>
+                </>
             }
 			
         </div>

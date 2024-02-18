@@ -19,7 +19,6 @@ function Login(): JSX.Element {
         const email = getValues("email");
         const password = getValues("password");
         const clienttype = getValues("clienttype");
-        console.log(clienttype)
         authService.login(email, password, clienttype)
             .then(t => {
                 toast.success("Welcome Back " + authStore.getState().user.name);

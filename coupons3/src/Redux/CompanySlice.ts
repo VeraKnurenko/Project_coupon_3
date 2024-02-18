@@ -32,9 +32,12 @@ export const companySlice = createSlice({
             if (indexToDelete >= 0){
                 state.value.splice(indexToDelete, 1);
             }
+        },
+        logout: (state) =>{
+            state.value = [];
         }
     }
 })
 
-export const {fetch, add, update, remove} = companySlice.actions;
+export const {fetch, add, update, remove, logout} = companySlice.actions;
 export default companySlice.reducer;

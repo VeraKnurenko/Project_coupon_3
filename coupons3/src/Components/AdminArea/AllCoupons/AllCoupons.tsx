@@ -1,3 +1,5 @@
+import "./AllCoupons.css";
+import noCoupons from "../../../assets/images/noCoupons.png"
 import {useEffect, useState} from "react";
 import Coupon from "../../../Models/Coupon";
 import adminService from "../../../services/AdminService";
@@ -30,16 +32,20 @@ const [coupons, setCoupons] = useState<Coupon[]>();
 
             })
             .catch(err => errorHandler.showError(err))
-        customerService.getAllCustomerCoupons(authStore.getState().user?.id)
-            .then(coup =>{ purchaseStore.dispatch(purchaseSlice.actions.fetch(coup)) })
-            .catch(err => console.log(err))
+        if(authStore.getState().user != null) {
+            customerService.getAllCustomerCoupons(authStore.getState().user?.id)
+                .then(coup => {
+                    purchaseStore.dispatch(purchaseSlice.actions.fetch(coup))
+                })
+                .catch(err => console.log(err))
+        }
     }, []);
 
     return (
         <div className="AllCoupons">
 
 
-            {coupons?.map(c=><CouponCard key={c.id}
+            {coupons?.length > 0 ? coupons?.map(c=><CouponCard key={c.id}
                                          id={c.id}
 
                                          title={c.title}
@@ -51,7 +57,13 @@ const [coupons, setCoupons] = useState<Coupon[]>();
                                          endDate={c.endDate}
                                          image={c.image}
 
-                                       companyId={-1}/>)}
+                                       companyId={-1}/>)
+            : <>
+                    <h2 className={"message"}>No coupons yet to show</h2>
+                    <div className={"startImage"}>
+                        <img src={noCoupons} alt={"No Coupons"}/>
+                    </div>
+              </>}
         </div>
     );
 }

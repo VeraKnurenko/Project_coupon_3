@@ -48,6 +48,10 @@ class CompanyService {
         return (await axios.get<Coupon>(globals.urls.companies + "coupon/"+ couponId)).data
     }
 
+    public async logout(){
+        couponStore.dispatch(couponSlice.actions.clear())
+    }
+
 }
 
 const companyService = new CompanyService();

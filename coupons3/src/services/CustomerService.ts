@@ -5,7 +5,7 @@ import axios from "axios";
 import Customer from "../Models/Customer";
 import {Category} from "../Models/Category";
 import {purchaseStore} from "../Redux/OurStore";
-import {purchaseSlice} from "../Redux/PurchaseSlice";
+import {clear, purchaseSlice} from "../Redux/PurchaseSlice";
 
 class CustomerService {
 
@@ -22,11 +22,9 @@ class CustomerService {
 
     public async getAllCustomerCoupons(customerId : number){
         let response : Coupon[] = [];
-        // if(purchaseStore.getState().value.length == 0) {
             response = (await axios.get<Coupon[]>(globals.urls.customers + "coupons")).data;
             purchaseStore.dispatch(purchaseSlice.actions.fetch(response))
-        // }
-        return response;
+           return response;
     }
 
 
@@ -42,6 +40,10 @@ class CustomerService {
 
     public async deleteCustomer(customerId : number){
         return (await axios.delete(globals.urls.customers + customerId)).status;
+    }
+
+    public async logout(){
+        purchaseStore.dispatch(clear())
     }
 
 }

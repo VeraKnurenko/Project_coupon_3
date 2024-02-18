@@ -28,17 +28,12 @@ function OneCustomerDetails(): JSX.Element {
 
 
                 <CardContent key={customer?.id}>
-               <h2> {customer?.firstName}, {customer?.lastName} </h2>
-                <h3>{customer?.email}</h3>
-                <h4>ID: {customer?.id}</h4>
-                <h4>Password: {customer?.password}</h4>
-                <h5>coupons number: {customer?.coupons?.length}</h5>
-                {/*<h5>coupons:{customer?.coupons?.map(coup => <CouponCard key={coup.id}*/}
-                {/*                                                               title={coup.title}*/}
-                {/*                                                                price={coup.price}*/}
-                {/*                                                                description={coup.description}*/}
-                {/*                                                               startDate={coup.startDate}*/}
-                {/*                                                                endDate={coup.endDate} image={"coup.image"}  id={coup.id}  />)}</h5>*/}
+                    <h2> {customer?.firstName}, {customer?.lastName} </h2>
+                    <h3>{customer?.email}</h3>
+                    <h4>ID: {customer?.id}</h4>
+                    <h4>Password: {customer?.password}</h4>
+                    <h5>coupons number: {customer?.coupons?.length}</h5>
+
                 </CardContent>
 
 

@@ -1,3 +1,4 @@
+import './CouponsByCategory.css'
 import Coupon from "../../../Models/Coupon";
 import React, {useEffect, useState} from "react";
 import {Box, Button, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
@@ -40,9 +41,9 @@ function CouponsByCategory(): JSX.Element {
         <div className="CouponsByCategory">
             <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
 
-            <Box sx={{ minWidth: 120 }}>
+            <Box className={"Box"}>
                 {/*<FormControl fullWidth>*/}
-                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                    <InputLabel id="demo-simple-select-label"></InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -60,8 +61,9 @@ function CouponsByCategory(): JSX.Element {
                 {/*</FormControl>*/}
             </Box>
 
-            <div>
+
                 <h2>Coupons by Category: {category}</h2>
+            <div className={"listOfCompanyCouponsByCategory"}>
                 {coupons.map((coupon) => <CouponCard key={coupon.id} id={coupon.id}
                                                      title={coupon.title}
                                                      price={coupon.price}

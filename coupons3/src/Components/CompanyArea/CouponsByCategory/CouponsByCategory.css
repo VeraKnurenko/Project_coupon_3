@@ -1,8 +1,15 @@
-.CouponsByCategory {
+.listOfCompanyCouponsByCategory{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
     justify-content:space-between;
-	
+
+}
+h2{
+    width: 100%;
+    text-align: center;
+}
+.Box{
+    text-align: center;
 }

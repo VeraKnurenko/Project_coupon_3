@@ -36,11 +36,14 @@ export const couponSlice = createSlice( {
             const indexToDelete = state.value.findIndex( c => c.id == action.payload);
             if (indexToDelete >= 0)
                 state.value.splice(indexToDelete, 1);
+        },
+        clear: (state) =>{
+            state.value = [];
         }
     }
 
 })
 
 
-export const{fetch, add, update, remove} = couponSlice.actions;
+export const{fetch, add, update, remove,clear} = couponSlice.actions;
 export default couponSlice.reducer;

@@ -49,7 +49,6 @@ function AddCoupon(): JSX.Element {
                         image: base64Image, // Set base64-encoded image
                     };
 
-                    // Call the service method to add the coupon
                     await companyService.addCoupon(coup)
                         .then(()=> {
                             toast.success('Coupon Added'); navigate("/company_coupons")})

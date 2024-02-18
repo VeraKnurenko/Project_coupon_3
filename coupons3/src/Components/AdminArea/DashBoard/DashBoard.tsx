@@ -1,10 +1,8 @@
 import "./DashBoard.css";
 import React, {SyntheticEvent, useState} from "react";
 import {Box, Button} from "@mui/material";
-import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import {TabContext, TabList, TabPanel} from "@mui/lab";
-import {authStore} from "../../../Redux/OurStore";
 import {NavLink, useNavigate} from "react-router-dom";
 import spiderAdmin from '../../../assets/images/spiderAdmin.jpg'
 
@@ -19,7 +17,6 @@ function DashBoard(): JSX.Element {
         }
 
 
-    // const isAdmin = authStore.getState().user.role === "ADMIN";
     return (
         <div className="DashBoard">
             <Box sx={{ width: '100%', typography: 'body1' }}>

@@ -23,7 +23,7 @@ function CustomerCoupons(): JSX.Element {
     return (
         <div className="AllCustomerCoupons">
             <div className={"CustomerButtons"}>
-                <Button variant={"contained"} onClick={() => navigate(-1)}  > Back  </Button>
+                <Button variant={"contained"} onClick={() => navigate("/home")}  > Back Home  </Button>
                 <Button variant={"contained"} onClick={()=> navigate("/customerCouponsByPrice")}>See Coupons by price</Button>
                 <Button variant={"contained"} onClick={()=> navigate("/customerCouponsByCategory")}>See Coupons by category</Button>
             </div>

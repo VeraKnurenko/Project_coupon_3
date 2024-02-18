@@ -78,7 +78,12 @@ class AdminService {
     }
 
    public async getAllCoupons () {
-            return (await axios.get<Coupon[]>(globals.urls.admin + "allcoupons")).data;
+         return (await axios.get<Coupon[]>(globals.urls.admin + "allcoupons")).data;
+   }
+
+   public async logout(){
+       companyStore.dispatch(companySlice.actions.logout());
+       couponStore.dispatch(couponSlice.actions.clear())
    }
 }
 
